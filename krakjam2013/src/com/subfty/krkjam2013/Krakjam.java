@@ -86,8 +86,9 @@ public class Krakjam implements ApplicationListener {
 		    delta -= TARGET_FPS;
 			
 		    tM.update(delta/1000.0f);
+		  
 		}
-		
+		  stage.act(delta/1000.0f);
 		stage.draw();
 	}
 	

@@ -10,7 +10,6 @@ public class Cursor extends Actor{
 	Cursor(){
 		width=5f;
 		height=5f;
-		
 	}
 
 	@Override
