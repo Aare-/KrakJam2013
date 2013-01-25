@@ -7,8 +7,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Array;
+import com.subfty.krkjam2013.game.GameScreen;
+import com.subfty.krkjam2013.menu.MenuScreen;
 import com.subfty.krkjam2013.util.Art;
 import com.subfty.krkjam2013.util.ITick;
+import com.subfty.krkjam2013.util.Screen;
 
 public class Krakjam implements ApplicationListener {
 	
@@ -16,26 +20,44 @@ public class Krakjam implements ApplicationListener {
 	public static float SCREEN_WIDTH,
 						SCREEN_HEIGHT,
 						SCALE;
-	public final static float STAGE_W=700f,
-							  STAGE_H=1280f,
+	public final static float STAGE_W=800f,
+							  STAGE_H=600f,
 							  ASPECT_RATIO = STAGE_W/STAGE_H;
 	
 	public static Stage stage;
 	public static TweenManager tM;
 	public static Art art;
 	
+    //SCREEN UPDATE
+	private final long TARGET_FPS = 1000/60;
+	private long delta,
+				 prevTime;
+	private Array<ITick> itick = new Array<ITick>();
+	
     //SCREENS
-	
-	
+	public static int S_GAME = 0,
+					  S_MENU = 1;
+	public Screen screens[];
 	
 	@Override
 	public void create() {		
-		
 		stage = new Stage(STAGE_W, STAGE_H, false);
 		art = new Art();
 		tM = new TweenManager();
 		Gdx.input.setInputProcessor(stage);
 	
+	    //INITING SCREENS
+		screens = new Screen[2];
+		screens[S_GAME] = new GameScreen(stage);
+		screens[S_MENU] = new MenuScreen(stage);
+		
+		for(int i=0; i<screens.length; i++)
+			screens[i].visible = false;
+		
+		delta = 0;
+		prevTime = -1;
+		
+		showScreen(S_GAME);
 	}
 
 	@Override
@@ -47,6 +69,21 @@ public class Krakjam implements ApplicationListener {
 	public void render() {		
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		
+		if(prevTime == -1)
+			prevTime = System.currentTimeMillis();
+		delta += System.currentTimeMillis() - prevTime;
+		
+		while(delta > TARGET_FPS){
+		    delta -= TARGET_FPS;
+			
+		    tM.update(delta/1000.0f);
+		    
+			//UPDATING ACTORS
+			for(int i=0; i<itick.size; i++)
+				itick.get(i).tick(delta);
+			
+		}
 		
 		stage.draw();
 	}
@@ -67,11 +104,17 @@ public class Krakjam implements ApplicationListener {
 	}
 
 	@Override
-	public void pause() {
-	}
+	public void pause() {}
 
 	@Override
-	public void resume() {
+	public void resume() {}
+	
+	//SCREEN MANAGEMENT
+	public void showScreen(int id){
+		screens[id].visible = true;
+	}
+	public void hideScreen(int id){
+		screens[id].visible = false;
 	}
 	
     // UTILS
@@ -80,6 +123,6 @@ public class Krakjam implements ApplicationListener {
 	 * @param actor
 	 */
 	public void registerITickActor(ITick actor){
-		
+		itick.add(actor);
 	}
 }
