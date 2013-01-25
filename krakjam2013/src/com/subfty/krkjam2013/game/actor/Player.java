@@ -15,7 +15,7 @@ public class Player extends Group{
 	private Sprite image;
 	private Cursor cursor;
 	
-	Player(float x, float y){
+	public Player(float x, float y){
 		this.x=x;
 		this.y=y;
 		width=20f;
