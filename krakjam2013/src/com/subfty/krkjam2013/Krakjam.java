@@ -7,11 +7,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.Array;
 import com.subfty.krkjam2013.game.GameScreen;
 import com.subfty.krkjam2013.menu.MenuScreen;
 import com.subfty.krkjam2013.util.Art;
-import com.subfty.krkjam2013.util.ITick;
 import com.subfty.krkjam2013.util.Screen;
 
 public class Krakjam implements ApplicationListener {
@@ -32,7 +30,6 @@ public class Krakjam implements ApplicationListener {
 	private final long TARGET_FPS = 1000/60;
 	private long delta,
 				 prevTime;
-	private Array<ITick> itick = new Array<ITick>();
 	
     //SCREENS
 	public static int S_GAME = 0,
@@ -78,11 +75,6 @@ public class Krakjam implements ApplicationListener {
 		    delta -= TARGET_FPS;
 			
 		    tM.update(delta/1000.0f);
-		    
-			//UPDATING ACTORS
-			for(int i=0; i<itick.size; i++)
-				itick.get(i).tick(delta);
-			
 		}
 		
 		stage.draw();
@@ -114,14 +106,5 @@ public class Krakjam implements ApplicationListener {
 	}
 	public void hideScreen(int id){
 		screens[id].visible = false;
-	}
-	
-    // UTILS
-	/**
-	 * Adds actor to tick array - performing logic before rendering on screen
-	 * @param actor
-	 */
-	public void registerITickActor(ITick actor){
-		itick.add(actor);
 	}
 }
