@@ -1,7 +1,10 @@
 package com.subfty.krkjam2013;
 
+import aurelienribon.tweenengine.TweenManager;
+
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,36 +12,35 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class Krakjam implements ApplicationListener {
-	private OrthographicCamera camera;
-	private SpriteBatch batch;
-	private Texture texture;
-	private Sprite sprite;
+	
+  //SCREEN STUFF
+	public static float SCREEN_WIDTH,
+						SCREEN_HEIGHT,
+						SCALE;
+	public final static float STAGE_W=700f,
+							  STAGE_H=1280f,
+							  ASPECT_RATIO = STAGE_W/STAGE_H;
+	
+	public static Stage stage;
+	public static TweenManager tM;
 	
 	@Override
 	public void create() {		
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
 		
-		camera = new OrthographicCamera(1, h/w);
-		batch = new SpriteBatch();
-		
-		texture = new Texture(Gdx.files.internal("data/libgdx.png"));
-		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		
-		TextureRegion region = new TextureRegion(texture, 0, 0, 512, 275);
-		
-		sprite = new Sprite(region);
-		sprite.setSize(0.9f, 0.9f * sprite.getHeight() / sprite.getWidth());
-		sprite.setOrigin(sprite.getWidth()/2, sprite.getHeight()/2);
-		sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2);
+		stage = new Stage(STAGE_W, STAGE_H, false);
+		tM = new TweenManager();
+		Gdx.input.setInputProcessor(stage);
+	
 	}
 
 	@Override
 	public void dispose() {
-		batch.dispose();
-		texture.dispose();
+	
 	}
 
 	@Override
@@ -46,14 +48,21 @@ public class Krakjam implements ApplicationListener {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
-		batch.setProjectionMatrix(camera.combined);
-		batch.begin();
-		sprite.draw(batch);
-		batch.end();
+		stage.draw();
 	}
-
+	
 	@Override
-	public void resize(int width, int height) {
+	public void resize(int w, int h) {
+		float ratio = (float)w/(float)h;
+		if(ratio > STAGE_W/STAGE_H)
+			SCALE = STAGE_H/((float)h);
+		else
+			SCALE = STAGE_W/((float)w);
+		
+		Camera c = stage.getCamera(); 
+		c.viewportWidth = SCREEN_WIDTH= w*SCALE;
+		c.viewportHeight = SCREEN_HEIGHT = h*SCALE;
+		c.position.set(STAGE_W/2,STAGE_H/2,0);
 	}
 
 	@Override
