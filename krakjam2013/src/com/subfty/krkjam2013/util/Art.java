@@ -8,6 +8,7 @@ public class Art {
     //ID OF ATLASES
 	public static int A_BACKGROUND = 0;
 	
+	
 	private String atlasesSrc[] = {};  
 	public TextureAtlas atlases[] = new TextureAtlas[atlasesSrc.length];
 	
