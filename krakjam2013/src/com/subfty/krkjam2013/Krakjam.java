@@ -1,5 +1,7 @@
 package com.subfty.krkjam2013;
 
+import java.util.Random;
+
 import aurelienribon.tweenengine.TweenManager;
 
 import com.badlogic.gdx.ApplicationListener;
@@ -26,6 +28,7 @@ public class Krakjam implements ApplicationListener {
 	public static Stage stage;
 	public static TweenManager tM;
 	public static Art art;
+	public static Random rand;
 	
 	public static Vector2 playerPos = new Vector2(400, 100);
 	
@@ -50,6 +53,7 @@ public class Krakjam implements ApplicationListener {
 		stage = new Stage(STAGE_W, STAGE_H, false);
 		art = new Art();
 		tM = new TweenManager();
+		rand = new Random(System.currentTimeMillis());
 		Gdx.input.setInputProcessor(stage);
 	
 	    //INITING SCREENS
