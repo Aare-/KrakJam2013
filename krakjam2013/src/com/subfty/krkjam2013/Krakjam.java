@@ -6,6 +6,7 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.subfty.krkjam2013.util.Art;
 import com.subfty.krkjam2013.util.ITick;
@@ -23,6 +24,7 @@ public class Krakjam implements ApplicationListener {
 	public static Stage stage;
 	public static TweenManager tM;
 	public static Art art;
+	public static Vector2 playerPos = new Vector2(10, 500);
 	
     //SCREENS
 	
@@ -35,7 +37,10 @@ public class Krakjam implements ApplicationListener {
 		art = new Art();
 		tM = new TweenManager();
 		Gdx.input.setInputProcessor(stage);
-	
+		
+		Alien al = new Alien();
+		al.load();
+		stage.addActor(al);
 	}
 
 	@Override
@@ -74,6 +79,9 @@ public class Krakjam implements ApplicationListener {
 	public void resume() {
 	}
 	
+	static public Vector2 getPlayerPos() {
+		return playerPos;
+	}
     // UTILS
 	/**
 	 * Adds actor to tick array - performing logic before rendering on screen

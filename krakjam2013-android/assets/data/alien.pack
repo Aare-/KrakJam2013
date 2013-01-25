@@ -1,0 +1,12 @@
+
+alien.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+alien
+  rotate: false
+  xy: 1, 1
+  size: 100, 200
+  orig: 100, 200
+  offset: 0, 0
+  index: -1

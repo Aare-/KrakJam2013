@@ -162,3 +162,5 @@ pip-log.txt
 
 # Mac crap
 .DS_Store
+/krakjam2013-html/war/WEB-INF/classes/com/subfty/krkjam2013/GwtDefinition.gwt.xml
+/krakjam2013-html/war/WEB-INF/classes/com/subfty/krkjam2013/client/GwtLauncher.class

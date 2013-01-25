@@ -6,16 +6,18 @@ public class Art {
 	
     //ID OF ATLASES
 	public static int A_BACKGROUND = 0;
+	public static int A_ALIEN = 0; // !!! zmienic id
 	
-	private String atlasesSrc[] = {};  
+	private String atlasesSrc[] = { "data/alien" };  
 	public TextureAtlas atlases[] = new TextureAtlas[atlasesSrc.length];
 	
 	public void Art(){
 		for(int i=0; i<atlasesSrc.length; i++){
-			//at
+			atlases[i] = new TextureAtlas(atlasesSrc[i]);
 		}
 		
 		//TODO: loading textures
+		
 	}
 	
 	
