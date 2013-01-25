@@ -1,11 +1,10 @@
-package com.subfty.krkjam2013.actor;
+package com.subfty.krkjam2013.game.actor;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.subfty.krkjam2013.util.ITick;
 import com.subfty.krkjam2013.util.Art;
 
 public class Player extends Actor{
