@@ -71,7 +71,7 @@ public class Player extends Group{
 
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
-		batch.draw(image, x, y, width, height);
+		//batch.draw(image, x, y, width, height);
 	}
 
 	@Override
