@@ -6,17 +6,13 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.Texture.TextureFilter;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.subfty.krkjam2013.util.Art;
+import com.subfty.krkjam2013.util.ITick;
 
 public class Krakjam implements ApplicationListener {
 	
-  //SCREEN STUFF
+    //SCREEN STUFF
 	public static float SCREEN_WIDTH,
 						SCREEN_HEIGHT,
 						SCALE;
@@ -26,13 +22,17 @@ public class Krakjam implements ApplicationListener {
 	
 	public static Stage stage;
 	public static TweenManager tM;
+	public static Art art;
+	
+    //SCREENS
+	
+	
 	
 	@Override
 	public void create() {		
-		float w = Gdx.graphics.getWidth();
-		float h = Gdx.graphics.getHeight();
 		
 		stage = new Stage(STAGE_W, STAGE_H, false);
+		art = new Art();
 		tM = new TweenManager();
 		Gdx.input.setInputProcessor(stage);
 	
@@ -63,6 +63,7 @@ public class Krakjam implements ApplicationListener {
 		c.viewportWidth = SCREEN_WIDTH= w*SCALE;
 		c.viewportHeight = SCREEN_HEIGHT = h*SCALE;
 		c.position.set(STAGE_W/2,STAGE_H/2,0);
+				
 	}
 
 	@Override
@@ -71,5 +72,14 @@ public class Krakjam implements ApplicationListener {
 
 	@Override
 	public void resume() {
+	}
+	
+    // UTILS
+	/**
+	 * Adds actor to tick array - performing logic before rendering on screen
+	 * @param actor
+	 */
+	public void registerITickActor(ITick actor){
+		
 	}
 }
