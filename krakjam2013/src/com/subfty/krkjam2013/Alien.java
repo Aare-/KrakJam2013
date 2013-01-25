@@ -15,7 +15,7 @@ public class Alien extends com.badlogic.gdx.scenes.scene2d.Actor{
 	private Sprite sprite;
 	
 	 public void load() {
-		 sprite = Krakjam.art.atlases[Art.A_ALIEN].createSprite("alien");
+		 sprite = Krakjam.art.atlases[Art.A_ENTITIES].createSprite("alien");
 	}
 	
 	public void tick(float delta) {
