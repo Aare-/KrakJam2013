@@ -24,7 +24,7 @@ public class Player extends Group{
 		step=10f;
 		
 		cursor=new Cursor();		
-		image = Krakjam.art.atlases[Art.A_BACKGROUND].createSprite("nioas");
+		//image = Krakjam.art.atlases[Art.A_BACKGROUND].createSprite("nioas");
 		
 		this.addActor(cursor);
 	}
