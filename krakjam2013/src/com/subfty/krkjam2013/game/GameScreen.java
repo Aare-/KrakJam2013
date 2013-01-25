@@ -16,6 +16,8 @@ public class GameScreen extends Screen{
 		background = new Background();
 		player = new Player(0,0);
 		
+		this.addActor(background);
+		this.addActor(player);
 	}
 	
 	@Override
