@@ -1,34 +1,26 @@
 package com.subfty.krkjam2013.game.actor;
 
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class Cursor {
-	private float x;
-	private float y;
-	private float width;
-	private float height;
-	private Texture image;
+public class Cursor extends Actor{
+	private Sprite image;
 	
 	Cursor(){
 		width=5f;
 		height=5f;
+		
 	}
-	
-	public void draw(SpriteBatch batch){
-		batch.draw(image, x, y, width, height);
+
+	@Override
+	public void draw(SpriteBatch batch, float parentAlpha) {
+		
+		image.draw(batch, parentAlpha);
 	}
-	
-	public void setX(float x){
-		this.x=x;
-	}
-	public void setY(float y){
-		this.y=y;
-	}
-	public float getX(){
-		return x;
-	}
-	public float getY(){
-		return y;
+
+	@Override
+	public Actor hit(float x, float y) {
+		return null;
 	}
 }

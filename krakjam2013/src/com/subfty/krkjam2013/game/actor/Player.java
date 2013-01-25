@@ -5,28 +5,28 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.subfty.krkjam2013.Krakjam;
 import com.subfty.krkjam2013.util.Art;
 
-public class Player extends Actor{
-	public float x;
-	public float y;
-	private float width;
-	private float height;
+public class Player extends Group{
 	private float step;
-	private Sprite image;
-	private Art art;
 	
+	private Sprite image;
 	private Cursor cursor;
 	
 	Player(float x, float y){
 		this.x=x;
 		this.y=y;
-		step=10f;
 		width=20f;
 		height=20f;
 		
-		cursor=new Cursor();
-		art=new Art();
+		step=10f;
+		
+		cursor=new Cursor();		
+		image = Krakjam.art.atlases[Art.A_BACKGROUND].createSprite("nioas");
+		
+		this.addActor(cursor);
 	}
 	
 	@Override
@@ -65,15 +65,13 @@ public class Player extends Actor{
 		x+=move*Math.cos(kat);
 		y+=move*Math.sin(kat);
 		
-		cursor.setX(Gdx.input.getX());
-		cursor.setY(Gdx.input.getY());
+		cursor.x = Gdx.input.getX();
+		cursor.y = Gdx.input.getY();
 	}
 
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
-		// TODO Auto-generated method stub
 		batch.draw(image, x, y, width, height);
-		cursor.draw(batch);
 	}
 
 	@Override
