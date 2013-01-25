@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.subfty.krkjam2013.game.GameScreen;
+import com.subfty.krkjam2013.game.actor.Alien;
 import com.subfty.krkjam2013.menu.MenuScreen;
 import com.subfty.krkjam2013.util.Art;
 import com.subfty.krkjam2013.util.Screen;
