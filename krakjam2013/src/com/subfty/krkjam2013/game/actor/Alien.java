@@ -11,7 +11,7 @@ import com.subfty.krkjam2013.Krakjam;
 import com.subfty.krkjam2013.util.Art;
 
 public class Alien extends com.badlogic.gdx.scenes.scene2d.Actor{
-	public Vector2 position = new Vector2();
+	public Vector2 position = new Vector2(300, 300);
 	public float speed = 10;
 	private Sprite sprite;
 	
@@ -21,8 +21,12 @@ public class Alien extends com.badlogic.gdx.scenes.scene2d.Actor{
 	
 	public void tick(float delta) {
 		Vector2 tmp = Vector2.tmp;
-		tmp.set(Krakjam.getPlayerPos()).sub(position).nor().mul(delta*speed);
-		position.add(tmp);
+		Player p = Krakjam.gameScreen.player;
+		tmp.set(p.x, p.y).sub(position);
+		//if(tmp.len2() < 1000000000) {
+			tmp.nor().mul(delta*speed);
+			position.add(tmp);
+		//}
 	}
 
 	@Override

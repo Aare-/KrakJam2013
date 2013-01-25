@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.subfty.krkjam2013.game.actor.Alien;
 import com.subfty.krkjam2013.game.actor.Player;
 import com.subfty.krkjam2013.util.Screen;
 
@@ -27,6 +28,10 @@ public class GameScreen extends Screen{
 		
 		player = new Player(0,0);
 		agents.addActor(player);
+		
+		Alien al = new Alien();
+		al.load();
+		this.addActor(al);
 		
 		this.addActor(background);
 		this.addActor(agents);

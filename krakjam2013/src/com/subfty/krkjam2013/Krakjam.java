@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.subfty.krkjam2013.game.GameScreen;
-import com.subfty.krkjam2013.game.actor.Alien;
 import com.subfty.krkjam2013.menu.MenuScreen;
 import com.subfty.krkjam2013.util.Art;
 import com.subfty.krkjam2013.util.Screen;
@@ -40,6 +39,8 @@ public class Krakjam implements ApplicationListener {
 					  S_MENU = 1;
 	public Screen screens[];
 	
+	static public GameScreen gameScreen;
+	
 	static public Vector2 getPlayerPos() {
 		return playerPos;
 	}
@@ -53,18 +54,16 @@ public class Krakjam implements ApplicationListener {
 	
 	    //INITING SCREENS
 		screens = new Screen[2];
-		screens[S_GAME] = new GameScreen(stage);
+		gameScreen = new GameScreen(stage);
 		screens[S_MENU] = new MenuScreen(stage);
+		
+		screens[S_GAME] = gameScreen;
 		
 		for(int i=0; i<screens.length; i++)
 			screens[i].visible = false;
 		
 		delta = 0;
 		prevTime = -1;
-		
-		Alien al = new Alien();
-		al.load();
-		stage.addActor(al);
 		
 		showScreen(S_GAME);
 	}
