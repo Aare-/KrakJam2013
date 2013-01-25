@@ -6,8 +6,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.subfty.krkjam2013.Krakjam;
-import com.subfty.krkjam2013.util.Art;
 
 public class Player extends Group{
 	private float step;
