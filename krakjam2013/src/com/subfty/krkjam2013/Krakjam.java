@@ -100,7 +100,6 @@ public class Krakjam implements ApplicationListener {
 		c.viewportWidth = SCREEN_WIDTH= w*SCALE;
 		c.viewportHeight = SCREEN_HEIGHT = h*SCALE;
 		c.position.set(STAGE_W/2,STAGE_H/2,0);
-				
 	}
 
 	@Override
