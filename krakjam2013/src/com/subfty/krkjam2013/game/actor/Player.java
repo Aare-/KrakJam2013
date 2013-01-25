@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 
 public class Player extends Group{
 	private float step;
+	private float cursorDistance;
 	
 	private Sprite image;
 	private Cursor cursor;
@@ -20,6 +21,7 @@ public class Player extends Group{
 		height=20f;
 		
 		step=10f;
+		cursorDistance=5f;
 		
 		cursor=new Cursor();		
 		//image = Krakjam.art.atlases[Art.A_BACKGROUND].createSprite("nioas");
@@ -31,6 +33,7 @@ public class Player extends Group{
 	public void act(float delta) {
 		float move=step*delta;
 		double kat=0f;
+		double kat2;
 
 		if(Gdx.input.isKeyPressed(Keys.W) && Gdx.input.isKeyPressed(Keys.D)){
 			kat=Math.PI/4.0f;
@@ -63,8 +66,13 @@ public class Player extends Group{
 		x+=move*Math.cos(kat);
 		y+=move*Math.sin(kat);
 		
-		cursor.x = Gdx.input.getX();
-		cursor.y = Gdx.input.getY();
+		float wspx = Gdx.input.getX();
+		float wspy = Gdx.input.getY();
+		
+		kat2=Math.atan2(wspy, wspx);
+				
+		cursor.x = (float)(cursorDistance*Math.cos(kat2))+x+width/2.0f;
+		cursor.y = (float)(cursorDistance*Math.sin(kat2))+y+width/2.0f;
 	}
 
 	@Override
