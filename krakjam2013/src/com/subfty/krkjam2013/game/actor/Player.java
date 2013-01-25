@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.subfty.krkjam2013.Krakjam;
+import com.subfty.krkjam2013.util.Art;
 
 public class Player extends Group{
 	private float step;
@@ -24,7 +26,8 @@ public class Player extends Group{
 		cursorDistance=5f;
 		
 		cursor=new Cursor();		
-		//image = Krakjam.art.atlases[Art.A_BACKGROUND].createSprite("nioas");
+		image = Krakjam.art.atlases[Art.A_ENTITIES].createSprite("alien");
+		image.setColor(1.0f, 0.0f, 0.0f, 1.0f);
 		
 		this.addActor(cursor);
 	}
@@ -78,6 +81,7 @@ public class Player extends Group{
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		//batch.draw(image, x, y, width, height);
+		image.draw(batch);
 	}
 
 	@Override
