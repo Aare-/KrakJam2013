@@ -46,7 +46,7 @@ public class GameScreen extends Screen{
 		
 		////////// 
 		
-		//this.addActor(background);
+		this.addActor(background);
 		this.addActor(agents);
 		this.addActor(ui);
 	}
