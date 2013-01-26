@@ -9,7 +9,7 @@ public class BuildingsOverlord extends Group{
 	
 	//TYPE OF BUILDING
 	public enum B_TYPE{
-		BASE(3, 3, "base", "Main Base",100),
+		BASE(4, 4, "base", "Main Base",100),
 		TURRET(2,3,"turent", "Turret", 50);
 		
 		public final int width;
