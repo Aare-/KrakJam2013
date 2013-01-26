@@ -16,4 +16,25 @@ clone
   size: 100, 200
   orig: 100, 200
   offset: 0, 0
+  index: 4
+clone
+  rotate: false
+  xy: 404, 204
+  size: 100, 200
+  orig: 100, 200
+  offset: 0, 0
+  index: 3
+clone
+  rotate: false
+  xy: 2, 504
+  size: 100, 200
+  orig: 100, 200
+  offset: 0, 0
+  index: 2
+clone
+  rotate: false
+  xy: 2, 706
+  size: 100, 200
+  orig: 100, 200
+  offset: 0, 0
   index: 1

@@ -4,9 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Logger;
 import com.subfty.krkjam2013.Krakjam;
 import com.subfty.krkjam2013.game.Background;
 import com.subfty.krkjam2013.game.actor.aliens.Alien;
@@ -32,6 +34,7 @@ public class Player extends Collider {
 	public int exp;
 	
     //VISUALS
+	private TextureRegion playerSprites[];
 	private Sprite image;
 	private Cursor cursor;
 	
@@ -50,7 +53,13 @@ public class Player extends Collider {
 	
 		stats = new Stats();
 		cursor=new Cursor();		
-		image = Krakjam.art.atlases[Art.A_AGENTS].createSprite("clone");
+		playerSprites = new TextureRegion[]{Krakjam.art.atlases[Art.A_AGENTS].findRegion("clone", 1),
+											Krakjam.art.atlases[Art.A_AGENTS].findRegion("clone", 2),
+											Krakjam.art.atlases[Art.A_AGENTS].findRegion("clone", 3),
+											Krakjam.art.atlases[Art.A_AGENTS].findRegion("clone", 4)};
+		image = new Sprite();
+		image.setRegion(playerSprites[0]);
+		
 		image.setSize(Background.TILE_SIZE, 200/100*Background.TILE_SIZE);
 		smuga = Krakjam.art.atlases[Art.A_ENTITIES].createSprite("smugi");
 		smuga.setOrigin(smuga.getWidth()/2.0f, 0);
@@ -84,6 +93,15 @@ public class Player extends Collider {
 		
 		dx+=move*Math.cos(angle);
 		dy+=move*Math.sin(angle);
+		
+		if(dx < -0.1f)
+			image.setRegion(playerSprites[2]);
+		else if(dx > 0.1f)
+			image.setRegion(playerSprites[3]);
+		else if(dy > 0.1f)
+			image.setRegion(playerSprites[1]);
+		else
+			image.setRegion(playerSprites[0]);
 		
 		int wspx = Gdx.input.getX();
 		int wspy = Gdx.input.getY();

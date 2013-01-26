@@ -14,6 +14,22 @@ import com.subfty.krkjam2013.util.Art;
 
 public class Background extends Group{
 	
+	private class SpecialTile{
+		public final int x;
+		public final int y;
+		public String sprite;
+		public int id;
+		
+		public SpecialTile(int x, int y, String sprite, int id){
+			this.x = x;
+			this.y = y;
+			this.sprite = sprite;
+			this.id = id;
+		}
+	}
+	
+	
+	
 	public final static float TILE_SIZE = 50;
 	private final long SEED = -123412431;
 	private Random random;
