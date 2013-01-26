@@ -2,6 +2,8 @@ package com.subfty.krkjam2013.game.actor;
 
 import java.util.LinkedList;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
@@ -13,6 +15,8 @@ public abstract class Collider extends Group {
 	public float radius = 20;
 	private float dx = 0;
 	private float dy = 0;
+	protected float width = 100;
+	protected float height = 200;
 	
 	public void resolveCollisions() {
 		/*
@@ -67,10 +71,20 @@ public abstract class Collider extends Group {
 	public void drawDebug(SpriteBatch batch) {
 		batch.end();
 		
-		Krakjam.shapeRenderer.begin(ShapeType.FilledCircle);
 		Krakjam.shapeRenderer.setColor(1, 0, 0, 1);
+		Krakjam.shapeRenderer.begin(ShapeType.FilledCircle);
 		Krakjam.shapeRenderer.filledCircle(x, y, radius);
 		Krakjam.shapeRenderer.end();
+		
+		Gdx.gl.glEnable(GL10.GL_BLEND);
+		Gdx.gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+		
+		Krakjam.shapeRenderer.setColor(1,1,1,0.3f);
+		Krakjam.shapeRenderer.begin(ShapeType.FilledRectangle);
+		Krakjam.shapeRenderer.filledRect(x - width/2.0f, y, width, height);
+		Krakjam.shapeRenderer.end();
+		
+		Gdx.gl.glDisable(GL10.GL_BLEND);
 		
 		batch.begin();
 	}

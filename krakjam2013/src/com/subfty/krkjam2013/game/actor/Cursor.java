@@ -13,7 +13,8 @@ public class Cursor extends Actor{
 		width=5f;
 		height=5f;
 		
-		image=Krakjam.art.atlases[Art.A_ENTITIES].createSprite("alien");
+		image=Krakjam.art.atlases[Art.A_ENTITIES].createSprite("celownik");
+		image.setOrigin(image.getWidth()/2.0f, image.getHeight()/2.0f);
 	}
 
 	@Override
@@ -28,11 +29,13 @@ public class Cursor extends Actor{
 	}
 	
 	public void setX(float x){
+		x -= image.getWidth()/2.0f;
 		this.x=x;
 		image.setX(x);
 	}
 	
 	public void setY(float y){
+		y -= image.getHeight()/2.0f;
 		this.y=y;
 		image.setY(y);
 	}

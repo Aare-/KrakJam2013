@@ -24,8 +24,6 @@ public class Player extends Collider {
 	public Player(float x, float y){
 		this.x=x;
 		this.y=y;
-		width=20f;
-		height=20f;
 		
 		step=500f;
 		cursorDistance=50;
@@ -83,7 +81,7 @@ public class Player extends Collider {
 		x+=move*Math.cos(kat);
 		y+=move*Math.sin(kat);
 		
-		image.setPosition(x, y);
+		image.setPosition(x - image.getWidth()/2.0f, y);
 		
 		int wspx = Gdx.input.getX();
 		int wspy = Gdx.input.getY();
@@ -94,15 +92,15 @@ public class Player extends Collider {
 				
 		/*cursor.x = (float)(cursorDistance*Math.cos(kat2))+x+width/2.0f;
 		cursor.y = (float)(cursorDistance*Math.sin(kat2))+y+width/2.0f;*/
-		cursor.setX((float)(cursorDistance*Math.cos(kat2))+x+width/2);
-		cursor.setY((float)(cursorDistance*Math.sin(kat2))+y+height/2);
+		cursor.setX((float)(cursorDistance*Math.cos(kat2))+x);
+		cursor.setY((float)(cursorDistance*Math.sin(kat2))+y);
 		/*cursor.setX(v.x);
 		cursor.setY(v.y);*/
 		
 		resolveCollisions();
 		
 		if(Gdx.input.justTouched()) {
-			smuga.setPosition(x+width/2, y+height/2);
+			smuga.setPosition(x-smuga.getWidth()/2.0f, y);
 			FadeOutSprite fadeOut = new FadeOutSprite(0.2f, smuga);
 			fadeOut.angle = (float)(kat2*180/Math.PI) - 90;
 			stage.addActor(fadeOut);

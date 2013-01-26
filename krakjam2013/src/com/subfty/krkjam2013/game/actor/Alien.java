@@ -49,7 +49,7 @@ public class Alien extends  Collider {
 
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
-		sprite.setPosition(x, y);
+		sprite.setPosition(x-sprite.getWidth()/2.0f, y);
 		sprite.draw(batch);
 		
 		drawDebug(batch);
