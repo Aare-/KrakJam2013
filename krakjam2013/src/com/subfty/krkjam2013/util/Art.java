@@ -2,6 +2,7 @@ package com.subfty.krkjam2013.util;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
@@ -22,6 +23,8 @@ public class Art {
 									"textures/bloodyscreen"};  
 	public TextureAtlas atlases[] = new TextureAtlas[atlasesSrc.length];
 	
+	public Sound ping;
+	
 	//ID OF FONTS
 	public static int F_DIGITAL = 0;
 	private String fontsSrc[] = {"fonts/digital.fnt"};
@@ -36,5 +39,8 @@ public class Art {
 		
 	    //MUSIC
 		heartbeat = Gdx.audio.newMusic(Gdx.files.internal("sounds/heartbeat.mp3"));
+		
+		//SOUNDS
+		ping  = Gdx.audio.newSound(Gdx.files.internal("sounds/ping.wav"));
 	}
 }

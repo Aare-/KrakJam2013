@@ -61,7 +61,14 @@ public class Stats {
 			}
 	}
 	
+    //STATISTIC GETTERS
 	public float getRateOfFire(){
 		return 0.5f;
+	}
+	public float getMovementSpeed(){
+		return 250;
+	}
+	public float getScanSensitivity(){
+		return 1500;
 	}
 }
