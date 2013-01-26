@@ -26,7 +26,7 @@ public class Player extends Group{
 		height=20f;
 		
 		step=500f;
-		cursorDistance=15f;
+		cursorDistance=50;
 		
 		cursor=new Cursor();		
 		image = Krakjam.art.atlases[Art.A_ENTITIES].createSprite("alien");
@@ -86,14 +86,14 @@ public class Player extends Group{
 		Vector2 v=new Vector2();
 		Krakjam.stage.toStageCoordinates(wspx, wspy, v);
 		
-		kat2=Math.atan2(v.y, v.x);
+		kat2=Math.atan2(v.y-y, v.x-x);
 				
 		/*cursor.x = (float)(cursorDistance*Math.cos(kat2))+x+width/2.0f;
 		cursor.y = (float)(cursorDistance*Math.sin(kat2))+y+width/2.0f;*/
-		/*cursor.setX((float)(cursorDistance*Math.cos(kat2))+x);
-		cursor.setY((float)(cursorDistance*Math.sin(kat2))+y);*/
-		cursor.setX(v.x);
-		cursor.setY(v.y);
+		cursor.setX((float)(cursorDistance*Math.cos(kat2))+x+width/2);
+		cursor.setY((float)(cursorDistance*Math.sin(kat2))+y+height/2);
+		/*cursor.setX(v.x);
+		cursor.setY(v.y);*/
 		
 	}
 
