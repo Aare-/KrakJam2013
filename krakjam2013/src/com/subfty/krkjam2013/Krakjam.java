@@ -83,6 +83,7 @@ public class Krakjam implements ApplicationListener {
 
 	@Override
 	public void dispose() {
+	((GameScreen)screens[S_GAME]).background.saveData();
 	}
 
 	@Override

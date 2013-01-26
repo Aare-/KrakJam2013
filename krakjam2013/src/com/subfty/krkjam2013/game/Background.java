@@ -2,13 +2,17 @@ package com.subfty.krkjam2013.game;
 
 import java.util.Random;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.SerializationException;
 import com.subfty.krkjam2013.Krakjam;
-import com.subfty.krkjam2013.game.actor.Player;
 import com.subfty.krkjam2013.game.actor.buildings.Building;
 import com.subfty.krkjam2013.util.Art;
 
@@ -17,18 +21,23 @@ public class Background extends Group{
 	private class SpecialTile{
 		public final int x;
 		public final int y;
+		public final float width;
+		public final float height;
 		public String sprite;
 		public int id;
 		
-		public SpecialTile(int x, int y, String sprite, int id){
+		public SpecialTile(int x, int y, String sprite, int id, float width, float height){
 			this.x = x;
 			this.y = y;
 			this.sprite = sprite;
 			this.id = id;
+			this.width = width;
+			this.height = height;
 		}
 	}
 	
-	
+	private final String SAVE_FILE_PATH = "save";
+	private Array<SpecialTile> markers = new Array<SpecialTile>();
 	
 	public final static float TILE_SIZE = 50;
 	private final long SEED = -123412431;
@@ -47,12 +56,33 @@ public class Background extends Group{
 		this.gs = gs;
 		random = new Random(this.SEED);
 		init();
+		
+		
 	}
 	public Background(long SEED){
 		random = new Random(SEED);
 		init();
 	}
 	private void init(){
+		//READING PREVIOUSLY SAVED DATA
+		Json json = new Json();
+		
+		try{
+			try{
+			FileHandle f = Gdx.files.local(SAVE_FILE_PATH);
+			markers = (Array<SpecialTile>)json.readValue(Array.class, 
+														 f.readString());
+			}catch(GdxRuntimeException gdr){
+				markers = null;
+			}
+		}catch(SerializationException sxc){
+			markers = null;
+		}
+		
+		if(markers == null)
+			markers = new Array<SpecialTile>();
+		
+		
 		for(int i=0; i<bgSprites.length; i++)
 			for(int j=0; j<bgSprites[i].length; j++){
 				bgSprites[i][j] = new Sprite();
@@ -66,6 +96,12 @@ public class Background extends Group{
 		buildings.clear();
 		
 		act(0);
+	}
+	
+	public void saveData(){
+		Json json = new Json();
+		FileHandle f = Gdx.files.local(SAVE_FILE_PATH);
+		f.writeString(json.toJson(markers), false);
 	}
 	
 	public void act(float delta) {
