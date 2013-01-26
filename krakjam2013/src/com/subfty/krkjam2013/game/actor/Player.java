@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Logger;
@@ -24,7 +26,7 @@ public class Player extends Group{
 		height=20f;
 		
 		step=500f;
-		cursorDistance=5f;
+		cursorDistance=15f;
 		
 		cursor=new Cursor();		
 		image = Krakjam.art.atlases[Art.A_ENTITIES].createSprite("alien");
@@ -36,7 +38,8 @@ public class Player extends Group{
 	
 	@Override
 	public void act(float delta) {
-
+		Logger log;
+		log=new Logger("player");
 		float move=step*delta;
 		double kat=0f;
 		double kat2;
@@ -77,21 +80,27 @@ public class Player extends Group{
 		y+=move*Math.sin(kat);
 		
 		image.setPosition(x, y);
-		float wspx = Gdx.input.getX();
-		float wspy = Gdx.input.getY();
 		
-		kat2=Math.atan2(wspy, wspx);
+		int wspx = Gdx.input.getX();
+		int wspy = Gdx.input.getY();
+		Vector2 v=new Vector2();
+		Krakjam.stage.toStageCoordinates(wspx, wspy, v);
+		
+		kat2=Math.atan2(v.y, v.x);
 				
-		cursor.x = (float)(cursorDistance*Math.cos(kat2))+x+width/2.0f;
-		cursor.y = (float)(cursorDistance*Math.sin(kat2))+y+width/2.0f;
-		
+		/*cursor.x = (float)(cursorDistance*Math.cos(kat2))+x+width/2.0f;
+		cursor.y = (float)(cursorDistance*Math.sin(kat2))+y+width/2.0f;*/
+		/*cursor.setX((float)(cursorDistance*Math.cos(kat2))+x);
+		cursor.setY((float)(cursorDistance*Math.sin(kat2))+y);*/
+		cursor.setX(v.x);
+		cursor.setY(v.y);
 		
 	}
 
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		image.draw(batch);
-		//cursor.draw(batch, parentAlpha);
+		cursor.draw(batch, parentAlpha);
 	}
 
 	@Override
