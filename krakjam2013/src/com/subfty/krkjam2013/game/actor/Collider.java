@@ -51,7 +51,7 @@ public abstract class Collider extends Group {
 		
 		float intminx, intmaxx, intmaxy, intminy;
 		
-		float delta = 0.001f;
+		float delta = 0.0f;
 		
 		// kolizje dla x
 		for(Building b: buildings) {
@@ -63,7 +63,8 @@ public abstract class Collider extends Group {
 			float cx = b.x + b.width/2.0f;
 			float cy = b.y + b.height/2.0f;
 			
-			if(intminx < intmaxx && intminy < intmaxy) {
+			if(intminx < intmaxx && intminy < intmaxy && 
+					intmaxx-intminx < intmaxy-intminy) {
 				if(cx < x) {
 					x = b.x + b.width+radius+delta;
 				} else {

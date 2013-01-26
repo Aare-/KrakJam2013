@@ -70,12 +70,12 @@ public class Alien extends Collider {
 		if(state == STATE_FOLLOW_PLAYER || tmp.len() < 400) {
 			state = STATE_FOLLOW_PLAYER;
 			tmp.nor().mul(delta*speed);
-			x += tmp.x;
-			y += tmp.y;
+			dx += tmp.x;
+			dy += tmp.y;
 		} else {
 			tmp.set((float)Math.cos(velAngle), (float)Math.sin(velAngle)).mul(speed*delta);
-			x += tmp.x;
-			y += tmp.y;
+			dx += tmp.x;
+			dy += tmp.y;
 			velAngle += (Krakjam.rand.nextFloat()-0.5f)*2.0f * delta * 6;
 		}
 		

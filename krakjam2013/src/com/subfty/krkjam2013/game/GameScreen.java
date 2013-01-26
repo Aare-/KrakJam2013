@@ -51,7 +51,7 @@ public class GameScreen extends Screen{
 		
 		////////// DEBUG
 		
-		for(int i=0; i<0; i++)
+		for(int i=0; i<5; i++)
 			aOverlord.spawn(300 + Krakjam.rand.nextFloat(), 
 						    300 + Krakjam.rand.nextFloat() , ALIEN_TYPE.REGULAR);
 		
