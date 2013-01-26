@@ -29,6 +29,7 @@ public class Player extends Collider {
 	public float life;
 	
 	public Stats stats;
+	public int exp;
 	
     //VISUALS
 	private Sprite image;
@@ -64,6 +65,7 @@ public class Player extends Collider {
 		this.x = SPAWN_X;
 		this.y = SPAWN_Y;
 		life = MAX_LIFE;
+		exp = 0;
 	}
 	public void kill(){
 		init();

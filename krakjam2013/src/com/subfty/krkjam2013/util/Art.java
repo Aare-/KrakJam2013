@@ -1,10 +1,14 @@
 package com.subfty.krkjam2013.util;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 public class Art {
+	
+	//MUSIC
+	public static Music heartbeat;
 	
     //ID OF ATLASES
 	public static int A_ENTITIES = 0,
@@ -30,6 +34,7 @@ public class Art {
 		for(int i=0; i<fontsSrc.length; i++)
 			fonts[i] = new BitmapFont(Gdx.files.internal(fontsSrc[i]), false);
 		
-		
+	    //MUSIC
+		heartbeat = Gdx.audio.newMusic(Gdx.files.internal("sounds/heartbeat.mp3"));
 	}
 }
