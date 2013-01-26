@@ -45,7 +45,7 @@ public class GameScreen extends Screen{
 		
 		////////// ALIENS, debug
 		
-		for(int i=0; i<5; i++)
+		for(int i=0; i<0; i++)
 			aOverlord.spawn(300 + Krakjam.rand.nextFloat(), 
 						    300 + Krakjam.rand.nextFloat() , ALIEN_TYPE.REGULAR);
 		
@@ -56,6 +56,9 @@ public class GameScreen extends Screen{
 		this.addActor(ui);
 		
 		bOverlord.createNewBuilding(5, 5, B_TYPE.BASE);
+		bOverlord.createNewBuilding(5+3, 5, B_TYPE.BASE);
+		bOverlord.createNewBuilding(5, 5+3, B_TYPE.BASE);
+		bOverlord.createNewBuilding(5, 5+6, B_TYPE.BASE);
 	}
 	
 	@Override

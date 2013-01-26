@@ -2,6 +2,7 @@ package com.subfty.krkjam2013.game.actor.buildings;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.subfty.krkjam2013.Krakjam;
 import com.subfty.krkjam2013.game.Background;
@@ -35,6 +36,9 @@ public class Building extends Group{
 		image.setRegion(Krakjam.art.atlases[Art.A_AGENTS].createSprite(img));
 		image.setSize(tileWidth * Background.TILE_SIZE,  
 					  tileHeight * Background.TILE_SIZE);
+		
+		width  = tileWidth * Background.TILE_SIZE;
+		height = tileHeight * Background.TILE_SIZE;
 		
 		act(0);
 	}

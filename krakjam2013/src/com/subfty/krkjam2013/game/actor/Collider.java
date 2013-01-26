@@ -17,8 +17,8 @@ import com.subfty.krkjam2013.game.actor.buildings.Building;
 
 public abstract class Collider extends Group {
 	public float radius = 20;
-	private float dx = 0;
-	private float dy = 0;
+	protected float dx = 0;
+	protected float dy = 0;
 	protected float width = 100;
 	protected float height = 200;
 	
@@ -42,9 +42,6 @@ public abstract class Collider extends Group {
 			}
 		}
 		
-		x += dx;
-		y += dy;
-		
 		Array<Building> buildings = Krakjam.gameScreen.background.getBuildings();
 		
 		float minx = x - radius, maxx = x + radius;
@@ -52,6 +49,11 @@ public abstract class Collider extends Group {
 		
 		float intminx, intmaxx, intmaxy, intminy;
 		
+		x += dx;
+		
+		float delta = 0.001f;
+		
+		// kolizje dla x
 		for(Building b: buildings) {
 			intminx = Math.max(minx, b.x);
 			intminy = Math.max(miny, b.y);
@@ -61,22 +63,33 @@ public abstract class Collider extends Group {
 			float cx = b.x + b.width/2.0f;
 			float cy = b.y + b.height/2.0f;
 			
-			System.out.println((intmaxx-intminx)+" "+(intmaxy-intminy));
+			if(intminx < intmaxx && intminy < intmaxy) {
+				if(cx < x) {
+					x = b.x + b.width+radius;
+				} else {
+					x = b.x - radius;
+				}
+				dx = 0;
+			}
+		}
+		
+		y += dy;
+		
+		// kolizje dla y
+		for(Building b: buildings) {
+			intminx = Math.max(minx, b.x);
+			intminy = Math.max(miny, b.y);
+			intmaxx = Math.min(maxx, b.x+b.width);
+			intmaxy = Math.min(maxy, b.y+b.height);
+			
+			float cx = b.x + b.width/2.0f;
+			float cy = b.y + b.height/2.0f;
 			
 			if(intminx < intmaxx && intminy < intmaxy) {
-				System.out.print("kolizja");
-				if(intmaxx - intminx < intmaxy - intminy) {
-					if(cx < x) {
-						x += intmaxx - intminx;
-					} else {
-						x -= intmaxx - intminx;
-					}
+				if(cy < y) {
+					y = b.y + b.height+radius;
 				} else {
-					if(cy < y) {
-						y += intmaxy - intminy;
-					} else {
-						y -= intmaxy - intminy;
-					}
+					y = b.y - radius;
 				}
 			}
 		}

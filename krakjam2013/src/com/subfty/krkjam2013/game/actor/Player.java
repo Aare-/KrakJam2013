@@ -52,10 +52,8 @@ public class Player extends Collider {
 
 		updateInput();
 		
-		x+=move*Math.cos(angle);
-		y+=move*Math.sin(angle);
-		
-		image.setPosition(x - image.getWidth()/2.0f, y);
+		dx+=move*Math.cos(angle);
+		dy+=move*Math.sin(angle);
 		
 		int wspx = Gdx.input.getX();
 		int wspy = Gdx.input.getY();
@@ -130,6 +128,7 @@ public class Player extends Collider {
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		drawDebug(batch);
 		
+		image.setPosition(x - image.getWidth()/2.0f, y);
 		image.draw(batch);
 		cursor.draw(batch, parentAlpha);
 	}
