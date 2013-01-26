@@ -2,16 +2,16 @@ package com.subfty.krkjam2013.util;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.utils.Logger;
 
 public class Art {
 	
     //ID OF ATLASES
-	public static int A_BACKGROUND = 1;
 	public static int A_ENTITIES = 0;
+	public static int A_BACKGROUND = 1;
 	
 	
-	private String atlasesSrc[] = { "data/alien.pack"};  
+	private String atlasesSrc[] = { "data/alien.pack",
+									"data/bg"};  
 	public TextureAtlas atlases[] = new TextureAtlas[atlasesSrc.length];
 	
 	public Art(){
