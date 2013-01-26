@@ -19,6 +19,8 @@ public class Player extends Collider {
 	private Sprite image;
 	private Cursor cursor;
 	
+	private Sprite smuga;
+	
 	public Player(float x, float y){
 		this.x=x;
 		this.y=y;
@@ -31,6 +33,8 @@ public class Player extends Collider {
 		cursor=new Cursor();		
 		image = Krakjam.art.atlases[Art.A_ENTITIES].createSprite("alien");
 		image.setColor(1.0f, 0.0f, 0.0f, 1.0f);
+		smuga = Krakjam.art.atlases[Art.A_ENTITIES].createSprite("smugi");
+		smuga.setOrigin(smuga.getWidth()/2.0f, 0);
 		
 		this.addActor(cursor);
 
@@ -96,6 +100,13 @@ public class Player extends Collider {
 		cursor.setY(v.y);*/
 		
 		resolveCollisions();
+		
+		if(Gdx.input.justTouched()) {
+			smuga.setPosition(x+width/2, y+height/2);
+			FadeOutSprite fadeOut = new FadeOutSprite(0.2f, smuga);
+			fadeOut.angle = (float)(kat2*180/Math.PI) - 90;
+			stage.addActor(fadeOut);
+		}
 	}
 
 	@Override

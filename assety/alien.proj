@@ -1,7 +1,7 @@
 name=alien
 filename=
-input=
-output=
+input=alien
+output=..\krakjam2013-android\assets\data
 
 alias=true
 alphaThreshold=0

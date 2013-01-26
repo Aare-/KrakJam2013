@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.subfty.krkjam2013.game.actor.Alien;
 import com.subfty.krkjam2013.game.actor.Collider;
+import com.subfty.krkjam2013.game.actor.FadeOutSprite;
 import com.subfty.krkjam2013.game.actor.Player;
 import com.subfty.krkjam2013.util.Screen;
 import com.sun.org.apache.bcel.internal.generic.NEW;
