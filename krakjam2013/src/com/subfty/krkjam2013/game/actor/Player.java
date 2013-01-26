@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.Logger;
 import com.subfty.krkjam2013.Krakjam;
 import com.subfty.krkjam2013.util.Art;
 
-public class Player extends Group{
+public class Player extends Collider {
 	private float step;
 	private float cursorDistance;
 	
@@ -95,10 +95,13 @@ public class Player extends Group{
 		/*cursor.setX(v.x);
 		cursor.setY(v.y);*/
 		
+		resolveCollisions();
 	}
 
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
+		drawDebug(batch);
+		
 		image.draw(batch);
 		cursor.draw(batch, parentAlpha);
 	}

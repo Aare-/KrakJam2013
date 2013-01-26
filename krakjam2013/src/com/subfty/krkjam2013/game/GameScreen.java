@@ -33,6 +33,7 @@ public class GameScreen extends Screen{
 		
 		player = new Player(0,0);
 		agents.addActor(player);
+		colliders.add(player);
 		
 		////////// ALIENS, debug
 		

@@ -27,7 +27,7 @@ public class Alien extends  Collider {
 		 y = 300 + Krakjam.rand.nextFloat();
 	}
 	
-	public void tick(float delta) {
+	public void act(float delta) {
 		Vector2 tmp = Vector2.tmp;
 		Player p = Krakjam.gameScreen.player;
 		tmp.set(p.x, p.y).sub(x, y);
@@ -35,12 +35,12 @@ public class Alien extends  Collider {
 		if(state == STATE_FOLLOW_PLAYER || tmp.len() < 400) {
 			state = STATE_FOLLOW_PLAYER;
 			tmp.nor().mul(delta*speed);
-			//x += tmp.x;
-			//y += tmp.y;
+			x += tmp.x;
+			y += tmp.y;
 		} else {
 			tmp.set((float)Math.cos(velAngle), (float)Math.sin(velAngle)).mul(speed*delta);
-			//x += tmp.x;
-			//y += tmp.y;
+			x += tmp.x;
+			y += tmp.y;
 			velAngle += (Krakjam.rand.nextFloat()-0.5f)*2.0f * delta * 6;
 		}
 		
@@ -49,8 +49,6 @@ public class Alien extends  Collider {
 
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
-		tick(Gdx.graphics.getDeltaTime());
-		
 		sprite.setPosition(x, y);
 		sprite.draw(batch);
 		

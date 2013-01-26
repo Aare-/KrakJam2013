@@ -6,10 +6,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.subfty.krkjam2013.Krakjam;
 
-public abstract class Collider extends Actor {
-	public float radius = 10;
+public abstract class Collider extends Group {
+	public float radius = 20;
 	private float dx = 0;
 	private float dy = 0;
 	
@@ -51,8 +52,8 @@ public abstract class Collider extends Actor {
 					float w = 0.5f;
 					dx -= Math.cos(a)*(conflict)*w;
 					dy -= Math.sin(a)*(conflict)*w;
-					c.dx -= Math.cos(a)*(conflict)*w;
-					c.dy -= Math.sin(a)*(conflict)*w;
+					c.dx += Math.cos(a)*(conflict)*w;
+					c.dy += Math.sin(a)*(conflict)*w;
 				}
 			}
 		}
@@ -67,6 +68,7 @@ public abstract class Collider extends Actor {
 		batch.end();
 		
 		Krakjam.shapeRenderer.begin(ShapeType.FilledCircle);
+		Krakjam.shapeRenderer.setColor(1, 0, 0, 1);
 		Krakjam.shapeRenderer.filledCircle(x, y, radius);
 		Krakjam.shapeRenderer.end();
 		
