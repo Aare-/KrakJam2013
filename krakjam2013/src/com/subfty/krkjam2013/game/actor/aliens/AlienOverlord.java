@@ -45,11 +45,4 @@ public class AlienOverlord extends Group{
 				aliens.get(i).kill();
 	}
 	
-	public void bgScrolled(float bgx, float bgy){
-		for(int i=0; i<aliens.size; i++)
-			if(aliens.get(i).visible){
-				aliens.get(i).x -= bgx;
-				aliens.get(i).y -= bgy;
-			}		
-	}
 }

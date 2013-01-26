@@ -74,7 +74,9 @@ public class GameScreen extends Screen{
 		////////// 
 		
 		this.addActor(background);
+		
 		this.addActor(agents);
+		
 		this.addActor(ui);
 		
 		bOverlord.createNewBuilding(5, 5, B_TYPE.BASE);
@@ -99,5 +101,7 @@ public class GameScreen extends Screen{
 	@Override
 	public void draw (SpriteBatch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
+		//agents.x += 1;
+		
 	}
 }

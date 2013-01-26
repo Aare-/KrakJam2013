@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
@@ -44,6 +45,7 @@ public class Player extends Collider {
 	
 	public Player(Background bg, float spawn_x, float spawn_y){
 		this.bg = bg;
+		
 		
 		this.SPAWN_X = spawn_x;
 		this.SPAWN_Y = spawn_y;
@@ -192,31 +194,18 @@ public class Player extends Collider {
 	}
 	private void scrollBackground(float delta){
 		float speed = 3f;
-		float bgScrollX = 0,
-			  bgScrollY = 0;
-		
-		if(x < MARGIN_X){
-			float diff = (MARGIN_X-x); 
-			bgScrollX = -diff*speed*delta;
-			x += diff*speed*delta;
-		}
-		if(x > Krakjam.STAGE_W-MARGIN_X){
-			float diff = (x-(Krakjam.STAGE_W-MARGIN_X)); 
-			bgScrollX = diff*speed*delta;
-			x -= diff*speed*delta;
-		}
-		if(y < MARGIN_Y){
-			float diff = (MARGIN_Y-y); 
-			bgScrollY = -diff*speed*delta;
-			y += diff*speed*delta;
-		}
-		if(y > Krakjam.STAGE_H-MARGIN_Y){
-			float diff = (y-(Krakjam.STAGE_H-MARGIN_Y)); 
-			bgScrollY = diff*speed*delta;
-			y -= diff*speed*delta;
-		}
-		
-		bg.scroll(bgScrollX, bgScrollY);
+
+		float screenx = ((this.x+parent.x) / Krakjam.SCALE),
+			  screeny = ((this.y+parent.y) / Krakjam.SCALE);
+
+		if(screenx < MARGIN_X/Krakjam.SCALE)
+			this.parent.x += (MARGIN_X/Krakjam.SCALE-screenx)*speed*delta;
+		if(screenx > (Krakjam.STAGE_W-MARGIN_X)/Krakjam.SCALE)
+			this.parent.x -=(screenx-((Krakjam.STAGE_W-MARGIN_X)/Krakjam.SCALE))*speed*delta;
+		if(screeny < MARGIN_Y/Krakjam.SCALE)
+			this.parent.y +=  (MARGIN_Y/Krakjam.SCALE-screeny)*speed*delta;
+		if(screeny > (Krakjam.STAGE_H-MARGIN_Y)/Krakjam.SCALE)
+			this.parent.y -=(screeny-((Krakjam.STAGE_H-MARGIN_Y)/Krakjam.SCALE))*speed*delta;
 	}
 	
 	@Override

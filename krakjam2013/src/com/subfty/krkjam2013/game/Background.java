@@ -128,11 +128,6 @@ public class Background extends Group{
 				bgSprites[i][j].draw(batch, parentAlpha);
 	}
 	
-	public void scroll(float x, float y){
-		gs.aOverlord.bgScrolled(x, y);
-		this.x += x;
-		this.y += y;
-	}
 	
 	//OCCUPATION
 	public boolean isOccupied(int x, int y){
