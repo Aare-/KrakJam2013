@@ -113,6 +113,7 @@ public class Player extends Collider {
 			for(int i=0; i<aliens.size; i++) {
 				Alien a = aliens.get(i);
 				if(a.visible) {
+					int hits = 0;
 					final int MAX_J = 20;
 					for(int k=-1; k<2 && !shooted; k++) {
 					for(int j=0; j<=MAX_J && !shooted; j++) {
@@ -124,9 +125,16 @@ public class Player extends Collider {
 							if(px >= a.x- width/2.0f && py >= a.y && px <= a.x+a.width- width/2.0f && py <= a.y+a.height) {
 								a.shoot();
 								shooted = true;
+								hits++;
 								break;
 							}
 						}
+					}
+					
+					if(hits != 0) {
+						Background bg = Krakjam.gameScreen.background;
+						FlyingPoints points = new FlyingPoints(a.x-a.width/2.0f+bg.x, a.y+a.height+bg.y, hits);
+						stage.addActor(points);
 					}
 				}
 			}
