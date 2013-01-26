@@ -159,12 +159,13 @@ public class Player extends Collider {
 			
 			Bullet bullet = obtainBullet();
 			final float bulletSpeed = 400;
+			bullet.antyPlayer = false;
 			bullet.init((float)Math.cos(angle2)*bulletSpeed, (float)Math.sin(angle2)*bulletSpeed, 
 					x+gunX, y+gunY, (float)(angle2*180/Math.PI) + 90);
 		}
 		
 	}
-	private Bullet obtainBullet(){
+	public Bullet obtainBullet(){
 		for(int i=0; i<bullets.size; i++)
 			if(!bullets.get(i).visible)
 				return bullets.get(i);

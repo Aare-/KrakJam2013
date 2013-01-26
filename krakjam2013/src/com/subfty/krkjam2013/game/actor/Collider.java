@@ -23,7 +23,7 @@ public abstract class Collider extends Group {
 	protected float lastdx = 0;
 	protected float lastdy = 0;
 	protected float width = 100;
-	protected float height = 200;
+	protected float height = 100;
 	
 	protected boolean byway = false;
 	protected float bywayX = 0;

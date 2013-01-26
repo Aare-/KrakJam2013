@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.subfty.krkjam2013.Krakjam;
 import com.subfty.krkjam2013.game.Background;
+import com.subfty.krkjam2013.game.actor.Bullet;
 import com.subfty.krkjam2013.game.actor.Collider;
 import com.subfty.krkjam2013.game.actor.Player;
 import com.subfty.krkjam2013.game.actor.buildings.Building;
@@ -18,7 +19,7 @@ public class Alien extends Collider {
 		
 		REGULAR(50.0f ,50.0f, "alien1", 5, 80, 80),
 		EXPLODING(50.0f ,50.0f, "alien1", 5, 80, 80),
-		SHOOTER(50.0f ,50.0f, "alien1", 5, 80, 80);
+		SHOOTER(10.0f ,20.0f, "alien1", 5, 80, 80);
 		
 		public final float MIN_SPEED;
 		public final float MAX_SPEED;
@@ -83,6 +84,10 @@ public class Alien extends Collider {
 	public float speed = 0;
 	private Sprite sprite;
 	private float velAngle;
+	
+	private float nextShoot = 4;
+	public final float MAX_NEXT_SHOOT = 1;
+	public final float MIN_NEXT_SHOOT = 0.6f;
 	
 	public static int STATE_WALKING			= 0;
 	public static int STATE_FOLLOW_PLAYER 	= 1;
@@ -160,6 +165,23 @@ public class Alien extends Collider {
 			
 			if(tmp.len() < 300)
 				state = STATE_FOLLOW_PLAYER;
+			
+			if(type == ALIEN_TYPE.SHOOTER) {
+				minFollowTime = 10.0f;
+				state = STATE_FOLLOW_PLAYER;
+				
+				nextShoot -= delta;
+				if(nextShoot <= 0) {
+					float k = Krakjam.rand.nextFloat();
+					nextShoot = MIN_NEXT_SHOOT*k + MAX_NEXT_SHOOT*(1-k);
+					tmp.nor();
+					Bullet bullet = p.obtainBullet();
+					final float bulletSpeed = 400;
+					bullet.init(tmp.x*bulletSpeed, tmp.y*bulletSpeed, x, y, 0);
+					bullet.antyPlayer = true;
+				}
+			}
+			
 			// Atakuj budynki
 			if(state != STATE_FOLLOW_PLAYER && state != STATE_ATTACK_BUILDING) {
 				Array<Building> buildings = Krakjam.gameScreen.background.getBuildings();
@@ -186,6 +208,8 @@ public class Alien extends Collider {
 			
 			if(state == STATE_FOLLOW_PLAYER) {
 				minFollowTime -= delta;
+				tmp.set(p.x, p.y)
+				   .sub(x, y);
 				if(tmp.len() < 400 || minFollowTime > 0) {
 					state = STATE_FOLLOW_PLAYER;
 					tmp.nor().mul(delta*speed);
@@ -228,7 +252,7 @@ public class Alien extends Collider {
 				}
 				walkingTime -= delta;
 				if(walkingTime <= 0) {
-					if(type == ALIEN_TYPE.REGULAR)
+					if(type != ALIEN_TYPE.EXPLODING)
 						setState(STATE_RESTING);
 					else
 						setState(STATE_WALKING);

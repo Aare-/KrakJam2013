@@ -18,6 +18,7 @@ public class Bullet extends Group {
 	public float originx;
 	public float originy;
 	public float angle;
+	public boolean antyPlayer; // true - niszczy gracza, false - alienów
 	
 	public final float bulletRadius = 10;
 	private float lifeTime;
@@ -63,24 +64,41 @@ public class Bullet extends Group {
 		
 		Array<Alien> aliens = Krakjam.gameScreen.aOverlord.aliens;
 		
-		for(int i=0; i<aliens.size; i++) {
-			Alien a = aliens.get(i);
-			
-			if(a.visible == false)
-				continue;
+		if(antyPlayer == true) {
+			Player p = Krakjam.gameScreen.player;
 			
 			Vector2 tmp = Vector2.tmp;
-			tmp.set(a.x, a.y);
+			tmp.set(p.x, p.y);
 			tmp.sub(x, y);
-			if(tmp.len() < bulletRadius + a.radius) {
+			if(tmp.len() < bulletRadius + p.radius) {
 				Background bg = Krakjam.gameScreen.background;
-				FlyingPoints points = new FlyingPoints(a.x-a.width/2.0f+bg.x, a.y+a.height+bg.y, 1);
+				FlyingPoints points = new FlyingPoints(p.x-p.width/2.0f+bg.x, p.y+p.height+bg.y, 1);
 				stage.addActor(points);
-				a.shoot();
+				
+				// TODO: postrzelenie gracza
 				
 				kill();
-				break;
 			}
+		} else {
+			for(int i=0; i<aliens.size; i++) {
+				Alien a = aliens.get(i);
+				
+				if(a.visible == false)
+					continue;
+				
+				Vector2 tmp = Vector2.tmp;
+				tmp.set(a.x, a.y);
+				tmp.sub(x, y);
+				if(tmp.len() < bulletRadius + a.radius) {
+					Background bg = Krakjam.gameScreen.background;
+					FlyingPoints points = new FlyingPoints(a.x-a.width/2.0f+bg.x, a.y+a.height+bg.y, 1);
+					stage.addActor(points);
+					a.shoot();
+					
+					kill();
+					break;
+				}
+			}	
 		}
 		
 		Array<Building> buildings = Krakjam.gameScreen.background.getBuildings();
