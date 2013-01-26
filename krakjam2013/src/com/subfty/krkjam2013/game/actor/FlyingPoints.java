@@ -2,10 +2,8 @@ package com.subfty.krkjam2013.game.actor;
 
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenAccessor;
-import aurelienribon.tweenengine.TweenEquation;
 import aurelienribon.tweenengine.equations.*;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -84,9 +82,12 @@ public class FlyingPoints extends Actor {
 		
 		Background bg = Krakjam.gameScreen.background;
 		
+		Player p = Krakjam.gameScreen.player;
+		
 		Krakjam.art.fonts[Art.F_DIGITAL].setColor(1, 1, 1, 1.0f*alpha);
 		Krakjam.art.fonts[Art.F_DIGITAL].setScale(0.25f*scale);
-		Krakjam.art.fonts[Art.F_DIGITAL].drawWrapped(batch, "-"+points+"", this.x-bg.x, this.y-bg.y, 100, HAlignment.CENTER);
+		Krakjam.art.fonts[Art.F_DIGITAL].drawWrapped(batch, "-"+points+"", 
+				this.x+p.parent.x, this.y+p.parent.y, 100, HAlignment.CENTER);
 		
 	}
 

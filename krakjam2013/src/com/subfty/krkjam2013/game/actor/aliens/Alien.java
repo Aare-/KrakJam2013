@@ -66,6 +66,9 @@ public class Alien extends Collider {
 		this.life = type.MAX_LIFE;
 		
 		super.init();
+		
+		this.width = type.WIDTH;
+		this.height = type.HEIGHT;
 	}
 	
 	public void kill(){

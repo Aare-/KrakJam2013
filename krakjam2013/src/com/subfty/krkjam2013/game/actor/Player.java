@@ -121,51 +121,12 @@ public class Player extends Collider {
 		scrollBackground(delta);
 		
 		if(Gdx.input.justTouched()) {
-			smuga.setPosition(x-smuga.getWidth()/2.0f+gunX, y+gunY);
-			FadeOutSprite fadeOut = new FadeOutSprite(0.2f, smuga);
-			fadeOut.angle = (float)(angle2*180/Math.PI) - 90;
-			stage.addActor(fadeOut);
-			
 			Bullet bullet = new Bullet();
-			Vector2 tmp = Vector2.tmp;
-			tmp.set(v.y-y-gunY, v.x-x);
-			tmp.nor().mul(10);
-			bullet.init(tmp.x, tmp.y);
-			bullet.init(x+gunX-bg.x, y+gunY-bg.y);
+			final float bulletSpeed = 400;
+			bullet.init((float)Math.cos(angle2)*bulletSpeed, (float)Math.sin(angle2)*bulletSpeed, x, y,
+					(float)(angle2*180/Math.PI) + 90);
 			
-			stage.addActor(bullet);
-			
-			Array<Alien> aliens = Krakjam.gameScreen.aOverlord.aliens;
-			
-			final float SHOOT_SIZE = 200.0f;
-			
-			for(int i=0; i<aliens.size; i++) {
-				Alien a = aliens.get(i);
-				if(a.visible) {
-					int hits = 0;
-					final int MAX_J = 20;
-					for(int k=-1; k<2; k++) {
-					for(int j=0; j<=MAX_J; j++) {
-							float dist = SHOOT_SIZE*j/((float)MAX_J);
-							final float katdiff = (float)Math.PI/6.0f;
-							float px = (float)(Math.cos(angle2+k*katdiff)*dist+x+gunX);
-							float py = (float)(Math.sin(angle2+k*katdiff)*dist+y+gunY);
-						
-							if(px >= a.x- width/2.0f && py >= a.y && px <= a.x+a.width- width/2.0f && py <= a.y+a.height) {
-								a.shoot();
-								hits++;
-								break;
-							}
-						}
-					}
-					
-					if(hits != 0) {
-						Background bg = Krakjam.gameScreen.background;
-						FlyingPoints points = new FlyingPoints(a.x-a.width/2.0f+bg.x, a.y+a.height+bg.y, hits);
-						stage.addActor(points);
-					}
-				}
-			}
+			Krakjam.gameScreen.agents.addActor(bullet);
 		}
 		
 		//UPDATING LIFE
