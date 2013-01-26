@@ -15,6 +15,7 @@ import com.subfty.krkjam2013.game.actor.aliens.Alien.ALIEN_TYPE;
 import com.subfty.krkjam2013.game.actor.aliens.AlienOverlord;
 import com.subfty.krkjam2013.game.actor.buildings.BuildingsOverlord;
 import com.subfty.krkjam2013.game.actor.buildings.BuildingsOverlord.B_TYPE;
+import com.subfty.krkjam2013.util.Art;
 import com.subfty.krkjam2013.util.Screen;
 
 public class GameScreen extends Screen{
@@ -74,6 +75,5 @@ public class GameScreen extends Screen{
 	@Override
 	public void draw (SpriteBatch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		
 	}
 }
