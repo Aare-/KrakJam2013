@@ -11,8 +11,7 @@ public class Art {
 	public static int A_ENTITIES = 0;
 	
 	
-	private String atlasesSrc[] = { "data/alien.pack",
-									""};  
+	private String atlasesSrc[] = { "data/alien.pack"};  
 	public TextureAtlas atlases[] = new TextureAtlas[atlasesSrc.length];
 	
 	public Art(){
