@@ -23,8 +23,8 @@ public class Player extends Collider {
 
 	private float angle,
 				  angle2,
-				  move,
-				  life;
+				  move;
+	public float life;
 	
 	public Stats stats;
 	
