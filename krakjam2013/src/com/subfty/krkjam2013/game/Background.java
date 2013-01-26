@@ -89,6 +89,10 @@ public class Background extends Group{
 		return false;
 	}
 	
+	public Array<Building> getBuildings() {
+		return buildings;
+	}
+	
 	public void registerBuilding(Building building){
 		buildings.add(building);
 	}

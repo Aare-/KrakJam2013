@@ -1,5 +1,6 @@
 package com.subfty.krkjam2013.game.actor;
 
+import java.awt.Rectangle;
 import java.util.LinkedList;
 
 import com.badlogic.gdx.Gdx;
@@ -9,7 +10,10 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.utils.Array;
 import com.subfty.krkjam2013.Krakjam;
+import com.subfty.krkjam2013.game.GameScreen;
+import com.subfty.krkjam2013.game.actor.buildings.Building;
 
 public abstract class Collider extends Group {
 	public float radius = 20;
@@ -18,31 +22,7 @@ public abstract class Collider extends Group {
 	protected float width = 100;
 	protected float height = 200;
 	
-	public void resolveCollisions() {
-		/*
-		 * for( e in ALL ) {
-				if( e!=this && !e.killed && e.repels && isClose(e) ) {
-					var pt = getPoint();
-					var ept = e.getPoint();
-					var d = Lib.distance(pt.x, pt.y, ept.x, ept.y);
-					var min = radius+e.radius;
-					if( d < min ) {
-						var conflict = min - d;
-						var center = {x:pt.x + (ept.x-pt.x)*0.5, y:pt.y + (ept.y-pt.y)*0.5}
-						var a = Math.atan2(ept.y-pt.y, ept.x-pt.x);
-						var w = weight / (weight+e.weight);
-						var ew = e.weight / (weight+e.weight);
-						dx -= Math.cos(a)*(conflict/Game.GRID)*ew;
-						dy -= Math.sin(a)*(conflict/Game.GRID)*ew;
-						e.dx += Math.cos(a)*(conflict/Game.GRID)*w;
-						e.dy += Math.sin(a)*(conflict/Game.GRID)*w;
-						if( e==game.hero )
-							onHeroContact();
-					}
-				}
-			}
-		 */
-		
+	public void resolveCollisions() {		
 		LinkedList<Collider> colliders = Krakjam.gameScreen.colliders;
 		for(Collider c: colliders) {
 			if(c != this) {
@@ -64,6 +44,42 @@ public abstract class Collider extends Group {
 		
 		x += dx;
 		y += dy;
+		
+		Array<Building> buildings = Krakjam.gameScreen.background.getBuildings();
+		
+		float minx = x - radius, maxx = x + radius;
+		float miny = y - radius, maxy = y + radius;
+		
+		float intminx, intmaxx, intmaxy, intminy;
+		
+		for(Building b: buildings) {
+			intminx = Math.max(minx, b.x);
+			intminy = Math.max(miny, b.y);
+			intmaxx = Math.min(maxx, b.x+b.width);
+			intmaxy = Math.min(maxy, b.y+b.height);
+			
+			float cx = b.x + b.width/2.0f;
+			float cy = b.y + b.height/2.0f;
+			
+			System.out.println((intmaxx-intminx)+" "+(intmaxy-intminy));
+			
+			if(intminx < intmaxx && intminy < intmaxy) {
+				System.out.print("kolizja");
+				if(intmaxx - intminx < intmaxy - intminy) {
+					if(cx < x) {
+						x += intmaxx - intminx;
+					} else {
+						x -= intmaxx - intminx;
+					}
+				} else {
+					if(cy < y) {
+						y += intmaxy - intminy;
+					} else {
+						y -= intmaxy - intminy;
+					}
+				}
+			}
+		}
 		
 		dx = dy = 0;
 	}
