@@ -8,33 +8,44 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.subfty.krkjam2013.Krakjam;
 import com.subfty.krkjam2013.game.Background;
+import com.subfty.krkjam2013.game.actor.player.Stats;
 import com.subfty.krkjam2013.util.Art;
 
 public class Player extends Collider {
+	//SETTINGS
 	private final float MARGIN_X = 250,
-						MARGIN_Y = 200;
+						MARGIN_Y = 200,
+						MAX_LIFE = 60*3;
+	private final float SPAWN_X, SPAWN_Y;
 	
 	private float step;
 	private float cursorDistance;
+
+	private float angle,
+				  angle2,
+				  move,
+				  life;
 	
+	public Stats stats;
+	
+    //VISUALS
 	private Sprite image;
 	private Cursor cursor;
 	
 	private Sprite smuga;
 	
-	private float angle,
-				  angle2,
-				  move;
 	private Background bg;
 	
-	public Player(Background bg, float x, float y){
+	public Player(Background bg, float spawn_x, float spawn_y){
 		this.bg = bg;
-		this.x=x;
-		this.y=y;
+		
+		this.SPAWN_X = spawn_x;
+		this.SPAWN_Y = spawn_y;
 		
 		step=500f;
 		cursorDistance=50;
-		
+	
+		stats = new Stats();
 		cursor=new Cursor();		
 		image = Krakjam.art.atlases[Art.A_ENTITIES].createSprite("alien");
 		image.setColor(1.0f, 0.0f, 0.0f, 1.0f);
@@ -42,7 +53,18 @@ public class Player extends Collider {
 		smuga.setOrigin(smuga.getWidth()/2.0f, 0);
 		
 		this.addActor(cursor);
-
+	}
+	
+    //STAGES OF LIFE
+	public void init(){
+		stats.clearAll();
+		
+		this.x = SPAWN_X;
+		this.y = SPAWN_Y;
+		life = MAX_LIFE;
+	}
+	public void kill(){
+		init();
 	}
 	
 	@Override
@@ -75,6 +97,12 @@ public class Player extends Collider {
 			FadeOutSprite fadeOut = new FadeOutSprite(0.2f, smuga);
 			fadeOut.angle = (float)(angle2*180/Math.PI) - 90;
 			stage.addActor(fadeOut);
+		}
+		
+		//UPDATING LIFE
+		life -= delta;
+		if(life < 0){
+			kill();
 		}
 	}
 	private void updateInput(){
