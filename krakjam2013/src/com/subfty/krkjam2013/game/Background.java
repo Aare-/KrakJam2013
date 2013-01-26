@@ -1,5 +1,7 @@
 package com.subfty.krkjam2013.game;
 
+import java.util.Comparator;
+import java.util.Hashtable;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
@@ -23,13 +25,13 @@ public class Background extends Group{
 		public final int y;
 		public final float width;
 		public final float height;
-		public String sprite;
+		public TextureRegion sprite;
 		public int id;
 		
-		public SpecialTile(int x, int y, String sprite, int id, float width, float height){
+		public SpecialTile(int x, int y, int atlas, String sprite, int id, float width, float height){
 			this.x = x;
 			this.y = y;
-			this.sprite = sprite;
+			this.sprite = Krakjam.art.atlases[atlas].findRegion(sprite, id);
 			this.id = id;
 			this.width = width;
 			this.height = height;
@@ -37,7 +39,7 @@ public class Background extends Group{
 	}
 	
 	private final String SAVE_FILE_PATH = "save";
-	private Array<SpecialTile> markers = new Array<SpecialTile>();
+	private Hashtable <Long , SpecialTile> markers = new Hashtable <Long , SpecialTile>();
 	
 	public final static float TILE_SIZE = 50;
 	private final long SEED = -123412431;
@@ -45,6 +47,7 @@ public class Background extends Group{
 	
 	private Sprite bgSprites[][]= new Sprite[(int) (Krakjam.STAGE_W / TILE_SIZE + 3)]
 			  								[(int) (Krakjam.STAGE_H / TILE_SIZE + 3)]; 
+	private Sprite tmp = new Sprite();
 	
 	private TextureRegion regions[];
 	
@@ -70,8 +73,8 @@ public class Background extends Group{
 		try{
 			try{
 			FileHandle f = Gdx.files.local(SAVE_FILE_PATH);
-			markers = (Array<SpecialTile>)json.readValue(Array.class, 
-														 f.readString());
+			markers = (Hashtable<Long, SpecialTile>)json.readValue(Hashtable.class, 
+														           f.readString());
 			}catch(GdxRuntimeException gdr){
 				markers = null;
 			}
@@ -80,7 +83,7 @@ public class Background extends Group{
 		}
 		
 		if(markers == null)
-			markers = new Array<SpecialTile>();
+			markers = new Hashtable<Long, SpecialTile>();
 		
 		
 		for(int i=0; i<bgSprites.length; i++)
@@ -124,10 +127,33 @@ public class Background extends Group{
 	
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		for(int i=0; i<bgSprites.length; i++)
-			for(int j=0; j<bgSprites[i].length; j++)
+			for(int j=0; j<bgSprites[i].length; j++){
 				bgSprites[i][j].draw(batch, parentAlpha);
+				
+				SpecialTile st = markers.get(getToHashTable((int)(-gs.agents.x / TILE_SIZE), 
+															(int)(-gs.agents.y / TILE_SIZE)));
+				if(st != null){
+					tmp.setRegion(st.sprite);
+					tmp.setPosition(bgSprites[i][j].getX(), 
+									bgSprites[i][j].getY());
+					tmp.setSize(st.width, 
+								st.height);
+					tmp.draw(batch, parentAlpha);
+				}
+			}
+		
 	}
 	
+	//SPECIAL BACKGROUND TILES
+	public void addMarker(int x, int y, int atlas, String sprite, int id, float width, float height){
+		markers.put(getToHashTable(x, y), 
+					new SpecialTile(x, y, atlas, sprite, id, width, height));
+	}
+	
+	//HELPERS
+	private long getToHashTable(int x, int y){
+		return (long)(x*666000 + y);
+	}
 	
 	//OCCUPATION
 	public boolean isOccupied(int x, int y){
