@@ -20,6 +20,8 @@ import com.subfty.krkjam2013.util.Screen;
 
 public class GameScreen extends Screen{
 
+	public boolean pause;
+	
     //GROUPS
 	public Background background;
 	public Group agents;
@@ -44,9 +46,13 @@ public class GameScreen extends Screen{
 		ui = new Group();
 		
 		bOverlord = new BuildingsOverlord(background, agents);
+		
 		player = new Player(background, 0,0);
 		stats = new StatsScreen(player);
 		aOverlord = new AlienOverlord(background, this);
+		
+		this.addActor(bOverlord);
+		this.addActor(aOverlord);
 		
 		bScreen = new BloodyScreen(player);
 		ui.addActor(bScreen);
