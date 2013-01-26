@@ -9,11 +9,13 @@ public class Art {
     //ID OF ATLASES
 	public static int A_ENTITIES = 0,
 					  A_BACKGROUND = 1,
-					  A_AGENTS = 2;
+					  A_AGENTS = 2,
+					  A_BSCREEN = 3;
 	
 	private String atlasesSrc[] = { "data/alien.pack",
 									"textures/bg",
-									"textures/agents"};  
+									"textures/agents",
+									"textures/bloodyscreen"};  
 	public TextureAtlas atlases[] = new TextureAtlas[atlasesSrc.length];
 	
 	//ID OF FONTS

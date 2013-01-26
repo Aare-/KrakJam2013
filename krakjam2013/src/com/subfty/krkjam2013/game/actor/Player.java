@@ -25,8 +25,8 @@ public class Player extends Collider {
 
 	private float angle,
 				  angle2,
-				  move,
-				  life;
+				  move;
+	public float life;
 	
 	public Stats stats;
 	
@@ -49,8 +49,8 @@ public class Player extends Collider {
 	
 		stats = new Stats();
 		cursor=new Cursor();		
-		image = Krakjam.art.atlases[Art.A_ENTITIES].createSprite("alien");
-		image.setColor(1.0f, 0.0f, 0.0f, 1.0f);
+		image = Krakjam.art.atlases[Art.A_AGENTS].createSprite("clone");
+		image.setSize(Background.TILE_SIZE, 200/100*Background.TILE_SIZE);
 		smuga = Krakjam.art.atlases[Art.A_ENTITIES].createSprite("smugi");
 		smuga.setOrigin(smuga.getWidth()/2.0f, 0);
 		
@@ -183,9 +183,9 @@ public class Player extends Collider {
 	
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
-		drawDebug(batch);
+		///drawDebug(batch);
 		
-		image.setPosition(x - image.getWidth()/2.0f, y);
+		image.setPosition(x - image.getWidth()/2.0f, y-15);
 		image.draw(batch);
 		cursor.draw(batch, parentAlpha);
 	}

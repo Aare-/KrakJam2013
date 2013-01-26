@@ -14,6 +14,7 @@ import com.subfty.krkjam2013.game.actor.aliens.Alien.ALIEN_TYPE;
 import com.subfty.krkjam2013.game.actor.aliens.AlienOverlord;
 import com.subfty.krkjam2013.game.actor.buildings.BuildingsOverlord;
 import com.subfty.krkjam2013.game.actor.buildings.BuildingsOverlord.B_TYPE;
+import com.subfty.krkjam2013.game.actor.ui.BloodyScreen;
 import com.subfty.krkjam2013.game.statsscreen.StatsScreen;
 import com.subfty.krkjam2013.util.Screen;
 
@@ -29,6 +30,9 @@ public class GameScreen extends Screen{
 	public BuildingsOverlord bOverlord;
 	public AlienOverlord aOverlord;
 
+	//UI
+	BloodyScreen bScreen;
+	
 	public LinkedList<Collider> colliders = new LinkedList<Collider>();
 	
 	public GameScreen(Stage stage){
@@ -43,6 +47,9 @@ public class GameScreen extends Screen{
 		player = new Player(background, 0,0);
 		stats = new StatsScreen(player);
 		aOverlord = new AlienOverlord(background, this);
+		
+		bScreen = new BloodyScreen(player);
+		ui.addActor(bScreen);
 		
 		ui.addActor(stats);
 		
