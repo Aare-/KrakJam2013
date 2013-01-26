@@ -24,6 +24,7 @@ public class BloodyScreen extends Actor{
 		sprite.setSize(Krakjam.STAGE_W, Krakjam.STAGE_H);
 		
 		this.visible = true;
+		sprite.setColor(1, 1, 1, 0);
 		anim = 0;
 	}
 	
