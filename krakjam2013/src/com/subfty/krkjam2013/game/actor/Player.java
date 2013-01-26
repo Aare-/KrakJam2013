@@ -99,29 +99,31 @@ public class Player extends Collider {
 	}
 	private void scrollBackground(float delta){
 		float speed = 3f;
+		float bgScrollX = 0,
+			  bgScrollY = 0;
+		
 		if(x < MARGIN_X){
 			float diff = (MARGIN_X-x); 
-			bg.x -= diff*speed*delta;
+			bgScrollX = -diff*speed*delta;
 			x += diff*speed*delta;
 		}
 		if(x > Krakjam.STAGE_W-MARGIN_X){
 			float diff = (x-(Krakjam.STAGE_W-MARGIN_X)); 
-			bg.x += diff*speed*delta;
+			bgScrollX = diff*speed*delta;
 			x -= diff*speed*delta;
 		}
 		if(y < MARGIN_Y){
 			float diff = (MARGIN_Y-y); 
-			bg.y -= diff*speed*delta;
+			bgScrollY = -diff*speed*delta;
 			y += diff*speed*delta;
 		}
 		if(y > Krakjam.STAGE_H-MARGIN_Y){
 			float diff = (y-(Krakjam.STAGE_H-MARGIN_Y)); 
-			bg.y += diff*speed*delta;
+			bgScrollY = diff*speed*delta;
 			y -= diff*speed*delta;
 		}
 		
-		
-		//x = Math.max(MARGIN_X, Math.min(Krakjam.STAGE_W-MARGIN_X, x));
+		bg.scroll(bgScrollX, bgScrollY);
 	}
 	
 	@Override
