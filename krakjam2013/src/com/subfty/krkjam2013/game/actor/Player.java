@@ -77,6 +77,8 @@ public class Player extends Collider {
 		exp = 0;
 	}
 	public void kill(){
+		bg.addMarker((int)((this.x-20) /Background.TILE_SIZE),
+				 	 (int)((this.y-40) /Background.TILE_SIZE), Art.A_BACKGROUND, "body", -1, Background.TILE_SIZE*2, Background.TILE_SIZE*2);
 		init();
 	}
 	
@@ -152,6 +154,7 @@ public class Player extends Collider {
 			angle=0f;
 		else
 			move=0f;
+		
 	}
 	private void scrollBackground(float delta){
 		float speed = 3f;

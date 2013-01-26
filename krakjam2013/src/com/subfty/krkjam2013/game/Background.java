@@ -13,26 +13,24 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.Logger;
 import com.badlogic.gdx.utils.SerializationException;
 import com.subfty.krkjam2013.Krakjam;
 import com.subfty.krkjam2013.game.actor.buildings.Building;
 import com.subfty.krkjam2013.util.Art;
 
 public class Background extends Group{
+	Logger l = new Logger("DEBUG", Logger.DEBUG);
 	
 	private class SpecialTile{
-		public final int x;
-		public final int y;
+		public float x;
+		public float y;
 		public final float width;
 		public final float height;
 		public TextureRegion sprite;
-		public int id;
 		
-		public SpecialTile(int x, int y, int atlas, String sprite, int id, float width, float height){
-			this.x = x;
-			this.y = y;
+		public SpecialTile(int atlas, String sprite, int id, float width, float height){
 			this.sprite = Krakjam.art.atlases[atlas].findRegion(sprite, id);
-			this.id = id;
 			this.width = width;
 			this.height = height;
 		}
@@ -85,7 +83,6 @@ public class Background extends Group{
 		if(markers == null)
 			markers = new Hashtable<Long, SpecialTile>();
 		
-		
 		for(int i=0; i<bgSprites.length; i++)
 			for(int j=0; j<bgSprites[i].length; j++){
 				bgSprites[i][j] = new Sprite();
@@ -112,7 +109,7 @@ public class Background extends Group{
 			for(int j=0; j<bgSprites[i].length; j++){
 				random.setSeed(SEED + 
 							   (int)(-gs.agents.x / TILE_SIZE) +
-							   (int)(-gs.agents.y / TILE_SIZE)*bgSprites.length +
+							   (int)(-gs.agents.y / TILE_SIZE) * bgSprites.length +
 							   i + j*bgSprites.length);
 				
 				bgSprites[i][j].setRegion(regions[0]);
@@ -125,34 +122,43 @@ public class Background extends Group{
 			}
 	}
 	
+	private Array<SpecialTile> arr = new Array<SpecialTile>();
 	public void draw(SpriteBatch batch, float parentAlpha) {
+		arr.clear();
 		for(int i=0; i<bgSprites.length; i++)
 			for(int j=0; j<bgSprites[i].length; j++){
 				bgSprites[i][j].draw(batch, parentAlpha);
 				
-				SpecialTile st = markers.get(getToHashTable((int)(-gs.agents.x / TILE_SIZE), 
-															(int)(-gs.agents.y / TILE_SIZE)));
-				if(st != null){
-					tmp.setRegion(st.sprite);
-					tmp.setPosition(bgSprites[i][j].getX(), 
-									bgSprites[i][j].getY());
-					tmp.setSize(st.width, 
-								st.height);
-					tmp.draw(batch, parentAlpha);
-				}
+				SpecialTile st = markers.get(new Long(getToHashTable((int)(Math.floor(-gs.agents.x / TILE_SIZE)+i), 
+																	 (int)(Math.floor(-gs.agents.y / TILE_SIZE)+j))));
+				arr.add(st);
+				
 			}
+		
+		for(int i=0; i<arr.size; i++){
+			SpecialTile st = arr.get(i);
+			if(st != null){
+				tmp.setRegion(st.sprite);
+				tmp.setPosition(st.x+gs.agents.x, st.y+gs.agents.y);
+				tmp.setSize(st.width, 
+							st.height);
+				tmp.draw(batch, parentAlpha*1f);
+			}
+		}
 		
 	}
 	
 	//SPECIAL BACKGROUND TILES
 	public void addMarker(int x, int y, int atlas, String sprite, int id, float width, float height){
-		markers.put(getToHashTable(x, y), 
-					new SpecialTile(x, y, atlas, sprite, id, width, height));
+		SpecialTile st = new SpecialTile(atlas, sprite, id, width, height);
+		st.x = x *Background.TILE_SIZE;
+		st.y = y * Background.TILE_SIZE;
+		markers.put(getToHashTable(x, y), st);
 	}
 	
 	//HELPERS
 	private long getToHashTable(int x, int y){
-		return (long)(x*666000 + y);
+		return (long)((x+10000)*20000 + (y+10000));
 	}
 	
 	//OCCUPATION
