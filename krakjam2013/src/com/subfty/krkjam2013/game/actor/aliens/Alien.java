@@ -2,6 +2,7 @@ package com.subfty.krkjam2013.game.actor.aliens;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.subfty.krkjam2013.Krakjam;
@@ -21,6 +22,8 @@ public class Alien extends Collider {
 		public final float WIDTH;
 		public final float HEIGHT;
 		
+		public final TextureRegion sides[];
+		
 		private ALIEN_TYPE(float MIN_SPEED, float MAX_SPEED, String SPRITE, int MAX_LIFE, float WIDTH, float HEIGHT) {
 			this.MIN_SPEED = MIN_SPEED;
 			this.MAX_SPEED = MAX_SPEED;
@@ -28,6 +31,8 @@ public class Alien extends Collider {
 			this.MAX_LIFE = MAX_LIFE;
 			this.WIDTH = WIDTH;
 			this.HEIGHT = HEIGHT;
+			
+			sides = new TextureRegion[4];
 		}
 	}
 	
@@ -46,6 +51,11 @@ public class Alien extends Collider {
 	public Alien(){
 		sprite = new Sprite();
 		
+	    //INITING ENUM TEXTURE REGION CACHE
+		for(int i=0; i<ALIEN_TYPE.values().length; i++)
+			for(int j=0; j<ALIEN_TYPE.values()[i].sides.length; j++)
+				ALIEN_TYPE.values()[i].sides[j] = Krakjam.art.atlases[Art.A_AGENTS].findRegion(ALIEN_TYPE.values()[i].SPRITE, j+1);
+		
 		this.visible = false;
 	}
 	
@@ -57,7 +67,7 @@ public class Alien extends Collider {
 		velAngle = 0;
 		
 		speed = (type.MAX_SPEED-type.MIN_SPEED)*Krakjam.rand.nextFloat()+type.MIN_SPEED;
-		sprite.setRegion(Krakjam.art.atlases[Art.A_AGENTS].findRegion(type.SPRITE));
+		sprite.setRegion(type.sides[0]);
 		sprite.setSize(type.WIDTH, type.HEIGHT);
 		
 		this.x = x;
@@ -114,6 +124,16 @@ public class Alien extends Collider {
 			}	
 		}
 		
+		if(dx < -0.1f)
+			sprite.setRegion(type.sides[2]);
+		else if(dx > 0.1f)
+			sprite.setRegion(type.sides[3]);
+		else if(dy > 0.1f)
+			sprite.setRegion(type.sides[1]);
+		else
+			sprite.setRegion(type.sides[0]);
+		
+		//this.x = 
 		byway = false;
 		
 		resolveCollisions();
