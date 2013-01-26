@@ -49,6 +49,9 @@ public class BuildingsOverlord {
 		createNewBuilding(tileX,  tileY, type);
 	}
 	public void destroyAll(){
-		
+		for(int i=0; i<buildings.size; i++){
+			if(buildings.get(i).visible)
+				buildings.get(i).kill();
+		}
 	}
 }
