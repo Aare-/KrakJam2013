@@ -108,12 +108,14 @@ public class Player extends Collider {
 		int wspx = Gdx.input.getX();
 		int wspy = Gdx.input.getY();
 		Vector2 v=new Vector2();
-		Krakjam.stage.toStageCoordinates(wspx, wspy, v);
 		
-		angle2=(float)Math.atan2(v.y-y-gunY, v.x-x);
+		Krakjam.stage.toStageCoordinates(wspx, wspy, v);
+		this.toLocalCoordinates(v);
+		
+		angle2=(float)Math.atan2(v.y-gunY, v.x);
 				
-		cursor.setX((float)(cursorDistance*Math.cos(angle2))+x+gunX);
-		cursor.setY((float)(cursorDistance*Math.sin(angle2))+y+gunY);
+		cursor.setX((float)(cursorDistance*Math.cos(angle2))+x);//+gunX);
+		cursor.setY((float)(cursorDistance*Math.sin(angle2))+y);//+gunY);
 		
 		resolveCollisions();
 		scrollBackground(delta);

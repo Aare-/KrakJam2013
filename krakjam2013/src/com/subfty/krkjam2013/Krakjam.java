@@ -54,7 +54,9 @@ public class Krakjam implements ApplicationListener {
 	}
 	
 	@Override
-	public void create() {		
+	public void create() {
+		Gdx.input.setCursorCatched(true);
+		
 		stage = new Stage(STAGE_W, STAGE_H, false);
 		art = new Art();
 		tM = new TweenManager();

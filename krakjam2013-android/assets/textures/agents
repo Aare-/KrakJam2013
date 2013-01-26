@@ -16,6 +16,27 @@ alien1
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
+  index: 4
+alien1
+  rotate: false
+  xy: 204, 504
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: 3
+alien1
+  rotate: false
+  xy: 2, 706
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: 2
+alien1
+  rotate: false
+  xy: 204, 706
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
   index: 1
 clone
   rotate: false
@@ -33,14 +54,14 @@ clone
   index: 3
 clone
   rotate: false
-  xy: 204, 504
+  xy: 406, 504
   size: 100, 200
   orig: 100, 200
   offset: 0, 0
   index: 2
 clone
   rotate: false
-  xy: 306, 504
+  xy: 406, 706
   size: 100, 200
   orig: 100, 200
   offset: 0, 0
