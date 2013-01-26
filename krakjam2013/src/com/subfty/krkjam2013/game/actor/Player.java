@@ -37,7 +37,7 @@ public class Player extends Collider {
     //VISUALS
 	private TextureRegion playerSprites[];
 	private Sprite image;
-	private Cursor cursor;
+	public Cursor cursor;
 	
 	private Sprite smuga;
 	
@@ -65,8 +65,6 @@ public class Player extends Collider {
 		image.setSize(Background.TILE_SIZE, 200/100*Background.TILE_SIZE);
 		smuga = Krakjam.art.atlases[Art.A_ENTITIES].createSprite("smugi");
 		smuga.setOrigin(smuga.getWidth()/2.0f, 0);
-		
-		this.addActor(cursor);
 	}
 	
     //STAGES OF LIFE
@@ -112,7 +110,7 @@ public class Player extends Collider {
 		Krakjam.stage.toStageCoordinates(wspx, wspy, v);
 		this.toLocalCoordinates(v);
 		
-		angle2=(float)Math.atan2(v.y-gunY, v.x);
+		angle2=(float)Math.atan2(v.y, v.x);
 				
 		cursor.setX((float)(cursorDistance*Math.cos(angle2))+x+gunX);
 		cursor.setY((float)(cursorDistance*Math.sin(angle2))+y+gunY);
