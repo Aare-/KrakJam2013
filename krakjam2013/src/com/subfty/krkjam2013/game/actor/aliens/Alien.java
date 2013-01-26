@@ -11,21 +11,24 @@ import com.subfty.krkjam2013.util.Art;
 
 public class Alien extends Collider {
 	public enum ALIEN_TYPE{
-		REGULAR(20.0f ,30.0f, "alien");
+		REGULAR(20.0f ,30.0f, "alien", 5);
 		
 		public final float MIN_SPEED;
 		public final float MAX_SPEED;
 		public final String SPRITE;
+		public final int MAX_LIFE;
 		
-		private ALIEN_TYPE(float MIN_SPEED, float MAX_SPEED, String SPRITE) {
+		private ALIEN_TYPE(float MIN_SPEED, float MAX_SPEED, String SPRITE, int MAX_LIFE) {
 			this.MIN_SPEED = MIN_SPEED;
 			this.MAX_SPEED = MAX_SPEED;
 			this.SPRITE = SPRITE;
+			this.MAX_LIFE = MAX_LIFE;
 		}
 	}
 	
 	private ALIEN_TYPE type;
 	
+	private int life;
 	public float speed = 0;
 	private Sprite sprite;
 	private float velAngle;
@@ -53,10 +56,16 @@ public class Alien extends Collider {
 		
 		this.x = x;
 		this.y = y;
+		
+		this.life = type.MAX_LIFE;
 	}
 	
 	public void kill(){
 		this.visible = false;
+	}
+	
+	public boolean isDead() {
+		return this.visible;
 	}
 	
 	public void act(float delta) {
@@ -90,6 +99,13 @@ public class Alien extends Collider {
 		drawDebug(batch);
 	}
 
+	public void shoot() {
+		life--;
+		if(life <= 0) {
+			kill();
+		}
+	}
+	
 	@Override
 	public Actor hit(float x, float y) {
 		return null;

@@ -25,7 +25,7 @@ public abstract class Collider extends Group {
 	public void resolveCollisions() {		
 		LinkedList<Collider> colliders = Krakjam.gameScreen.colliders;
 		for(Collider c: colliders) {
-			if(c != this) {
+			if(c != this && c.visible) {
 				Vector2 tmp = Vector2.tmp;
 				tmp.set(this.x, this.y).sub(c.x, c.y);
 				float d = tmp.len();

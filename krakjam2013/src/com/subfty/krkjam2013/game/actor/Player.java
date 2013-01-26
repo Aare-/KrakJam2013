@@ -6,8 +6,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Array;
 import com.subfty.krkjam2013.Krakjam;
 import com.subfty.krkjam2013.game.Background;
+import com.subfty.krkjam2013.game.actor.aliens.Alien;
 import com.subfty.krkjam2013.game.actor.player.Stats;
 import com.subfty.krkjam2013.util.Art;
 
@@ -95,6 +97,33 @@ public class Player extends Collider {
 			FadeOutSprite fadeOut = new FadeOutSprite(0.2f, smuga);
 			fadeOut.angle = (float)(angle2*180/Math.PI) - 90;
 			stage.addActor(fadeOut);
+			
+			Array<Alien> aliens = Krakjam.gameScreen.aOverlord.aliens;
+			
+			final float SHOOT_SIZE = 200.0f;
+			
+			boolean shooted = false;
+			
+			for(int i=0; i<aliens.size; i++) {
+				Alien a = aliens.get(i);
+				if(a.visible) {
+					final int MAX_J = 20;
+					for(int k=-1; k<2 && !shooted; k++) {
+					for(int j=0; j<=MAX_J && !shooted; j++) {
+							float dist = SHOOT_SIZE*j/((float)MAX_J);
+							final float katdiff = (float)Math.PI/6.0f;
+							float px = (float)(Math.cos(angle2+k*katdiff)*dist+x);
+							float py = (float)(Math.sin(angle2+k*katdiff)*dist+y);
+						
+							if(px >= a.x- width/2.0f && py >= a.y && px <= a.x+a.width- width/2.0f && py <= a.y+a.height) {
+								a.shoot();
+								shooted = true;
+								break;
+							}
+						}
+					}
+				}
+			}
 		}
 		
 		//UPDATING LIFE

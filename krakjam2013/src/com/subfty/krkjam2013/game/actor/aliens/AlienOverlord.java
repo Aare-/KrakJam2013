@@ -7,7 +7,7 @@ import com.subfty.krkjam2013.game.GameScreen;
 
 public class AlienOverlord {
 	
-	private Array<Alien> aliens = new Array<Alien>();
+	public Array<Alien> aliens = new Array<Alien>();
 	private Background bg;
 	private GameScreen gs;
 	
