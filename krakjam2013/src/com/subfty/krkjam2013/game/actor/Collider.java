@@ -62,6 +62,8 @@ public abstract class Collider extends Group {
 		
 		float delta = 0.0f;
 		
+		float extRadius = radius + 3;
+		
 		// kolizje dla x
 		for(Building b: buildings) {
 			intminx = Math.max(minx, b.x);
@@ -82,9 +84,9 @@ public abstract class Collider extends Group {
 				}
 				
 				if(dy > 0) {
-					bywayY = b.y + b.height + Background.TILE_SIZE/2.0f;
+					bywayY = b.y + b.height + extRadius;
 				} else {
-					bywayY = b.y - Background.TILE_SIZE/2.0f;
+					bywayY = b.y - extRadius;
 				}
 				
 				bywayX = x;
@@ -115,9 +117,9 @@ public abstract class Collider extends Group {
 				}
 				
 				if(dx > 0) {
-					bywayX = b.x + b.width+ Background.TILE_SIZE/2.0f;
+					bywayX = b.x + b.width+ extRadius;
 				} else {
-					bywayX = b.x - Background.TILE_SIZE/2.0f;
+					bywayX = b.x - extRadius;
 				}
 				
 				bywayY = y;

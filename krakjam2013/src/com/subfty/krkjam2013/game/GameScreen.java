@@ -78,9 +78,9 @@ public class GameScreen extends Screen{
 		this.addActor(ui);
 		
 		bOverlord.createNewBuilding(5, 5, B_TYPE.BASE);
-		bOverlord.createNewBuilding(5+4, 5, B_TYPE.BASE);
-		bOverlord.createNewBuilding(5, 5+5, B_TYPE.BASE);
-		bOverlord.createNewBuilding(5, 5+9, B_TYPE.BASE);
+		bOverlord.createNewBuilding(5+10, 5, B_TYPE.BASE);
+		bOverlord.createNewBuilding(5, 5+20, B_TYPE.BASE);
+		bOverlord.createNewBuilding(5, 5+30, B_TYPE.BASE);
 	}
 	
 	@Override

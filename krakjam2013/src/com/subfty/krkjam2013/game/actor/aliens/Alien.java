@@ -79,6 +79,8 @@ public class Alien extends Collider {
 		
 		this.width = type.WIDTH;
 		this.height = type.HEIGHT;
+		
+		radius = 40;
 	}
 	
 	public void kill(){

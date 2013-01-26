@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.Array;
 import com.subfty.krkjam2013.Krakjam;
 import com.subfty.krkjam2013.game.Background;
 import com.subfty.krkjam2013.game.actor.aliens.Alien;
+import com.subfty.krkjam2013.game.actor.buildings.Building;
 import com.subfty.krkjam2013.util.Art;
 
 public class Bullet extends Group {
@@ -66,6 +67,34 @@ public class Bullet extends Group {
 				
 				Krakjam.gameScreen.agents.removeActor(this);
 				break;
+			}
+		}
+		
+		Array<Building> buildings = Krakjam.gameScreen.background.getBuildings();
+		
+		for(int i=0; i<buildings.size; i++) {
+			Building b = buildings.get(i);
+			
+			// test jako prostokaty
+			float 	minx = x - bulletRadius, 
+					maxx = x + bulletRadius, 
+					miny = y - bulletRadius, 
+					maxy = y + bulletRadius;
+			
+			if(maxx > b.x && maxy > b.y && minx < b.x + b.width && miny < b.y + b.height) {
+				float 	cx = b.x + b.width/2.0f, 
+						cy = b.y + b.height/2.0f;
+				float radius = b.width/2.0f;
+				
+				Vector2 tmp = Vector2.tmp;
+				tmp.set(cx, cy);
+				tmp.sub(x, y);
+				
+				if(tmp.len() < radius + bulletRadius) {
+					Krakjam.gameScreen.agents.removeActor(this);
+					break;
+				}
+					
 			}
 		}
 	

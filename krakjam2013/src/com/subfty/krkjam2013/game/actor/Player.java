@@ -114,8 +114,8 @@ public class Player extends Collider {
 		
 		angle2=(float)Math.atan2(v.y-gunY, v.x);
 				
-		cursor.setX((float)(cursorDistance*Math.cos(angle2))+x);//+gunX);
-		cursor.setY((float)(cursorDistance*Math.sin(angle2))+y);//+gunY);
+		cursor.setX((float)(cursorDistance*Math.cos(angle2))+x+gunX);
+		cursor.setY((float)(cursorDistance*Math.sin(angle2))+y+gunY);
 		
 		resolveCollisions();
 		scrollBackground(delta);
@@ -123,8 +123,8 @@ public class Player extends Collider {
 		if(Gdx.input.justTouched()) {
 			Bullet bullet = new Bullet();
 			final float bulletSpeed = 400;
-			bullet.init((float)Math.cos(angle2)*bulletSpeed, (float)Math.sin(angle2)*bulletSpeed, x, y,
-					(float)(angle2*180/Math.PI) + 90);
+			bullet.init((float)Math.cos(angle2)*bulletSpeed, (float)Math.sin(angle2)*bulletSpeed, 
+					x+gunX, y+gunY, (float)(angle2*180/Math.PI) + 90);
 			
 			Krakjam.gameScreen.agents.addActor(bullet);
 		}
