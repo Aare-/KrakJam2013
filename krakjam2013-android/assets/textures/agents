@@ -3,37 +3,44 @@ agents1.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-base
+turent
   rotate: false
   xy: 2, 2
+  size: 400, 600
+  orig: 400, 600
+  offset: 0, 0
+  index: -1
+base
+  rotate: false
+  xy: 2, 604
   size: 400, 500
   orig: 400, 500
   offset: 0, 0
   index: 1
 alien1
   rotate: false
-  xy: 2, 504
+  xy: 2, 1106
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: 4
 alien1
   rotate: false
-  xy: 204, 504
+  xy: 204, 1106
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: 3
 alien1
   rotate: false
-  xy: 2, 706
+  xy: 2, 1308
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: 2
 alien1
   rotate: false
-  xy: 204, 706
+  xy: 204, 1308
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
@@ -54,14 +61,14 @@ clone
   index: 3
 clone
   rotate: false
-  xy: 406, 504
+  xy: 404, 604
   size: 100, 200
   orig: 100, 200
   offset: 0, 0
   index: 2
 clone
   rotate: false
-  xy: 406, 706
+  xy: 404, 806
   size: 100, 200
   orig: 100, 200
   offset: 0, 0
