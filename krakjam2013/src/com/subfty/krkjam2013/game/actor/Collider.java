@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import com.subfty.krkjam2013.Krakjam;
+import com.subfty.krkjam2013.game.Background;
 import com.subfty.krkjam2013.game.GameScreen;
 import com.subfty.krkjam2013.game.actor.buildings.Building;
 
@@ -21,6 +22,14 @@ public abstract class Collider extends Group {
 	protected float dy = 0;
 	protected float width = 100;
 	protected float height = 200;
+	
+	protected boolean byway = false;
+	protected float bywayX = 0;
+	protected float bywayY = 0;
+	
+	public void init() {
+		byway = false;
+	}
 	
 	public void resolveCollisions() {		
 		LinkedList<Collider> colliders = Krakjam.gameScreen.colliders;
@@ -65,12 +74,20 @@ public abstract class Collider extends Group {
 			
 			if(intminx < intmaxx && intminy < intmaxy && 
 					intmaxx-intminx < intmaxy-intminy) {
+				byway = true;
 				if(cx < x) {
 					x = b.x + b.width+radius+delta;
 				} else {
 					x = b.x - radius-delta;
 				}
-				dx = 0;
+				
+				if(dy > 0) {
+					bywayY = b.y + b.height + Background.TILE_SIZE/2.0f;
+				} else {
+					bywayY = b.y - Background.TILE_SIZE/2.0f;
+				}
+				
+				bywayX = x;
 			}
 		}
 		
@@ -90,11 +107,20 @@ public abstract class Collider extends Group {
 			float cy = b.y + b.height/2.0f;
 			
 			if(intminx < intmaxx && intminy < intmaxy) {
+				byway = true;
 				if(cy < y) {
 					y = b.y + b.height+radius+delta;
 				} else {
 					y = b.y - radius - delta;
 				}
+				
+				if(dx > 0) {
+					bywayX = b.x + b.width+ Background.TILE_SIZE/2.0f;
+				} else {
+					bywayX = b.x - Background.TILE_SIZE/2.0f;
+				}
+				
+				bywayY = y;
 			}
 		}
 		

@@ -68,8 +68,6 @@ public class GameScreen extends Screen{
 			aOverlord.spawn(300 + Krakjam.rand.nextFloat(), 
 						    300 + Krakjam.rand.nextFloat() , ALIEN_TYPE.REGULAR);
 		
-		bOverlord.createNewBuilding(5, 5, B_TYPE.BASE);
-		
 		player.init();
 		////////// 
 		
@@ -80,9 +78,9 @@ public class GameScreen extends Screen{
 		this.addActor(ui);
 		
 		bOverlord.createNewBuilding(5, 5, B_TYPE.BASE);
-		bOverlord.createNewBuilding(5+3, 5, B_TYPE.BASE);
-		bOverlord.createNewBuilding(5, 5+3, B_TYPE.BASE);
-		bOverlord.createNewBuilding(5, 5+6, B_TYPE.BASE);
+		bOverlord.createNewBuilding(5+4, 5, B_TYPE.BASE);
+		bOverlord.createNewBuilding(5, 5+5, B_TYPE.BASE);
+		bOverlord.createNewBuilding(5, 5+9, B_TYPE.BASE);
 	}
 	
 	@Override
@@ -102,6 +100,7 @@ public class GameScreen extends Screen{
 	public void draw (SpriteBatch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		//agents.x += 1;
+		Krakjam.shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
 		
 	}
 }

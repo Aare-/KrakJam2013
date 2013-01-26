@@ -12,7 +12,7 @@ import com.subfty.krkjam2013.util.Art;
 
 public class Alien extends Collider {
 	public enum ALIEN_TYPE{
-		REGULAR(20.0f ,30.0f, "alien1", 5, 80, 80);
+		REGULAR(50.0f ,50.0f, "alien1", 5, 80, 80);
 		
 		public final float MIN_SPEED;
 		public final float MAX_SPEED;
@@ -64,6 +64,8 @@ public class Alien extends Collider {
 		this.y = y;
 		
 		this.life = type.MAX_LIFE;
+		
+		super.init();
 	}
 	
 	public void kill(){
@@ -78,24 +80,38 @@ public class Alien extends Collider {
 		super.act(delta);
 		if(!visible || Krakjam.gameScreen.pause) return;
 		
-		Vector2 tmp = Vector2.tmp;
-		Player p = Krakjam.gameScreen.player;
-		tmp.set(p.x, p.y)
-		   .sub(x, y);
-		
-		if(state == STATE_FOLLOW_PLAYER || tmp.len() < 400) {
-			state = STATE_FOLLOW_PLAYER;
-			tmp.nor().mul(delta*speed);
-			dx += tmp.x;
-			dy += tmp.y;
+		if(byway) {
+			Vector2 tmp = Vector2.tmp;
+			tmp.set(x, y);
+			tmp.sub(bywayX, bywayY);
+			if(tmp.len() > 3) {
+				tmp.set(bywayX, bywayY);
+				tmp.sub(x, y);
+				tmp.nor();
+				
+				dx += tmp.x * delta * speed;
+				dy += tmp.y * delta * speed;
+			}
 		} else {
-			tmp.set((float)Math.cos(velAngle), (float)Math.sin(velAngle)).mul(speed*delta);
-			dx += tmp.x;
-			dy += tmp.y;
-			velAngle += (Krakjam.rand.nextFloat()-0.5f)*2.0f * delta * 6;
+			Vector2 tmp = Vector2.tmp;
+			Player p = Krakjam.gameScreen.player;
+			tmp.set(p.x, p.y)
+			   .sub(x, y);
+			
+			if(state == STATE_FOLLOW_PLAYER || tmp.len() < 400) {
+				state = STATE_FOLLOW_PLAYER;
+				tmp.nor().mul(delta*speed);
+				dx += tmp.x;
+				dy += tmp.y;
+			} else {
+				tmp.set((float)Math.cos(velAngle), (float)Math.sin(velAngle)).mul(speed*delta);
+				dx += tmp.x;
+				dy += tmp.y;
+				velAngle += (Krakjam.rand.nextFloat()-0.5f)*2.0f * delta * 6;
+			}	
 		}
 		
-		//this.x = 
+		byway = false;
 		
 		resolveCollisions();
 	}
