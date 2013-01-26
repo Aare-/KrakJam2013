@@ -45,7 +45,7 @@ public class Player extends Collider {
 		this.SPAWN_Y = spawn_y;
 		
 		step=500f;
-		cursorDistance=50;
+		cursorDistance=100;
 	
 		stats = new Stats();
 		cursor=new Cursor();		
@@ -71,6 +71,9 @@ public class Player extends Collider {
 	
 	@Override
 	public void act(float delta) {
+		final float gunY = 40.0f;
+		final float gunX = -25.0f;
+		
 		move=step*delta;
 		angle=0f;
 
@@ -84,16 +87,16 @@ public class Player extends Collider {
 		Vector2 v=new Vector2();
 		Krakjam.stage.toStageCoordinates(wspx, wspy, v);
 		
-		angle2=(float)Math.atan2(v.y-y, v.x-x);
+		angle2=(float)Math.atan2(v.y-y-gunY, v.x-x);
 				
-		cursor.setX((float)(cursorDistance*Math.cos(angle2))+x);
-		cursor.setY((float)(cursorDistance*Math.sin(angle2))+y);
+		cursor.setX((float)(cursorDistance*Math.cos(angle2))+x+gunX);
+		cursor.setY((float)(cursorDistance*Math.sin(angle2))+y+gunY);
 		
 		resolveCollisions();
 		scrollBackground(delta);
 		
 		if(Gdx.input.justTouched()) {
-			smuga.setPosition(x-smuga.getWidth()/2.0f, y);
+			smuga.setPosition(x-smuga.getWidth()/2.0f+gunX, y+gunY);
 			FadeOutSprite fadeOut = new FadeOutSprite(0.2f, smuga);
 			fadeOut.angle = (float)(angle2*180/Math.PI) - 90;
 			stage.addActor(fadeOut);
@@ -112,8 +115,8 @@ public class Player extends Collider {
 					for(int j=0; j<=MAX_J && !shooted; j++) {
 							float dist = SHOOT_SIZE*j/((float)MAX_J);
 							final float katdiff = (float)Math.PI/6.0f;
-							float px = (float)(Math.cos(angle2+k*katdiff)*dist+x);
-							float py = (float)(Math.sin(angle2+k*katdiff)*dist+y);
+							float px = (float)(Math.cos(angle2+k*katdiff)*dist+x+gunX);
+							float py = (float)(Math.sin(angle2+k*katdiff)*dist+y+gunY);
 						
 							if(px >= a.x- width/2.0f && py >= a.y && px <= a.x+a.width- width/2.0f && py <= a.y+a.height) {
 								a.shoot();
