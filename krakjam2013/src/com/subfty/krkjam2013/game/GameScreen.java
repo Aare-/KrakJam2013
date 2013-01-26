@@ -40,8 +40,8 @@ public class GameScreen extends Screen{
 	public GameScreen(Stage stage){
 		super(stage);
 		
-		background = new Background(this);
 		agents= new Group();
+		background = new Background(this);
 		
 		ui = new Group();
 		

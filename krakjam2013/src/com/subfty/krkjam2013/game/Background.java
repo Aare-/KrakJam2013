@@ -108,13 +108,13 @@ public class Background extends Group{
 		for(int i=0; i<bgSprites.length; i++)
 			for(int j=0; j<bgSprites[i].length; j++){
 				random.setSeed(SEED + 
-							   (int)(this.x / TILE_SIZE) +
-							   (int)(this.y / TILE_SIZE)*bgSprites.length +
+							   (int)(-gs.agents.x / TILE_SIZE) +
+							   (int)(-gs.agents.y / TILE_SIZE)*bgSprites.length +
 							   i + j*bgSprites.length);
 				
 				bgSprites[i][j].setRegion(regions[0]);
-				bgSprites[i][j].setX((i-1) * TILE_SIZE - this.x % TILE_SIZE);
-				bgSprites[i][j].setY((j-1) * TILE_SIZE - this.y % TILE_SIZE);
+				bgSprites[i][j].setX((i-1) * TILE_SIZE + gs.agents.x % TILE_SIZE);
+				bgSprites[i][j].setY((j-1) * TILE_SIZE + gs.agents.y % TILE_SIZE);
 				
 				bgSprites[i][j].setColor(255.0f/255.0f - 60.0f*random.nextFloat()/255.0f, 
 										 45.0f/255.0f  + 50.0f*random.nextFloat()/255.0f, 

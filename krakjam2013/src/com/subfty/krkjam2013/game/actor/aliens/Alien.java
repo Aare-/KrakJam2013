@@ -72,7 +72,7 @@ public class Alien extends Collider {
 		super.act(delta);
 		if(!visible || Krakjam.gameScreen.pause) return;
 		
-		/*Vector2 tmp = Vector2.tmp;
+		Vector2 tmp = Vector2.tmp;
 		Player p = Krakjam.gameScreen.player;
 		tmp.set(p.x, p.y)
 		   .sub(x, y);
@@ -87,11 +87,11 @@ public class Alien extends Collider {
 			dx += tmp.x;
 			dy += tmp.y;
 			velAngle += (Krakjam.rand.nextFloat()-0.5f)*2.0f * delta * 6;
-		}*/
+		}
 		
 		//this.x = 
 		
-		//resolveCollisions();
+		resolveCollisions();
 	}
 
 	@Override
