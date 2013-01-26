@@ -53,6 +53,8 @@ public class Alien extends  Collider {
 		
 		sprite.setPosition(x, y);
 		sprite.draw(batch);
+		
+		drawDebug(batch);
 	}
 
 	@Override

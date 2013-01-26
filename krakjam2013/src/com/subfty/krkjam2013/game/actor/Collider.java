@@ -2,6 +2,8 @@ package com.subfty.krkjam2013.game.actor;
 
 import java.util.LinkedList;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.subfty.krkjam2013.Krakjam;
@@ -59,5 +61,15 @@ public abstract class Collider extends Actor {
 		y += dy;
 		
 		dx = dy = 0;
+	}
+	
+	public void drawDebug(SpriteBatch batch) {
+		batch.end();
+		
+		Krakjam.shapeRenderer.begin(ShapeType.FilledCircle);
+		Krakjam.shapeRenderer.filledCircle(x, y, radius);
+		Krakjam.shapeRenderer.end();
+		
+		batch.begin();
 	}
 }

@@ -8,6 +8,7 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.subfty.krkjam2013.game.GameScreen;
@@ -28,6 +29,7 @@ public class Krakjam implements ApplicationListener {
 	public static Stage stage;
 	public static TweenManager tM;
 	public static Art art;
+	public static ShapeRenderer shapeRenderer;
 	public static Random rand;
 	
 	public static Vector2 playerPos = new Vector2(400, 100);
@@ -53,6 +55,7 @@ public class Krakjam implements ApplicationListener {
 		stage = new Stage(STAGE_W, STAGE_H, false);
 		art = new Art();
 		tM = new TweenManager();
+		shapeRenderer = new ShapeRenderer();
 		rand = new Random(System.currentTimeMillis());
 		Gdx.input.setInputProcessor(stage);
 	
