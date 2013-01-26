@@ -44,12 +44,12 @@ public abstract class Collider extends Group {
 		
 		Array<Building> buildings = Krakjam.gameScreen.background.getBuildings();
 		
+		x += dx;
+		
 		float minx = x - radius, maxx = x + radius;
 		float miny = y - radius, maxy = y + radius;
 		
 		float intminx, intmaxx, intmaxy, intminy;
-		
-		x += dx;
 		
 		float delta = 0.001f;
 		
@@ -65,15 +65,18 @@ public abstract class Collider extends Group {
 			
 			if(intminx < intmaxx && intminy < intmaxy) {
 				if(cx < x) {
-					x = b.x + b.width+radius;
+					x = b.x + b.width+radius+delta;
 				} else {
-					x = b.x - radius;
+					x = b.x - radius-delta;
 				}
 				dx = 0;
 			}
 		}
 		
 		y += dy;
+		
+		minx = x - radius; maxx = x + radius;
+		miny = y - radius; maxy = y + radius;
 		
 		// kolizje dla y
 		for(Building b: buildings) {
@@ -87,9 +90,9 @@ public abstract class Collider extends Group {
 			
 			if(intminx < intmaxx && intminy < intmaxy) {
 				if(cy < y) {
-					y = b.y + b.height+radius;
+					y = b.y + b.height+radius+delta;
 				} else {
-					y = b.y - radius;
+					y = b.y - radius - delta;
 				}
 			}
 		}
