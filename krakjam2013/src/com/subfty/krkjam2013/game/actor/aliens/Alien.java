@@ -5,10 +5,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Array;
 import com.subfty.krkjam2013.Krakjam;
 import com.subfty.krkjam2013.game.Background;
 import com.subfty.krkjam2013.game.actor.Collider;
 import com.subfty.krkjam2013.game.actor.Player;
+import com.subfty.krkjam2013.game.actor.buildings.Building;
 import com.subfty.krkjam2013.util.Art;
 
 public class Alien extends Collider {
@@ -45,6 +47,8 @@ public class Alien extends Collider {
 	public float walkingTime;
 	
 	public float minFollowTime;
+	
+	public Building attackedBuilding = null;
 	
 	private float lastChangeSpriteX=0;
 	private float lastChangeSpriteY=0;
@@ -145,6 +149,35 @@ public class Alien extends Collider {
 			tmp.set(p.x, p.y)
 			   .sub(x, y);
 			
+			if(tmp.len() < 300)
+				state = STATE_FOLLOW_PLAYER;
+			
+			// Atakuj budynki
+			if(state != STATE_FOLLOW_PLAYER && state != STATE_ATTACK_BUILDING) {
+				
+				Array<Building> buildings = Krakjam.gameScreen.background.getBuildings();
+				
+				float minBuildingDistance = 100000;
+				
+				for(int i=0; i<buildings.size; i++) {
+					Building b = buildings.get(i);
+					
+					float cx = b.x + b.width/2.0f;
+					float cy = b.y + b.height/2.0f;
+					
+					float dist = Vector2.tmp.set(x, y).sub(cx, cy).len2();
+					
+					if(dist < minBuildingDistance) {
+						minBuildingDistance = dist;
+						attackedBuilding = b;
+					}
+				}
+				
+				if(minBuildingDistance < 400) {
+					setState(STATE_ATTACK_BUILDING);
+				}
+			}
+			
 			if(state == STATE_FOLLOW_PLAYER) {
 				minFollowTime -= delta;
 				if(tmp.len() < 400 || minFollowTime > 0) {
@@ -156,11 +189,17 @@ public class Alien extends Collider {
 					state = STATE_RESTING;
 				}
 			} else if(state == STATE_ATTACK_BUILDING) {
-				
+				if(attackedBuilding == null) { // building.jestNieZniszczony
+					float 	cx = attackedBuilding.x + attackedBuilding.width, 
+							cy = attackedBuilding.y + attackedBuilding.height;
+					tmp.set(cx, cy).sub(x, y);
+					tmp.nor().mul(delta*speed);
+					dx += tmp.x;
+					dy += tmp.y;
+				} else
+					setState(STATE_RESTING);
 			} else if(state == STATE_RESTING)
 			{
-				if(tmp.len() < 300)
-					state = STATE_FOLLOW_PLAYER;
 				restingTime -= delta;
 				if(restingTime <= 0) {
 					setState(STATE_WALKING);
@@ -213,6 +252,11 @@ public class Alien extends Collider {
 		resolveCollisions();
 	}
 
+	public void attackBuilding(Building building) {
+		attackedBuilding = building;
+		state = STATE_ATTACK_BUILDING;
+	}
+	
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
