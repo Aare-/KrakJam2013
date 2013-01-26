@@ -71,6 +71,8 @@ public class Krakjam implements ApplicationListener {
 		
 		screens[S_GAME] = gameScreen;
 		
+		Bullet.load();
+		
 		for(int i=0; i<screens.length; i++)
 			screens[i].visible = false;
 		

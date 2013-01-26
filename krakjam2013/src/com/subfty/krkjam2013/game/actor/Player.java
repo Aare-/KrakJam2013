@@ -122,19 +122,26 @@ public class Player extends Collider {
 			fadeOut.angle = (float)(angle2*180/Math.PI) - 90;
 			stage.addActor(fadeOut);
 			
+			Bullet bullet = new Bullet();
+			Vector2 tmp = Vector2.tmp;
+			tmp.set(v.y-y-gunY, v.x-x);
+			tmp.nor().mul(10);
+			bullet.init(tmp.x, tmp.y);
+			bullet.init(x+gunX-bg.x, y+gunY-bg.y);
+			
+			stage.addActor(bullet);
+			
 			Array<Alien> aliens = Krakjam.gameScreen.aOverlord.aliens;
 			
 			final float SHOOT_SIZE = 200.0f;
-			
-			boolean shooted = false;
 			
 			for(int i=0; i<aliens.size; i++) {
 				Alien a = aliens.get(i);
 				if(a.visible) {
 					int hits = 0;
 					final int MAX_J = 20;
-					for(int k=-1; k<2 && !shooted; k++) {
-					for(int j=0; j<=MAX_J && !shooted; j++) {
+					for(int k=-1; k<2; k++) {
+					for(int j=0; j<=MAX_J; j++) {
 							float dist = SHOOT_SIZE*j/((float)MAX_J);
 							final float katdiff = (float)Math.PI/6.0f;
 							float px = (float)(Math.cos(angle2+k*katdiff)*dist+x+gunX);
@@ -142,7 +149,6 @@ public class Player extends Collider {
 						
 							if(px >= a.x- width/2.0f && py >= a.y && px <= a.x+a.width- width/2.0f && py <= a.y+a.height) {
 								a.shoot();
-								shooted = true;
 								hits++;
 								break;
 							}
