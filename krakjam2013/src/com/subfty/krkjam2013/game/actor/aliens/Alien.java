@@ -11,12 +11,22 @@ import com.subfty.krkjam2013.util.Art;
 
 public class Alien extends Collider {
 	public enum ALIEN_TYPE{
-		REGULAR;
+		REGULAR(20.0f ,30.0f, "alien");
+		
+		public final float MIN_SPEED;
+		public final float MAX_SPEED;
+		public final String SPRITE;
+		
+		private ALIEN_TYPE(float MIN_SPEED, float MAX_SPEED, String SPRITE) {
+			this.MIN_SPEED = MIN_SPEED;
+			this.MAX_SPEED = MAX_SPEED;
+			this.SPRITE = SPRITE;
+		}
 	}
 	
 	private ALIEN_TYPE type;
 	
-	public float speed = 20;
+	public float speed = 0;
 	private Sprite sprite;
 	private float velAngle;
 	
@@ -26,15 +36,21 @@ public class Alien extends Collider {
 	private int state = STATE_WALKING;
 	
 	public Alien(){
+		sprite = new Sprite();
+		
 		this.visible = false;
 	}
 	
+    //INITIATING AND KILLING ALIEN
 	public void init(ALIEN_TYPE type, float x, float y){
 		this.type = type;
 		this.visible = true;
 		
 		velAngle = 0;
-		sprite = Krakjam.art.atlases[Art.A_ENTITIES].createSprite("alien");
+		
+		speed = (type.MAX_SPEED-type.MIN_SPEED)*Krakjam.rand.nextFloat()+type.MIN_SPEED;
+		sprite.setRegion(Krakjam.art.atlases[Art.A_ENTITIES].findRegion(type.SPRITE));
+		
 		this.x = x;
 		this.y = y;
 	}
@@ -44,6 +60,8 @@ public class Alien extends Collider {
 	}
 	
 	public void act(float delta) {
+		if(!visible) return;
+		
 		Vector2 tmp = Vector2.tmp;
 		Player p = Krakjam.gameScreen.player;
 		tmp.set(p.x, p.y)
@@ -74,7 +92,6 @@ public class Alien extends Collider {
 
 	@Override
 	public Actor hit(float x, float y) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

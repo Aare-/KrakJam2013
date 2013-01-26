@@ -8,16 +8,18 @@ public class BuildingsOverlord {
 	
 	//TYPE OF BUILDING
 	public enum B_TYPE{
-		BASE(3, 3, "base1");
+		BASE(3, 3, "base1", "Main Base");
 		
 		public final int width;
 		public final int height;
 		public final String img;
+		public final String desc;
 		
-		B_TYPE(int width, int height, String img){
+		B_TYPE(int width, int height, String img, String desc){
 			this.width = width;
 			this.height = height;
 			this.img = img;
+			this.desc = desc;
 		}
 	}
 	
@@ -36,7 +38,7 @@ public class BuildingsOverlord {
 			if(!buildings.get(i).visible){
 				switch(type){
 				case BASE:
-					buildings.get(i).init(tileX, tileY, type.width, type.height, type.img);
+					buildings.get(i).init(tileX, tileY, type);
 					break;
 				}
 				

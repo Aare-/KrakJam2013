@@ -10,11 +10,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.subfty.krkjam2013.Krakjam;
 import com.subfty.krkjam2013.game.actor.Collider;
 import com.subfty.krkjam2013.game.actor.Player;
-import com.subfty.krkjam2013.game.actor.aliens.Alien;
 import com.subfty.krkjam2013.game.actor.aliens.Alien.ALIEN_TYPE;
 import com.subfty.krkjam2013.game.actor.aliens.AlienOverlord;
 import com.subfty.krkjam2013.game.actor.buildings.BuildingsOverlord;
 import com.subfty.krkjam2013.game.actor.buildings.BuildingsOverlord.B_TYPE;
+import com.subfty.krkjam2013.game.statsscreen.StatsScreen;
 import com.subfty.krkjam2013.util.Screen;
 
 public class GameScreen extends Screen{
@@ -23,6 +23,7 @@ public class GameScreen extends Screen{
 	public Background background;
 	public Group agents;
 	public Group ui;
+	public StatsScreen stats;
 	
 	public Player player;
 	public BuildingsOverlord bOverlord;
@@ -35,20 +36,28 @@ public class GameScreen extends Screen{
 		
 		background = new Background(this);
 		agents= new Group();
+		
 		ui = new Group();
+		
 		bOverlord = new BuildingsOverlord(background, agents);
 		player = new Player(background, 0,0);
+		stats = new StatsScreen(player);
 		aOverlord = new AlienOverlord(background, this);
+		
+		ui.addActor(stats);
 		
 		agents.addActor(player);
 		colliders.add(player);
 		
-		////////// ALIENS, debug
+		////////// DEBUG
 		
 		for(int i=0; i<0; i++)
 			aOverlord.spawn(300 + Krakjam.rand.nextFloat(), 
 						    300 + Krakjam.rand.nextFloat() , ALIEN_TYPE.REGULAR);
 		
+		bOverlord.createNewBuilding(5, 5, B_TYPE.BASE);
+		
+		player.init();
 		////////// 
 		
 		this.addActor(background);
@@ -77,6 +86,5 @@ public class GameScreen extends Screen{
 	@Override
 	public void draw (SpriteBatch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		
 	}
 }
