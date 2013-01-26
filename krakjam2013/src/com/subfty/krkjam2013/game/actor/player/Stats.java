@@ -60,4 +60,8 @@ public class Stats {
 				clearAll(n.unlocks.get(i));
 			}
 	}
+	
+	public float getRateOfFire(){
+		return 0.5f;
+	}
 }

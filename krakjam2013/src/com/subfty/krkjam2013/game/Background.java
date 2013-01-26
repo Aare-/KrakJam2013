@@ -1,6 +1,5 @@
 package com.subfty.krkjam2013.game;
 
-import java.util.Comparator;
 import java.util.Hashtable;
 import java.util.Random;
 

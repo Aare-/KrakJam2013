@@ -20,6 +20,7 @@ public class Bullet extends Group {
 	public float angle;
 	
 	public final float bulletRadius = 10;
+	private float lifeTime;
 	
 	static private Sprite sprite;
 	
@@ -29,6 +30,7 @@ public class Bullet extends Group {
 	}
 	
 	public Bullet() {
+		this.visible = false;
 	}
 	
 	public void init(float dx, float dy, float x, float y, float angle) {
@@ -38,10 +40,21 @@ public class Bullet extends Group {
 		
 		originx = x;
 		originy = y;
+		lifeTime = 10;
+		this.visible = true;
+	}
+	public void kill(){
+		this.visible = false;
 	}
 	
 	@Override
 	public void act(float delta) {
+		if(!this.visible || Krakjam.gameScreen.pause) return;
+		
+		lifeTime -= delta;
+		if(lifeTime < 0)
+			kill();
+		
 		originx += dx * delta;
 		originy += dy * delta;
 		
@@ -65,7 +78,7 @@ public class Bullet extends Group {
 				stage.addActor(points);
 				a.shoot();
 				
-				Krakjam.gameScreen.agents.removeActor(this);
+				kill();
 				break;
 			}
 		}
@@ -91,7 +104,7 @@ public class Bullet extends Group {
 				tmp.sub(x, y);
 				
 				if(tmp.len() < radius + bulletRadius) {
-					Krakjam.gameScreen.agents.removeActor(this);
+					kill();
 					break;
 				}
 					

@@ -5,14 +5,11 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Logger;
 import com.subfty.krkjam2013.Krakjam;
 import com.subfty.krkjam2013.game.Background;
-import com.subfty.krkjam2013.game.actor.aliens.Alien;
 import com.subfty.krkjam2013.game.actor.player.Stats;
 import com.subfty.krkjam2013.util.Art;
 
@@ -34,6 +31,12 @@ public class Player extends Collider {
 	public Stats stats;
 	public int exp;
 	
+	//SHOOTING
+	private Array<Bullet> bullets = new Array<Bullet>();
+	public float rateOfFire;
+	private float gunX = -25.0f;
+	private float gunY = 40.0f;
+	
     //VISUALS
 	private TextureRegion playerSprites[];
 	private Sprite image;
@@ -45,7 +48,6 @@ public class Player extends Collider {
 	
 	public Player(Background bg, float spawn_x, float spawn_y){
 		this.bg = bg;
-		
 		
 		this.SPAWN_X = spawn_x;
 		this.SPAWN_Y = spawn_y;
@@ -86,8 +88,6 @@ public class Player extends Collider {
 	public void act(float delta) {
 		if(!this.visible || Krakjam.gameScreen.pause)
 			return;
-		final float gunY = 40.0f;
-		final float gunX = -25.0f;
 		move=step*delta;
 		angle=0f;
 
@@ -114,27 +114,23 @@ public class Player extends Collider {
 		
 		angle2=(float)Math.atan2(v.y, v.x);
 				
-		cursor.setX((float)(cursorDistance*Math.cos(angle2))+x+gunX);
-		cursor.setY((float)(cursorDistance*Math.sin(angle2))+y+gunY);
+		cursor.setX((float)(cursorDistance*Math.cos(angle2))+x);//+gunX);
+		cursor.setY((float)(cursorDistance*Math.sin(angle2))+y);//+gunY);
 		
 		resolveCollisions();
 		scrollBackground(delta);
 		
-		if(Gdx.input.justTouched()) {
-			Bullet bullet = new Bullet();
-			final float bulletSpeed = 400;
-			bullet.init((float)Math.cos(angle2)*bulletSpeed, (float)Math.sin(angle2)*bulletSpeed, 
-					x+gunX, y+gunY, (float)(angle2*180/Math.PI) + 90);
-			
-			Krakjam.gameScreen.agents.addActor(bullet);
-		}
+		
+		rateOfFire += delta;
+		if(Gdx.input.isTouched())
+			fire(delta);		
 		
 		//UPDATING LIFE
 		life -= delta;
-		if(life < 0){
+		if(life < 0)
 			kill();
-		}
 	}
+	
 	private void updateInput(){
 		if(Gdx.input.isKeyPressed(Keys.W) && Gdx.input.isKeyPressed(Keys.D))
 			angle=(float)Math.PI/4.0f;
@@ -154,8 +150,31 @@ public class Player extends Collider {
 			angle=0f;
 		else
 			move=0f;
+	}
+	
+	//SHOOTING
+	private void fire(float delta){
+		if(rateOfFire > 0){
+			rateOfFire = -stats.getRateOfFire();
+			
+			Bullet bullet = obtainBullet();
+			final float bulletSpeed = 400;
+			bullet.init((float)Math.cos(angle2)*bulletSpeed, (float)Math.sin(angle2)*bulletSpeed, 
+					x+gunX, y+gunY, (float)(angle2*180/Math.PI) + 90);
+		}
 		
 	}
+	private Bullet obtainBullet(){
+		for(int i=0; i<bullets.size; i++)
+			if(!bullets.get(i).visible)
+				return bullets.get(i);
+		
+		Bullet b = new Bullet();
+		bullets.add(b);
+		Krakjam.gameScreen.agents.addActor(b);
+		return obtainBullet();
+	}
+	
 	private void scrollBackground(float delta){
 		float speed = 3f;
 
