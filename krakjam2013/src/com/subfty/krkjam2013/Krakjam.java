@@ -75,7 +75,6 @@ public class Krakjam implements ApplicationListener {
 
 	@Override
 	public void dispose() {
-	
 	}
 
 	@Override
@@ -83,17 +82,13 @@ public class Krakjam implements ApplicationListener {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
-		
-		
-		
-		
 		delta += Gdx.graphics.getRawDeltaTime();
 		while(delta > TARGET_FPS){
 			delta -= TARGET_FPS;
 		    tM.update(TARGET_FPS);
 		    stage.act(TARGET_FPS);
 		}
-		 
+		
 		stage.draw();
 	}
 	

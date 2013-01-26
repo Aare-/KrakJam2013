@@ -5,21 +5,24 @@ import java.util.Random;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.utils.Array;
 import com.subfty.krkjam2013.Krakjam;
+import com.subfty.krkjam2013.game.actor.buildings.Building;
 import com.subfty.krkjam2013.util.Art;
 
 public class Background extends Group{
 	
-	private final static float TILE_SIZE = 50;
+	public final static float TILE_SIZE = 50;
 	private final long SEED = -123412431;
 	private Random random;
 	
-	private Sprite bgSprites[][]= new Sprite[(int) (Krakjam.STAGE_W / TILE_SIZE + 2)]
-			  								[(int) (Krakjam.STAGE_H / TILE_SIZE + 2)]; 
+	private Sprite bgSprites[][]= new Sprite[(int) (Krakjam.STAGE_W / TILE_SIZE + 3)]
+			  								[(int) (Krakjam.STAGE_H / TILE_SIZE + 3)]; 
 	
 	private TextureRegion regions[];
+	
+	private Array<Building> buildings = new Array<Building>();
 	
     //INIT
 	public Background(){
@@ -34,12 +37,14 @@ public class Background extends Group{
 		for(int i=0; i<bgSprites.length; i++)
 			for(int j=0; j<bgSprites[i].length; j++){
 				bgSprites[i][j] = new Sprite();
-				bgSprites[i][j].setSize(TILE_SIZE, TILE_SIZE);
+				bgSprites[i][j].setSize(TILE_SIZE*1.01f, TILE_SIZE*1.01f);
 			}
 		
 		regions = new TextureRegion[2];
 		regions[0] = Krakjam.art.atlases[Art.A_BACKGROUND].findRegion("rock",1);
 		regions[1] = Krakjam.art.atlases[Art.A_BACKGROUND].findRegion("rock",2);
+		
+		buildings.clear();
 		
 		act(0);
 	}
@@ -53,16 +58,16 @@ public class Background extends Group{
 							   i + j*bgSprites.length);
 				
 				bgSprites[i][j].setRegion(regions[0]);
-				bgSprites[i][j].setX(i * TILE_SIZE - this.x % TILE_SIZE);
-				bgSprites[i][j].setY(j * TILE_SIZE - this.y % TILE_SIZE);
+				bgSprites[i][j].setX((i-1) * TILE_SIZE - this.x % TILE_SIZE);
+				bgSprites[i][j].setY((j-1) * TILE_SIZE - this.y % TILE_SIZE);
 				
 				bgSprites[i][j].setColor(255.0f/255.0f - 60.0f*random.nextFloat()/255.0f, 
 										 45.0f/255.0f  + 50.0f*random.nextFloat()/255.0f, 
 										 23.0f/255.0f  + 50.0f*random.nextFloat()/255.0f, 1);
 			}
 		
-		this.x += 120f*delta;
-		this.y += 120f*delta;
+		this.x -= 10f*delta;
+		this.y -= 10f*delta;
 	}
 	
 	public void draw(SpriteBatch batch, float parentAlpha) {
@@ -73,10 +78,25 @@ public class Background extends Group{
 	
 	//OCCUPATION
 	public boolean isOccupied(int x, int y){
+		for(int i=0; i<buildings.size; i++)
+			if(bContains(buildings.get(i), x, y))
+				return true;
+		
+		return false;
+	}
+	private boolean bContains(Building b, int x, int y){
+		if(b.tileX <= x && b.tileX + b.tileWidth > x &&
+		   b.tileY <= y && b.tileY + b.tileHeight > y)
+			return true;
 		return false;
 	}
 	
-	public void registerBuilding(Actor building){
+	public void registerBuilding(Building building){
+		buildings.add(building);
 		
+	
+	}
+	public void unregisterBuilding(Building building){
+		buildings.removeValue(building, true);
 	}
 }

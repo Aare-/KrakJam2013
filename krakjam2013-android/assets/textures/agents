@@ -1,0 +1,12 @@
+
+agents1.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+base1
+  rotate: false
+  xy: 2, 2
+  size: 400, 500
+  orig: 400, 500
+  offset: 0, 0
+  index: -1

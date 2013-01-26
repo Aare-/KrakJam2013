@@ -11,8 +11,9 @@ import com.subfty.krkjam2013.game.actor.Alien;
 import com.subfty.krkjam2013.game.actor.Collider;
 import com.subfty.krkjam2013.game.actor.FadeOutSprite;
 import com.subfty.krkjam2013.game.actor.Player;
+import com.subfty.krkjam2013.game.actor.buildings.BuildingsOverlord;
+import com.subfty.krkjam2013.game.actor.buildings.BuildingsOverlord.B_TYPE;
 import com.subfty.krkjam2013.util.Screen;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 
 public class GameScreen extends Screen{
 
@@ -22,6 +23,7 @@ public class GameScreen extends Screen{
 	public Group ui;
 	
 	public Player player;
+	public BuildingsOverlord bOverlord;
 
 	public LinkedList<Collider> colliders = new LinkedList<Collider>();
 	
@@ -31,6 +33,7 @@ public class GameScreen extends Screen{
 		background = new Background();
 		agents= new Group();
 		ui = new Group();
+		bOverlord = new BuildingsOverlord(background, agents);
 		
 		player = new Player(0,0);
 		agents.addActor(player);
@@ -51,6 +54,8 @@ public class GameScreen extends Screen{
 		this.addActor(background);
 		this.addActor(agents);
 		this.addActor(ui);
+		
+		bOverlord.createNewBuilding(5, 5, B_TYPE.BASE);
 	}
 	
 	@Override
@@ -61,7 +66,7 @@ public class GameScreen extends Screen{
 		agents.sortChildren(new Comparator<Actor>() {
 			@Override
 			public int compare(Actor arg0, Actor arg1) {
-				return (int)(arg0.y - arg1.y);
+				return (int)(arg1.y - arg0.y);
 			}
 		});
 	}
