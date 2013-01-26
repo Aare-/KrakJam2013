@@ -1,16 +1,21 @@
-package com.subfty.krkjam2013.game.actor;
+package com.subfty.krkjam2013.game.actor.aliens;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.subfty.krkjam2013.Krakjam;
+import com.subfty.krkjam2013.game.actor.Collider;
+import com.subfty.krkjam2013.game.actor.Player;
 import com.subfty.krkjam2013.util.Art;
 
-public class Alien extends  Collider {
+public class Alien extends Collider {
+	public enum ALIEN_TYPE{
+		REGULAR;
+	}
+	
+	private ALIEN_TYPE type;
+	
 	public float speed = 20;
 	private Sprite sprite;
 	private float velAngle;
@@ -20,17 +25,29 @@ public class Alien extends  Collider {
 	
 	private int state = STATE_WALKING;
 	
-	 public void load() {
-		 velAngle = 0;
-		 sprite = Krakjam.art.atlases[Art.A_ENTITIES].createSprite("alien");
-		 x = 300 + Krakjam.rand.nextFloat();
-		 y = 300 + Krakjam.rand.nextFloat();
+	public Alien(){
+		this.visible = false;
+	}
+	
+	public void init(ALIEN_TYPE type, float x, float y){
+		this.type = type;
+		this.visible = true;
+		
+		velAngle = 0;
+		sprite = Krakjam.art.atlases[Art.A_ENTITIES].createSprite("alien");
+		this.x = x;
+		this.y = y;
+	}
+	
+	public void kill(){
+		this.visible = false;
 	}
 	
 	public void act(float delta) {
 		Vector2 tmp = Vector2.tmp;
 		Player p = Krakjam.gameScreen.player;
-		tmp.set(p.x, p.y).sub(x, y);
+		tmp.set(p.x, p.y)
+		   .sub(x, y);
 		
 		if(state == STATE_FOLLOW_PLAYER || tmp.len() < 400) {
 			state = STATE_FOLLOW_PLAYER;

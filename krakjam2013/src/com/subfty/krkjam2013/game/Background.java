@@ -24,9 +24,11 @@ public class Background extends Group{
 	private TextureRegion regions[];
 	
 	private Array<Building> buildings = new Array<Building>();
+	private GameScreen gs;
 	
     //INIT
-	public Background(){
+	public Background(GameScreen gs){
+		this.gs = gs;
 		random = new Random(this.SEED);
 		init();
 	}
@@ -72,6 +74,12 @@ public class Background extends Group{
 		for(int i=0; i<bgSprites.length; i++)
 			for(int j=0; j<bgSprites[i].length; j++)
 				bgSprites[i][j].draw(batch, parentAlpha);
+	}
+	
+	public void scroll(float x, float y){
+		gs.aOverlord.bgScrolled(x, y);
+		this.x += x;
+		this.y += y;
 	}
 	
 	//OCCUPATION
