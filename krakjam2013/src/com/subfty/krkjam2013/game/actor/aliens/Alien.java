@@ -69,7 +69,7 @@ public class Alien extends Collider {
 	}
 	
 	public void act(float delta) {
-		if(!visible) return;
+		if(!visible || Krakjam.gameScreen.pause) return;
 		
 		Vector2 tmp = Vector2.tmp;
 		Player p = Krakjam.gameScreen.player;

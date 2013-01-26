@@ -71,6 +71,8 @@ public class Player extends Collider {
 	
 	@Override
 	public void act(float delta) {
+		if(!this.visible || Krakjam.gameScreen.pause)
+			return;
 		move=step*delta;
 		angle=0f;
 

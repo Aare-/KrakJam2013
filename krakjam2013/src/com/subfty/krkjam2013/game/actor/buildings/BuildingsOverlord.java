@@ -2,9 +2,10 @@ package com.subfty.krkjam2013.game.actor.buildings;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
+import com.subfty.krkjam2013.Krakjam;
 import com.subfty.krkjam2013.game.Background;
 
-public class BuildingsOverlord {
+public class BuildingsOverlord extends Group{
 	
 	//TYPE OF BUILDING
 	public enum B_TYPE{
@@ -31,6 +32,11 @@ public class BuildingsOverlord {
 	public BuildingsOverlord(Background bg, Group agents){
 		this.bg = bg;
 		this.agents = agents;
+	}
+	
+	public void act(float delta) {
+		if(Krakjam.gameScreen.pause) return;
+		//LOGIC
 	}
 	
 	public void createNewBuilding(int tileX, int tileY, B_TYPE type){
