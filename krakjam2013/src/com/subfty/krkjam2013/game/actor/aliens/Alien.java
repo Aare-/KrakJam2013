@@ -5,24 +5,29 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.subfty.krkjam2013.Krakjam;
+import com.subfty.krkjam2013.game.Background;
 import com.subfty.krkjam2013.game.actor.Collider;
 import com.subfty.krkjam2013.game.actor.Player;
 import com.subfty.krkjam2013.util.Art;
 
 public class Alien extends Collider {
 	public enum ALIEN_TYPE{
-		REGULAR(20.0f ,30.0f, "alien", 5);
+		REGULAR(20.0f ,30.0f, "alien1", 5, 80, 80);
 		
 		public final float MIN_SPEED;
 		public final float MAX_SPEED;
 		public final String SPRITE;
 		public final int MAX_LIFE;
+		public final float WIDTH;
+		public final float HEIGHT;
 		
-		private ALIEN_TYPE(float MIN_SPEED, float MAX_SPEED, String SPRITE, int MAX_LIFE) {
+		private ALIEN_TYPE(float MIN_SPEED, float MAX_SPEED, String SPRITE, int MAX_LIFE, float WIDTH, float HEIGHT) {
 			this.MIN_SPEED = MIN_SPEED;
 			this.MAX_SPEED = MAX_SPEED;
 			this.SPRITE = SPRITE;
 			this.MAX_LIFE = MAX_LIFE;
+			this.WIDTH = WIDTH;
+			this.HEIGHT = HEIGHT;
 		}
 	}
 	
@@ -52,7 +57,8 @@ public class Alien extends Collider {
 		velAngle = 0;
 		
 		speed = (type.MAX_SPEED-type.MIN_SPEED)*Krakjam.rand.nextFloat()+type.MIN_SPEED;
-		sprite.setRegion(Krakjam.art.atlases[Art.A_ENTITIES].findRegion(type.SPRITE));
+		sprite.setRegion(Krakjam.art.atlases[Art.A_AGENTS].findRegion(type.SPRITE));
+		sprite.setSize(type.WIDTH, type.HEIGHT);
 		
 		this.x = x;
 		this.y = y;
@@ -101,7 +107,7 @@ public class Alien extends Collider {
 		sprite.setPosition(x-sprite.getWidth()/2.0f, y);
 		sprite.draw(batch);
 		
-		drawDebug(batch);
+		//drawDebug(batch);
 	}
 
 	public void shoot() {

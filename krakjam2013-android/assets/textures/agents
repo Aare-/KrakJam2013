@@ -10,6 +10,13 @@ base
   orig: 400, 500
   offset: 0, 0
   index: 1
+alien1
+  rotate: false
+  xy: 2, 504
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: 1
 clone
   rotate: false
   xy: 404, 2
@@ -26,14 +33,14 @@ clone
   index: 3
 clone
   rotate: false
-  xy: 2, 504
+  xy: 204, 504
   size: 100, 200
   orig: 100, 200
   offset: 0, 0
   index: 2
 clone
   rotate: false
-  xy: 2, 706
+  xy: 306, 504
   size: 100, 200
   orig: 100, 200
   offset: 0, 0
