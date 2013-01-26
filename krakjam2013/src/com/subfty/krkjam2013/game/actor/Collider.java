@@ -20,6 +20,8 @@ public abstract class Collider extends Group {
 	public float radius = 20;
 	protected float dx = 0;
 	protected float dy = 0;
+	protected float lastdx = 0;
+	protected float lastdy = 0;
 	protected float width = 100;
 	protected float height = 200;
 	
@@ -125,6 +127,9 @@ public abstract class Collider extends Group {
 				bywayY = y;
 			}
 		}
+		
+		lastdx = dx;
+		lastdy = dy;
 		
 		dx = dy = 0;
 	}

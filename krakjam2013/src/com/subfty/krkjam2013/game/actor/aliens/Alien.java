@@ -36,6 +36,36 @@ public class Alien extends Collider {
 		}
 	}
 	
+	public final float MAX_RESTING_TIME = 5.0f;
+	public final float MIN_RESTING_TIME = 4.0f;
+	public float restingTime;
+	
+	public final float MAX_WALKING_TIME = 5.0f;
+	public final float MIN_WALKING_TIME = 4.0f;
+	public float walkingTime;
+	
+	public float minFollowTime;
+	
+	private float lastChangeSpriteX=0;
+	private float lastChangeSpriteY=0;
+	
+	public void setState(int alienState) {
+		if(alienState == STATE_RESTING) {
+			state = STATE_RESTING;
+			float k = Krakjam.rand.nextFloat();
+			restingTime = MIN_RESTING_TIME*k + MIN_RESTING_TIME*(k-1);
+		} else if(alienState == STATE_WALKING) {
+			state = STATE_WALKING;
+			float k = Krakjam.rand.nextFloat();
+			walkingTime = MIN_WALKING_TIME*k + MIN_WALKING_TIME*(k-1);
+		} else if(alienState == STATE_FOLLOW_PLAYER) {
+			state = STATE_FOLLOW_PLAYER;
+			minFollowTime = 4;
+		} else { // STATE_ATTACK_BUILDING
+			state = STATE_ATTACK_BUILDING;
+		}
+	}
+	
 	private ALIEN_TYPE type;
 	
 	private int life;
@@ -45,6 +75,8 @@ public class Alien extends Collider {
 	
 	public static int STATE_WALKING			= 0;
 	public static int STATE_FOLLOW_PLAYER 	= 1;
+	public static int STATE_ATTACK_BUILDING = 2;
+	public static int STATE_RESTING			= 3;
 	
 	private int state = STATE_WALKING;
 	
@@ -113,27 +145,67 @@ public class Alien extends Collider {
 			tmp.set(p.x, p.y)
 			   .sub(x, y);
 			
-			if(state == STATE_FOLLOW_PLAYER || tmp.len() < 400) {
-				state = STATE_FOLLOW_PLAYER;
-				tmp.nor().mul(delta*speed);
-				dx += tmp.x;
-				dy += tmp.y;
-			} else {
+			if(state == STATE_FOLLOW_PLAYER) {
+				minFollowTime -= delta;
+				if(tmp.len() < 400 || minFollowTime > 0) {
+					state = STATE_FOLLOW_PLAYER;
+					tmp.nor().mul(delta*speed);
+					dx += tmp.x;
+					dy += tmp.y;
+				} else {
+					state = STATE_RESTING;
+				}
+			} else if(state == STATE_ATTACK_BUILDING) {
+				
+			} else if(state == STATE_RESTING)
+			{
+				if(tmp.len() < 300)
+					state = STATE_FOLLOW_PLAYER;
+				restingTime -= delta;
+				if(restingTime <= 0) {
+					setState(STATE_WALKING);
+				}
+			} else { // STATE_WALKING
 				tmp.set((float)Math.cos(velAngle), (float)Math.sin(velAngle)).mul(speed*delta);
 				dx += tmp.x;
 				dy += tmp.y;
 				velAngle += (Krakjam.rand.nextFloat()-0.5f)*2.0f * delta * 6;
-			}	
+				
+				walkingTime -= delta;
+				if(walkingTime <= 0) {
+					setState(STATE_RESTING);
+				}
+			}
 		}
 		
-		if(dx < -0.1f)
-			sprite.setRegion(type.sides[2]);
-		else if(dx > 0.1f)
-			sprite.setRegion(type.sides[3]);
-		else if(dy > 0.1f)
-			sprite.setRegion(type.sides[1]);
-		else
-			sprite.setRegion(type.sides[0]);
+		if(Vector2.tmp.set(x, y).sub(lastChangeSpriteX, lastChangeSpriteY).len2() > 10) {
+			boolean spriteChanged = false;
+			float adx = Math.abs(lastdx);
+			float ady = Math.abs(lastdy);
+			
+			if(adx > ady) {
+				if(lastdx < -0.1f) {
+					sprite.setRegion(type.sides[2]);
+					spriteChanged = true;
+				} else if(lastdy > 0.1f) {
+					sprite.setRegion(type.sides[3]);
+					spriteChanged = true;
+				} 
+			} else {
+				if(lastdy > 0.1f) {
+					sprite.setRegion(type.sides[1]);
+					spriteChanged = true;
+				} else if(lastdy < -0.1f){
+					sprite.setRegion(type.sides[0]);
+					spriteChanged = true;
+				}
+			}
+			
+			if(spriteChanged) {
+				lastChangeSpriteX = x;
+				lastChangeSpriteY = y;
+			}
+		}
 		
 		//this.x = 
 		byway = false;
@@ -153,6 +225,8 @@ public class Alien extends Collider {
 
 	public void shoot() {
 		life--;
+		setState(STATE_FOLLOW_PLAYER);
+		minFollowTime = 10.0f;
 		if(life <= 0) {
 			kill();
 		}
