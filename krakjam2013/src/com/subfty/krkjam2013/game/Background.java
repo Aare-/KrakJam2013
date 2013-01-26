@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.subfty.krkjam2013.Krakjam;
@@ -17,6 +18,8 @@ public class Background extends Group{
 	
 	private Sprite bgSprites[][]= new Sprite[(int) (Krakjam.STAGE_W / TILE_SIZE + 2)]
 			  								[(int) (Krakjam.STAGE_H / TILE_SIZE + 2)]; 
+	
+	private TextureRegion regions[];
 	
     //INIT
 	public Background(){
@@ -34,6 +37,10 @@ public class Background extends Group{
 				bgSprites[i][j].setSize(TILE_SIZE, TILE_SIZE);
 			}
 		
+		regions = new TextureRegion[2];
+		regions[0] = Krakjam.art.atlases[Art.A_BACKGROUND].findRegion("rock",1);
+		regions[1] = Krakjam.art.atlases[Art.A_BACKGROUND].findRegion("rock",2);
+		
 		act(0);
 	}
 	
@@ -45,16 +52,17 @@ public class Background extends Group{
 							   (int)(this.y / TILE_SIZE)*bgSprites.length +
 							   i + j*bgSprites.length);
 				
-				bgSprites[i][j].setRegion(Krakjam.art.atlases[Art.A_BACKGROUND].findRegion("bg", 1));
-				bgSprites[i][j].setX(i * TILE_SIZE);
-				bgSprites[i][j].setY(j * TILE_SIZE);
+				bgSprites[i][j].setRegion(regions[0]);
+				bgSprites[i][j].setX(i * TILE_SIZE - this.x % TILE_SIZE);
+				bgSprites[i][j].setY(j * TILE_SIZE - this.y % TILE_SIZE);
 				
-				bgSprites[i][j].setColor(255.0f*random.nextFloat()/255.0f, 
-										 255.0f*random.nextFloat()/255.0f, 
-										 255.0f*random.nextFloat()/255.0f, 1);
+				bgSprites[i][j].setColor(255.0f/255.0f - 60.0f*random.nextFloat()/255.0f, 
+										 45.0f/255.0f  + 50.0f*random.nextFloat()/255.0f, 
+										 23.0f/255.0f  + 50.0f*random.nextFloat()/255.0f, 1);
 			}
 		
-		//this.x += 0.01f;
+		this.x += 120f*delta;
+		this.y += 120f*delta;
 	}
 	
 	public void draw(SpriteBatch batch, float parentAlpha) {

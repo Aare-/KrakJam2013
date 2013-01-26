@@ -35,9 +35,8 @@ public class Krakjam implements ApplicationListener {
 	public static Vector2 playerPos = new Vector2(400, 100);
 	
     //SCREEN UPDATE
-	private final long TARGET_FPS = 1000/60;
-	private long delta,
-				 prevTime;
+	private final float TARGET_FPS = 1.0f/60.0f;
+	private float delta;
 	
     //SCREENS
 	public static int S_GAME = 0,
@@ -70,7 +69,6 @@ public class Krakjam implements ApplicationListener {
 			screens[i].visible = false;
 		
 		delta = 0;
-		prevTime = -1;
 		
 		showScreen(S_GAME);
 	}
@@ -85,16 +83,15 @@ public class Krakjam implements ApplicationListener {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
-		if(prevTime == -1)
-			prevTime = System.currentTimeMillis();
-		delta += System.currentTimeMillis() - prevTime;
-		prevTime = System.currentTimeMillis();
 		
+		
+		
+		
+		delta += Gdx.graphics.getRawDeltaTime();
 		while(delta > TARGET_FPS){
-		    delta -= TARGET_FPS;
-			
-		    tM.update(delta/1000.0f);
-		    stage.act(delta/1000.0f);
+			delta -= TARGET_FPS;
+		    tM.update(TARGET_FPS);
+		    stage.act(TARGET_FPS);
 		}
 		 
 		stage.draw();
