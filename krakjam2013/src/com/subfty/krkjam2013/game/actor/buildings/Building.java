@@ -18,6 +18,9 @@ public class Building extends Group{
 	private Sprite image;
 	private String desc;
 	private Background bg;
+	private float health;
+	
+	private B_TYPE type;
 	
 	public Building(Background bg){
 		this.bg = bg;
@@ -27,6 +30,8 @@ public class Building extends Group{
 	}
 	
 	public void init(int tileX, int tileY, B_TYPE type){
+		this.type = type;
+		
 		this.tileX = tileX;
 		this.tileY = tileY;
 		this.tileWidth = type.width;
@@ -66,5 +71,14 @@ public class Building extends Group{
 		Krakjam.art.fonts[Art.F_DIGITAL].setScale(0.25f);
 		Krakjam.art.fonts[Art.F_DIGITAL].drawWrapped(batch, desc, this.x, this.y-5, this.width, HAlignment.CENTER);
 		
+	}
+
+    //HEALTH
+	public void repair(float ammount){
+		this.health += ammount;
+		health = Math.min(type.MAX_HEALTH, health);
+	}
+	public float getHealth(){
+		return health;
 	}
 }
