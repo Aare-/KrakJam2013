@@ -5,14 +5,15 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.utils.Logger;
 import com.subfty.krkjam2013.Krakjam;
+import com.subfty.krkjam2013.game.Background;
 import com.subfty.krkjam2013.util.Art;
 
 public class Player extends Collider {
+	private final float MARGIN_X = 250,
+						MARGIN_Y = 200;
+	
 	private float step;
 	private float cursorDistance;
 	
@@ -21,7 +22,13 @@ public class Player extends Collider {
 	
 	private Sprite smuga;
 	
-	public Player(float x, float y){
+	private float angle,
+				  angle2,
+				  move;
+	private Background bg;
+	
+	public Player(Background bg, float x, float y){
+		this.bg = bg;
 		this.x=x;
 		this.y=y;
 		
@@ -40,46 +47,13 @@ public class Player extends Collider {
 	
 	@Override
 	public void act(float delta) {
-		Logger log;
-		log=new Logger("player");
-		float move=step*delta;
-		double kat=0f;
-		double kat2;
+		move=step*delta;
+		angle=0f;
 
-		if(Gdx.input.isKeyPressed(Keys.W) && Gdx.input.isKeyPressed(Keys.D)){
-			kat=Math.PI/4.0f;
-		}
-		else if(Gdx.input.isKeyPressed(Keys.D) && Gdx.input.isKeyPressed(Keys.S)){
-			kat=7*Math.PI/4.0f;
-		}
-		else if(Gdx.input.isKeyPressed(Keys.A) && Gdx.input.isKeyPressed(Keys.S)){
-			kat=5*Math.PI/4.0f;
-		}
-		else if(Gdx.input.isKeyPressed(Keys.A) && Gdx.input.isKeyPressed(Keys.W)){
-			kat=3*Math.PI/4.0f;
-		}
-		else if(Gdx.input.isKeyPressed(Keys.W)){
-			kat=Math.PI/2.0f;
-			//y+=20f;
-		}
-		else if(Gdx.input.isKeyPressed(Keys.S)){
-			kat=3*Math.PI/2.0f;
-			//y--;
-		}
-		else if(Gdx.input.isKeyPressed(Keys.A)){
-			kat=Math.PI;
-			//y--;
-		}
-		else if(Gdx.input.isKeyPressed(Keys.D)){
-			kat=0f;
-			//x++;
-		}
-		else{
-			move=0f;
-		}
+		updateInput();
 		
-		x+=move*Math.cos(kat);
-		y+=move*Math.sin(kat);
+		x+=move*Math.cos(angle);
+		y+=move*Math.sin(angle);
 		
 		image.setPosition(x - image.getWidth()/2.0f, y);
 		
@@ -88,25 +62,68 @@ public class Player extends Collider {
 		Vector2 v=new Vector2();
 		Krakjam.stage.toStageCoordinates(wspx, wspy, v);
 		
-		kat2=Math.atan2(v.y-y, v.x-x);
+		angle2=(float)Math.atan2(v.y-y, v.x-x);
 				
-		/*cursor.x = (float)(cursorDistance*Math.cos(kat2))+x+width/2.0f;
-		cursor.y = (float)(cursorDistance*Math.sin(kat2))+y+width/2.0f;*/
-		cursor.setX((float)(cursorDistance*Math.cos(kat2))+x);
-		cursor.setY((float)(cursorDistance*Math.sin(kat2))+y);
-		/*cursor.setX(v.x);
-		cursor.setY(v.y);*/
+		cursor.setX((float)(cursorDistance*Math.cos(angle2))+x);
+		cursor.setY((float)(cursorDistance*Math.sin(angle2))+y);
 		
 		resolveCollisions();
+		scrollBackground(delta);
 		
 		if(Gdx.input.justTouched()) {
 			smuga.setPosition(x-smuga.getWidth()/2.0f, y);
 			FadeOutSprite fadeOut = new FadeOutSprite(0.2f, smuga);
-			fadeOut.angle = (float)(kat2*180/Math.PI) - 90;
+			fadeOut.angle = (float)(angle2*180/Math.PI) - 90;
 			stage.addActor(fadeOut);
 		}
 	}
-
+	private void updateInput(){
+		if(Gdx.input.isKeyPressed(Keys.W) && Gdx.input.isKeyPressed(Keys.D))
+			angle=(float)Math.PI/4.0f;
+		else if(Gdx.input.isKeyPressed(Keys.D) && Gdx.input.isKeyPressed(Keys.S))
+			angle=7*(float)Math.PI/4.0f;
+		else if(Gdx.input.isKeyPressed(Keys.A) && Gdx.input.isKeyPressed(Keys.S))
+			angle=5*(float)Math.PI/4.0f;
+		else if(Gdx.input.isKeyPressed(Keys.A) && Gdx.input.isKeyPressed(Keys.W))
+			angle=3*(float)Math.PI/4.0f;
+		else if(Gdx.input.isKeyPressed(Keys.W))
+			angle=(float)Math.PI/2.0f;
+		else if(Gdx.input.isKeyPressed(Keys.S))
+			angle=3*(float)Math.PI/2.0f;
+		else if(Gdx.input.isKeyPressed(Keys.A))
+			angle=(float)Math.PI;
+		else if(Gdx.input.isKeyPressed(Keys.D))
+			angle=0f;
+		else
+			move=0f;
+	}
+	private void scrollBackground(float delta){
+		float speed = 3f;
+		if(x < MARGIN_X){
+			float diff = (MARGIN_X-x); 
+			bg.x -= diff*speed*delta;
+			x += diff*speed*delta;
+		}
+		if(x > Krakjam.STAGE_W-MARGIN_X){
+			float diff = (x-(Krakjam.STAGE_W-MARGIN_X)); 
+			bg.x += diff*speed*delta;
+			x -= diff*speed*delta;
+		}
+		if(y < MARGIN_Y){
+			float diff = (MARGIN_Y-y); 
+			bg.y -= diff*speed*delta;
+			y += diff*speed*delta;
+		}
+		if(y > Krakjam.STAGE_H-MARGIN_Y){
+			float diff = (y-(Krakjam.STAGE_H-MARGIN_Y)); 
+			bg.y += diff*speed*delta;
+			y -= diff*speed*delta;
+		}
+		
+		
+		//x = Math.max(MARGIN_X, Math.min(Krakjam.STAGE_W-MARGIN_X, x));
+	}
+	
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		drawDebug(batch);
@@ -114,7 +131,7 @@ public class Player extends Collider {
 		image.draw(batch);
 		cursor.draw(batch, parentAlpha);
 	}
-
+	
 	@Override
 	public Actor hit(float x, float y) {
 		// TODO Auto-generated method stub

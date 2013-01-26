@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import com.subfty.krkjam2013.Krakjam;
+import com.subfty.krkjam2013.game.actor.Player;
 import com.subfty.krkjam2013.game.actor.buildings.Building;
 import com.subfty.krkjam2013.util.Art;
 
@@ -90,8 +91,6 @@ public class Background extends Group{
 	
 	public void registerBuilding(Building building){
 		buildings.add(building);
-		
-	
 	}
 	public void unregisterBuilding(Building building){
 		buildings.removeValue(building, true);

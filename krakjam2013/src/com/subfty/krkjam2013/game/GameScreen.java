@@ -34,8 +34,8 @@ public class GameScreen extends Screen{
 		agents= new Group();
 		ui = new Group();
 		bOverlord = new BuildingsOverlord(background, agents);
+		player = new Player(background, 0,0);
 		
-		player = new Player(0,0);
 		agents.addActor(player);
 		colliders.add(player);
 		
