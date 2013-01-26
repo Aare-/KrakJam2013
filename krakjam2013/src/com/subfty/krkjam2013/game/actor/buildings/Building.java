@@ -23,6 +23,7 @@ public class Building extends Group{
 	private B_TYPE type;
 	
 	public Building(Background bg){
+		health = 1.0f;
 		this.bg = bg;
 		
 		image = new Sprite();//Krakjam.art.atlases[Art.A_AGENTS].createSprite("base1");

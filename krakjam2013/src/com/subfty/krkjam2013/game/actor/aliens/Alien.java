@@ -15,7 +15,10 @@ import com.subfty.krkjam2013.util.Art;
 
 public class Alien extends Collider {
 	public enum ALIEN_TYPE{
-		REGULAR(50.0f ,50.0f, "alien1", 5, 80, 80);
+		
+		REGULAR(50.0f ,50.0f, "alien1", 5, 80, 80),
+		EXPLODING(50.0f ,50.0f, "alien1", 5, 80, 80),
+		SHOOTER(50.0f ,50.0f, "alien1", 5, 80, 80);
 		
 		public final float MIN_SPEED;
 		public final float MAX_SPEED;
@@ -40,13 +43,17 @@ public class Alien extends Collider {
 	
 	public final float MAX_RESTING_TIME = 5.0f;
 	public final float MIN_RESTING_TIME = 4.0f;
-	public float restingTime;
+	public float restingTime = 1;
 	
 	public final float MAX_WALKING_TIME = 5.0f;
 	public final float MIN_WALKING_TIME = 4.0f;
 	public float walkingTime;
 	
 	public float minFollowTime;
+	
+	public float explodingNextChangeAngleTime = 1;
+	public final float MAX_EXPLODING_ANGLE_TIME = 0.3f;
+	public final float MIN_EXPLODING_ANGLE_TIME = 0.1f;
 	
 	public Building attackedBuilding = null;
 	
@@ -66,7 +73,7 @@ public class Alien extends Collider {
 			state = STATE_FOLLOW_PLAYER;
 			minFollowTime = 4;
 		} else { // STATE_ATTACK_BUILDING
-			state = STATE_ATTACK_BUILDING;
+			//state = STATE_ATTACK_BUILDING;
 		}
 	}
 	
@@ -132,6 +139,7 @@ public class Alien extends Collider {
 		if(!visible || Krakjam.gameScreen.pause) return;
 		
 		if(byway) {
+			
 			Vector2 tmp = Vector2.tmp;
 			tmp.set(x, y);
 			tmp.sub(bywayX, bywayY);
@@ -144,6 +152,7 @@ public class Alien extends Collider {
 				dy += tmp.y * delta * speed;
 			}
 		} else {
+
 			Vector2 tmp = Vector2.tmp;
 			Player p = Krakjam.gameScreen.player;
 			tmp.set(p.x, p.y)
@@ -151,12 +160,9 @@ public class Alien extends Collider {
 			
 			if(tmp.len() < 300)
 				state = STATE_FOLLOW_PLAYER;
-			
 			// Atakuj budynki
 			if(state != STATE_FOLLOW_PLAYER && state != STATE_ATTACK_BUILDING) {
-				
 				Array<Building> buildings = Krakjam.gameScreen.background.getBuildings();
-				
 				float minBuildingDistance = 100000;
 				
 				for(int i=0; i<buildings.size; i++) {
@@ -165,9 +171,9 @@ public class Alien extends Collider {
 					float cx = b.x + b.width/2.0f;
 					float cy = b.y + b.height/2.0f;
 					
-					float dist = Vector2.tmp.set(x, y).sub(cx, cy).len2();
+					float dist = Vector2.tmp.set(x, y).sub(cx, cy).len();
 					
-					if(dist < minBuildingDistance) {
+					if(dist < minBuildingDistance && b.getHealth() > 0) {
 						minBuildingDistance = dist;
 						attackedBuilding = b;
 					}
@@ -189,15 +195,16 @@ public class Alien extends Collider {
 					state = STATE_RESTING;
 				}
 			} else if(state == STATE_ATTACK_BUILDING) {
-				if(attackedBuilding == null) { // building.jestNieZniszczony
+				if(attackedBuilding != null) { // building.jestNieZniszczony
 					float 	cx = attackedBuilding.x + attackedBuilding.width, 
 							cy = attackedBuilding.y + attackedBuilding.height;
 					tmp.set(cx, cy).sub(x, y);
 					tmp.nor().mul(delta*speed);
 					dx += tmp.x;
 					dy += tmp.y;
-				} else
+				} else {
 					setState(STATE_RESTING);
+				}
 			} else if(state == STATE_RESTING)
 			{
 				restingTime -= delta;
@@ -208,11 +215,23 @@ public class Alien extends Collider {
 				tmp.set((float)Math.cos(velAngle), (float)Math.sin(velAngle)).mul(speed*delta);
 				dx += tmp.x;
 				dy += tmp.y;
-				velAngle += (Krakjam.rand.nextFloat()-0.5f)*2.0f * delta * 6;
-				
+				if(type == ALIEN_TYPE.REGULAR) {
+					velAngle += (Krakjam.rand.nextFloat()-0.5f)*2.0f * delta * 6;
+				} else if(type == ALIEN_TYPE.EXPLODING) {
+					explodingNextChangeAngleTime -= delta;
+					if(explodingNextChangeAngleTime <= 0) {
+						float k = Krakjam.rand.nextFloat();
+						explodingNextChangeAngleTime = 	MIN_EXPLODING_ANGLE_TIME*k + 
+														MAX_EXPLODING_ANGLE_TIME*(1-k);
+						velAngle = (Krakjam.rand.nextFloat()-0.5f)*2.0f * 50;
+					}
+				}
 				walkingTime -= delta;
 				if(walkingTime <= 0) {
-					setState(STATE_RESTING);
+					if(type == ALIEN_TYPE.REGULAR)
+						setState(STATE_RESTING);
+					else
+						setState(STATE_WALKING);
 				}
 			}
 		}
@@ -243,6 +262,15 @@ public class Alien extends Collider {
 			if(spriteChanged) {
 				lastChangeSpriteX = x;
 				lastChangeSpriteY = y;
+			}
+		}
+		
+		if(type == ALIEN_TYPE.EXPLODING) {
+			Player p = Krakjam.gameScreen.player;
+			if(Vector2.tmp.set(x, y).sub(p.x, p.y).len() < 100) {
+				this.visible = false;
+				
+				// TODO: particle wybuchu tutaj
 			}
 		}
 		
