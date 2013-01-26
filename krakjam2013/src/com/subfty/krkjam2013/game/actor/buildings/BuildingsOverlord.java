@@ -8,7 +8,7 @@ public class BuildingsOverlord {
 	
 	//TYPE OF BUILDING
 	public enum B_TYPE{
-		BASE(3, 3, "base1", "Main Base");
+		BASE(3, 3, "base", "Main Base");
 		
 		public final int width;
 		public final int height;
