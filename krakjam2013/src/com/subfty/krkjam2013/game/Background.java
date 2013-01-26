@@ -65,9 +65,6 @@ public class Background extends Group{
 										 45.0f/255.0f  + 50.0f*random.nextFloat()/255.0f, 
 										 23.0f/255.0f  + 50.0f*random.nextFloat()/255.0f, 1);
 			}
-		
-		this.x -= 10f*delta;
-		this.y -= 10f*delta;
 	}
 	
 	public void draw(SpriteBatch batch, float parentAlpha) {
