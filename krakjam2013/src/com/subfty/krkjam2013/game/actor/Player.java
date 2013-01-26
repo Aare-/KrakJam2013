@@ -25,7 +25,7 @@ public class Player extends Group{
 		width=20f;
 		height=20f;
 		
-		step=500f;
+		step=1f;
 		cursorDistance=50;
 		
 		cursor=new Cursor();		

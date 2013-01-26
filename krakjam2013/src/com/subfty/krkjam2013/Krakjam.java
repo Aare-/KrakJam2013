@@ -88,6 +88,7 @@ public class Krakjam implements ApplicationListener {
 		if(prevTime == -1)
 			prevTime = System.currentTimeMillis();
 		delta += System.currentTimeMillis() - prevTime;
+		prevTime = System.currentTimeMillis();
 		
 		while(delta > TARGET_FPS){
 		    delta -= TARGET_FPS;
