@@ -315,6 +315,7 @@ public class Alien extends Collider {
 				
 				Krakjam.art.explosion.play();
 				
+				
 				// TODO: particle wybuchu tutaj
 			}
 		}

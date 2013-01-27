@@ -45,7 +45,7 @@ public class GameScreen extends Screen{
 	public static float timer = 0;
 	
 	//UI
-	BloodyScreen bScreen;
+	public BloodyScreen bScreen;
 	Sprite expBackSprite;
 	Sprite expFrontSprite;
 	Sprite counterSprite;

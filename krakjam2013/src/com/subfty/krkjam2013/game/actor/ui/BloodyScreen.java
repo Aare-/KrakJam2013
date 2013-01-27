@@ -12,7 +12,7 @@ import com.subfty.krkjam2013.util.Art;
 
 public class BloodyScreen extends Actor{
 
-	private Sprite sprite;
+	public Sprite sprite;
 	private float anim;
 	private Player p;
 	
@@ -36,14 +36,15 @@ public class BloodyScreen extends Actor{
 		if(anim > Math.PI*2)
 			anim = 0;
 		
-		sprite.setColor(1, 1, 1, (float)(((Math.sin(anim)+1.0f)/2.0f)*(0.8f * (1-Math.min(p.life, 30.0f)/30.0f))));
+		if(!Krakjam.tM.containsTarget(sprite))
+			sprite.setColor(1, 1, 1, (float)(((Math.sin(anim)+1.0f)/2.0f)*(0.8f * (1-Math.min(p.life, 30.0f)/30.0f))));
 		
-		if(Math.min(p.life, 25.0f)/25.0f < 1){
+		if(Math.min(p.life, 60.0f)/60.0f < 1){
 			if(!Art.heartbeat.isPlaying()){
 				Art.heartbeat.play();
 				Art.heartbeat.setLooping(true);
 			}
-			Art.heartbeat.setVolume((1-Math.min(p.life, 25.0f)/25.0f));
+			Art.heartbeat.setVolume((1-Math.min(p.life, 60.0f)/60.0f));
 		}else if(Art.heartbeat.isPlaying()){
 			Art.heartbeat.stop();
 		}

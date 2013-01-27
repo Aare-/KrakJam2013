@@ -3,12 +3,14 @@ package com.subfty.krkjam2013;
 import java.util.Random;
 
 import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenAccessor;
 import aurelienribon.tweenengine.TweenManager;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -62,6 +64,8 @@ public class Krakjam implements ApplicationListener {
 		tM = new TweenManager();
 		FlyingPoints p = new FlyingPoints(0, 0, 0);
 		Tween.registerAccessor(FlyingPoints.class, p.new FlyingPointsAccessor());
+		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
+		
 		shapeRenderer = new ShapeRenderer();
 		rand = new Random(System.currentTimeMillis());
 		Gdx.input.setInputProcessor(stage);

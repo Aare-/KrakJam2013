@@ -1,5 +1,8 @@
 package com.subfty.krkjam2013.game.actor;
 
+import aurelienribon.tweenengine.Timeline;
+import aurelienribon.tweenengine.Tween;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -154,6 +157,16 @@ public class Player extends Collider {
 		init();
 		
 		Krakjam.art.dead.play();
+	}
+	public void shooted(){
+		Krakjam.tM.killTarget(Krakjam.gameScreen.bScreen.sprite);
+		
+		Timeline.createSequence()
+				.push(Tween.to(Krakjam.gameScreen.bScreen.sprite, SpriteAccessor.ALPHA, 0)
+						   .target(0.7f))
+				.push(Tween.to(Krakjam.gameScreen.bScreen.sprite, SpriteAccessor.ALPHA, 0.5f)
+						   .target(0f))
+						   .start(Krakjam.tM);
 	}
 	
 	@Override
@@ -311,6 +324,8 @@ public class Player extends Collider {
 			arrow.draw(batch);
 		}
 	}
+	
+	
 	
 	@Override
 	public Actor hit(float x, float y) {
