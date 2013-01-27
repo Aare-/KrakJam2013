@@ -84,7 +84,7 @@ public class GameScreen extends Screen{
 						    300 + Krakjam.rand.nextFloat() , alien_types[i]);
 		
 		player.init();
-		cOverlord.spawnNew();
+		//cOverlord.spawnNew();
 		////////// 
 		
 		this.addActor(background);

@@ -31,11 +31,16 @@ public class Background extends Group{
 		public final float width;
 		public final float height;
 		public TextureRegion sprite;
+		public float rot;
 		
 		public SpecialTile(int atlas, String sprite, int id, float width, float height){
+			this(atlas, sprite, id, width, height, 0);
+		}
+		public SpecialTile(int atlas, String sprite, int id, float width, float height, float rot){
 			this.sprite = Krakjam.art.atlases[atlas].findRegion(sprite, id);
 			this.width = width;
 			this.height = height;
+			this.rot = rot;
 		}
 	}
 	
@@ -108,6 +113,30 @@ public class Background extends Group{
 			markers = new Hashtable<Long, SpecialTile>();
 			
 			addMarker(-1, -1, Art.A_AGENTS, "resp", 1, 2*Background.TILE_SIZE, 2*Background.TILE_SIZE);
+			
+			random.setSeed(SEED);
+			//GENERATING RANDOM SPACE MARKERS
+			for(int i=0; i<2000; i++){
+				float size;
+				switch(Krakjam.rand.nextInt(8)){//Krakjam.rand.nextInt(2)){
+				default:
+				  //STONES
+					size = 60+40*random.nextFloat();
+					addMarker((0+random.nextInt(350)-175), 
+							  (0+random.nextInt(350)-175), 
+							  Art.A_BACKGROUND, 
+							  "stone", -1, size, size);
+					break;
+				case 0:
+				  //MOONWALKER
+					size = 70+20*random.nextFloat();
+					addMarker((0+random.nextInt(300)-150), 
+							  (0+random.nextInt(300)-150), 
+							  Art.A_BACKGROUND, 
+							  "moonwalker", -1, size, size);
+					break;
+				}	
+			}
 		}
 		
 		for(int i=0; i<bgSprites.length; i++)
@@ -126,33 +155,33 @@ public class Background extends Group{
 	}
 	
 	public void saveData(){
-		Json json = new Json();
+		//Json json = new Json();
 		//FileHandle f = Gdx.files.local(SAVE_FILE_PATH);
-		String data = "";
+		//String data = "";
 		
-		FileOutputStream fos;
-		try {
-			fos = new FileOutputStream("t.tmp");
+		//FileOutputStream fos;
+		//try {
+			//fos = new FileOutputStream("t.tmp");
 		
-		ObjectOutputStream oos;
-		try {
-			oos = new ObjectOutputStream(fos);
+		//ObjectOutputStream oos;
+		//try {
+			//oos = new ObjectOutputStream(fos);
 	
-			oos.writeObject(markers);
-			oos.close();	
-		} catch (IOException e) {
+			//oos.writeObject(markers);
+			//oos.close();	
+		//} catch (IOException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
-		}
-		} catch (FileNotFoundException e) {
+		//}
+		//} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
-		}
+		//}
 		
 		//f.writeString(data, false);
 		
 		
-		json.toJson(markers, Gdx.files.local(SAVE_FILE_PATH));
+		//json.toJson(markers, Gdx.files.local(SAVE_FILE_PATH));
 		//json.to
 		//l.info("json: "+json.toJson(markers));
 	}
@@ -179,13 +208,14 @@ public class Background extends Group{
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		arr.clear();
 		for(int i=0; i<bgSprites.length; i++)
-			for(int j=0; j<bgSprites[i].length; j++){
+			for(int j=0; j<bgSprites[i].length; j++)
 				bgSprites[i][j].draw(batch, parentAlpha);
-				
-				SpecialTile st = markers.get(new Long(getToHashTable((int)(Math.floor(-gs.agents.x / TILE_SIZE)+i), 
-																	 (int)(Math.floor(-gs.agents.y / TILE_SIZE)+j))));
+			
+		for(int i=0; i<bgSprites.length+8; i++)
+			for(int j=0; j<bgSprites[0].length+8; j++){
+				SpecialTile st = markers.get(new Long(getToHashTable((int)(Math.floor(-gs.agents.x / TILE_SIZE)+i-4), 
+						 											 (int)(Math.floor(-gs.agents.y / TILE_SIZE)+j-4))));
 				arr.add(st);
-				
 			}
 		
 		for(int i=0; i<arr.size; i++){
@@ -195,6 +225,7 @@ public class Background extends Group{
 				tmp.setPosition(st.x+gs.agents.x, st.y+gs.agents.y);
 				tmp.setSize(st.width, 
 							st.height);
+				tmp.setRotation(st.rot);
 				tmp.draw(batch, parentAlpha*1f);
 			}
 		}
@@ -203,7 +234,10 @@ public class Background extends Group{
 	
 	//SPECIAL BACKGROUND TILES
 	public void addMarker(int x, int y, int atlas, String sprite, int id, float width, float height){
-		SpecialTile st = new SpecialTile(atlas, sprite, id, width, height);
+		addMarker(x, y, atlas, sprite, id, width, height, 0);
+	}
+	public void addMarker(int x, int y, int atlas, String sprite, int id, float width, float height, float rot){
+		SpecialTile st = new SpecialTile(atlas, sprite, id, width, height, rot);
 		st.x = x *Background.TILE_SIZE;
 		st.y = y * Background.TILE_SIZE;
 		markers.put(getToHashTable(x, y), st);

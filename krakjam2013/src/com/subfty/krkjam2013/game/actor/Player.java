@@ -18,7 +18,7 @@ public class Player extends Collider {
 	//SETTINGS
 	private final float MARGIN_X = 350,
 						MARGIN_Y = 300,
-						MAX_LIFE = 5*3;
+						MAX_LIFE = 60*3;
 	private final float SPAWN_X, SPAWN_Y;
 	
 	private float step;
