@@ -50,7 +50,8 @@ public class Krakjam implements ApplicationListener {
 	
     //SCREENS
 	public static int S_GAME = 0,
-					  S_MENU = 1;
+					  S_MENU = 1,
+					  S_SPLASH = 2;
 	public Screen screens[];
 	
 	static public GameScreen gameScreen;
@@ -64,9 +65,14 @@ public class Krakjam implements ApplicationListener {
 	public static ParticleEffectPool spawnEffectPool;
 	public static ParticleEffectPool shotEffectPool;
 	public static Array<PooledEffect> effects = new Array<PooledEffect>();
+	public static Array<PooledEffect> shotEffects = new Array<PooledEffect>();
+	
+	public static Krakjam singleton;
 	
 	@Override
 	public void create() {
+		singleton = this;
+		
 		//Gdx.input.setCursorCatched(true);
 		
 		//PARTICLE LOADING
@@ -95,11 +101,13 @@ public class Krakjam implements ApplicationListener {
 		Gdx.input.setInputProcessor(stage);
 	
 	    //INITING SCREENS
-		screens = new Screen[2];
+		screens = new Screen[3];
 		gameScreen = new GameScreen(stage);
 		screens[S_MENU] = new MenuScreen(stage);
 		
 		screens[S_GAME] = gameScreen;
+		
+		screens[S_SPLASH] = new Splashscreens(stage);
 		
 		Bullet.load();
 		
@@ -108,7 +116,7 @@ public class Krakjam implements ApplicationListener {
 		
 		delta = 0;
 		
-		showScreen(S_GAME);
+		showScreen(S_SPLASH);
 	}
 
 	@Override

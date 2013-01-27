@@ -260,8 +260,8 @@ public class Player extends Collider {
 			Krakjam.art.shoot.play();
 			
 			PooledEffect effect = Krakjam.shotEffectPool.obtain();
-			effect.setPosition(x+gunX, y+gunY);
-			Krakjam.effects.add(effect);
+			effect.setPosition(0, 0);
+			Krakjam.shotEffects.add(effect);
 		}
 		
 	}

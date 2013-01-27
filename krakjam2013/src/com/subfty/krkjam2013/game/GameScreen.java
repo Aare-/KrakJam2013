@@ -109,6 +109,9 @@ public class GameScreen extends Screen{
 	
 	@Override
 	public void act(float delta){
+		if(this.visible == false)
+			return;
+		
 		timer += delta;
 		
 		if(stats.visible)
@@ -174,6 +177,20 @@ public class GameScreen extends Screen{
 	        if (effect.isComplete()) {
 	                effect.free();
 	                Krakjam.effects.removeIndex(i);
+	        }
+		}
+		
+		translation.idt();
+		x = player.parent.x; y=player.parent.y;
+		translation.translate(x+player.x, y+player.y+40.0f, 0);
+		batch.setTransformMatrix(translation);
+		
+		for (int i = Krakjam.shotEffects.size - 1; i >= 0; i--) {
+	        PooledEffect effect = Krakjam.shotEffects.get(i);
+	        effect.draw(batch, Gdx.graphics.getDeltaTime());
+	        if (effect.isComplete()) {
+	                effect.free();
+	                Krakjam.shotEffects.removeIndex(i);
 	        }
 		}
 		
