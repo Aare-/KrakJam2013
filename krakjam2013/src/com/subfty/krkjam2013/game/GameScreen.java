@@ -54,6 +54,8 @@ public class GameScreen extends Screen{
 	Sprite expFrontSprite;
 	Sprite counterSprite;
 	
+	private float spawnRandom = 0;
+	
 	public Building base;
 	
 	public LinkedList<Collider> colliders = new LinkedList<Collider>();
@@ -132,6 +134,17 @@ public class GameScreen extends Screen{
 		
 		timer += delta;
 		
+		spawnRandom -= delta;
+		if(spawnRandom < 0){
+			spawnRandom = 15;
+			Vector2.tmp.set(800 + 500*Krakjam.rand.nextFloat(), 0);
+			Vector2.tmp.rotate(360*Krakjam.rand.nextFloat());
+			
+			aOverlord.spawn(Vector2.tmp.x, 
+		    			    Vector2.tmp.y,
+		    			    ALIEN_TYPE.values()[Krakjam.rand.nextInt(ALIEN_TYPE.values().length)]);
+		}
+		
 		if(stats.visible)
 			stats.act(delta);
 		else {
@@ -169,8 +182,8 @@ public class GameScreen extends Screen{
 				for(int j=0; j<aliensNum; j++) {
 					int alienType = Krakjam.rand.nextInt(3);
 					Alien.ALIEN_TYPE alien_types[] = {ALIEN_TYPE.REGULAR, ALIEN_TYPE.EXPLODING, ALIEN_TYPE.SHOOTER};
-					aOverlord.spawn(c.x + Krakjam.rand.nextFloat()*100, 
-						    c.y + Krakjam.rand.nextFloat()*100 , alien_types[alienType]);
+					aOverlord.spawn(c.x + Krakjam.rand.nextFloat()*400, 
+						    		c.y + Krakjam.rand.nextFloat()*400 , ALIEN_TYPE.values()[Krakjam.rand.nextInt(ALIEN_TYPE.values().length)]);
 				}
 			}
 		}
