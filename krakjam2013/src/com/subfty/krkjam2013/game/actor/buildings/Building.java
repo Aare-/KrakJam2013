@@ -21,8 +21,11 @@ public class Building extends Group{
 			   tileY,
 			   tileWidth,
 			   tileHeight;
+	
+	
 	private Sprite image;
 	private Sprite imageDamaged;
+	
 	private String desc;
 	private Background bg;
 	private float health;
@@ -56,23 +59,20 @@ public class Building extends Group{
 		this.width = tileWidth * Background.TILE_SIZE;
 		this.height = tileHeight * Background.TILE_SIZE;
 		
-		image.setRegion(Krakjam.art.atlases[Art.A_AGENTS].createSprite(type.img));
-		TextureRegion region = Krakjam.art.atlases[Art.A_AGENTS].createSprite(type.img+"_damaged");
-		if(region != null) {
-			imageDamaged.setRegion(region);
-		}
-		else
-			imageDamaged = null; // TODO
-		width  = tileWidth * Background.TILE_SIZE;
+		image.setRegion(Krakjam.art.atlases[Art.A_AGENTS].createSprite(type.img, 1));
 		image.setSize(this.width, this.height);
-		if(region != null) {
-			imageDamaged.setSize(this.width, this.height);
+		
+		if(type.destroyable){
+			imageDamaged.setRegion(Krakjam.art.atlases[Art.A_AGENTS].createSprite(type.img, 2));
+			imageDamaged.setSize(image.getWidth(), 
+								 image.getHeight());
 		}
-		height = tileHeight * Background.TILE_SIZE;
 		
 		if(type == B_TYPE.BASE) {
 			Krakjam.gameScreen.base = this;
 		}
+		
+		this.health = type.MAX_HEALTH;
 		
 		act(0);
 	}
@@ -133,13 +133,12 @@ public class Building extends Group{
 	}
 	
 	@Override
-	public void draw(SpriteBatch batch, float parentAlpha) {
-		image.draw(batch, parentAlpha);
-		
-		if(imageDamaged != null) {
+	public void draw(SpriteBatch batch, float parentAlpha) {		
+		if(type.destroyable) {
 			imageDamaged.setPosition(x, y);
-			imageDamaged.draw(batch, 1.0f - health);
+			imageDamaged.draw(batch, 1);
 		}
+		image.draw(batch, getHealth()/type.MAX_HEALTH);
 		
 		Krakjam.art.fonts[Art.F_DIGITAL].setColor(1, 1, 1, 0.5f);
 		Krakjam.art.fonts[Art.F_DIGITAL].setScale(0.25f);
@@ -153,11 +152,11 @@ public class Building extends Group{
 		health = Math.min(type.MAX_HEALTH, health);
 	}
 	public float getHealth(){
-		return health;
+		return Math.max(0, Math.min(type.MAX_HEALTH, health));
 	}
 	
 	public void damage(float ammount) {
-		this.health -= ammount;
-		if(this.health < 0) this.health = 0;
+		if(!type.destroyable) return;
+		this.health = Math.max(0, ammount-this.health);
 	}
 }

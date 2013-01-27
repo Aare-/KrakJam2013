@@ -1,39 +1,39 @@
 
-bloodyscreen.png
+bloodyscreen1.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 bscreen
   rotate: false
-  xy: 1, 105
+  xy: 2, 2
   size: 800, 600
   orig: 800, 600
   offset: 0, 0
   index: -1
-exp-back
+exp-front
   rotate: false
-  xy: 1, 53
+  xy: 2, 604
   size: 300, 50
   orig: 300, 50
   offset: 0, 0
   index: -1
-exp-front
+exp-back
   rotate: false
-  xy: 1, 1
+  xy: 2, 656
   size: 300, 50
   orig: 300, 50
   offset: 0, 0
   index: -1
 counter
   rotate: false
-  xy: 803, 655
+  xy: 804, 2
   size: 150, 50
   orig: 150, 50
   offset: 0, 0
   index: -1
 strzalka
   rotate: false
-  xy: 303, 73
+  xy: 956, 2
   size: 30, 30
   orig: 30, 30
   offset: 0, 0

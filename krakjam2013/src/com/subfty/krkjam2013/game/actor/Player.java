@@ -19,7 +19,7 @@ public class Player extends Collider {
 	//SETTINGS
 	private final float MARGIN_X = 350,
 						MARGIN_Y = 300,
-						MAX_LIFE = 5*3;
+						MAX_LIFE = 60*3;
 	private final float SPAWN_X, SPAWN_Y;
 	
 	private float step;
@@ -281,8 +281,8 @@ public class Player extends Collider {
 		
 		Building base = Krakjam.gameScreen.base;
 		
-		float 	bx = base.x + base.width/2.0f,
-				by = base.y + base.height/2.0f;
+		float 	bx = 0,//base.x + base.width/2.0f,
+				by = 0;//base.y + base.height/2.0f;
 		
 		tmp.set(bx, by).sub(x, y);
 		
