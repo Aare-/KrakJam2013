@@ -105,8 +105,8 @@ public class GameScreen extends Screen{
 		
 		
 		// LOADING HUD
-		expBackSprite = Krakjam.art.atlases[Art.A_BSCREEN].createSprite("exp-back");
-		expFrontSprite = Krakjam.art.atlases[Art.A_BSCREEN].createSprite("exp-front");
+		expBackSprite = Krakjam.art.atlases[Art.A_BSCREEN].createSprite("exp-front");
+		expFrontSprite = Krakjam.art.atlases[Art.A_BSCREEN].createSprite("exp-back");
 		counterSprite = Krakjam.art.atlases[Art.A_BSCREEN].createSprite("counter");
 	}
 	

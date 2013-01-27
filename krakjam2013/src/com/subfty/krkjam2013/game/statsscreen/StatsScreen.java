@@ -106,6 +106,7 @@ public class StatsScreen extends Group{
 		
 		Stats.SNode root = player.stats.root;
 		
+		Krakjam.art.fonts[Art.F_DIGITAL].setColor(1, 1, 0, 1.0f);
 		Krakjam.art.fonts[Art.F_DIGITAL].drawWrapped(batch, root.description, 
 				360, 600-70, 80, HAlignment.CENTER);
 		
@@ -116,7 +117,7 @@ public class StatsScreen extends Group{
 		
 		for(int j=0; j<3; j++) {
 			Stats.SNode node = root.unlocks.get(j);
-			for(int i=0; i<3; i++) {
+			for(int i=0; i<5; i++) {
 				
 				if(node.unlocked) {
 					Krakjam.art.fonts[Art.F_DIGITAL].setColor(1, 1, 0, 1.0f);

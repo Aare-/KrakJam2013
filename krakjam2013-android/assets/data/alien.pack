@@ -19,8 +19,8 @@ celownik
   index: -1
 smugi
   rotate: false
-  xy: 35, 3
-  size: 30, 30
-  orig: 30, 30
+  xy: 103, 220
+  size: 15, 15
+  orig: 15, 15
   offset: 0, 0
   index: -1
