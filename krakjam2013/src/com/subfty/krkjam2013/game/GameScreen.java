@@ -126,7 +126,7 @@ public class GameScreen extends Screen{
 		
 		Krakjam.art.fonts[Art.F_DIGITAL].setColor(0.5f, 0, 0, 1);
 		Krakjam.art.fonts[Art.F_DIGITAL].setScale(0.4f);
-		Krakjam.art.fonts[Art.F_DIGITAL].drawWrapped(batch, ""+12345, 
+		Krakjam.art.fonts[Art.F_DIGITAL].drawWrapped(batch, ""+player.numberOfCrystals, 
 				0, 600 - 18, 138, HAlignment.RIGHT);
 		
 		int prevExp = player.getLevelExp(player.getLevel()-1);
