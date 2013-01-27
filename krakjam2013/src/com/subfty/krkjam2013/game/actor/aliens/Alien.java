@@ -179,11 +179,13 @@ public class Alien extends Collider {
 				if(nextShoot <= 0) {
 					float k = Krakjam.rand.nextFloat();
 					nextShoot = MIN_NEXT_SHOOT*k + MAX_NEXT_SHOOT*(1-k);
-					tmp.nor();
-					Bullet bullet = p.obtainBullet();
-					final float bulletSpeed = 400;
-					bullet.init(tmp.x*bulletSpeed, tmp.y*bulletSpeed, x, y, 0, 0, null);
-					bullet.antyPlayer = true;
+					if(tmp.len() < 300) {
+						tmp.nor();
+						Bullet bullet = p.obtainBullet();
+						final float bulletSpeed = 400;
+						bullet.init(tmp.x*bulletSpeed, tmp.y*bulletSpeed, x, y, 0, 0, null);
+						bullet.antyPlayer = true;
+					}
 				}
 			}
 			

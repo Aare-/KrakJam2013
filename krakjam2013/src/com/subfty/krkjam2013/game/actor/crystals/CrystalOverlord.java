@@ -10,7 +10,7 @@ import com.subfty.krkjam2013.game.actor.Player;
 
 public class CrystalOverlord extends Actor{
 
-	private Array<Crystal> crystals = new Array<Crystal>();
+	public Array<Crystal> crystals = new Array<Crystal>();
 	private Player p;
 	private Group agents;
 	

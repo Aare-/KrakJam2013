@@ -6,17 +6,21 @@ import java.util.LinkedList;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Array;
 import com.subfty.krkjam2013.Krakjam;
 import com.subfty.krkjam2013.game.actor.Collider;
 import com.subfty.krkjam2013.game.actor.Player;
+import com.subfty.krkjam2013.game.actor.aliens.Alien;
 import com.subfty.krkjam2013.game.actor.aliens.Alien.ALIEN_TYPE;
 import com.subfty.krkjam2013.game.actor.aliens.AlienOverlord;
 import com.subfty.krkjam2013.game.actor.buildings.Building;
 import com.subfty.krkjam2013.game.actor.buildings.BuildingsOverlord;
 import com.subfty.krkjam2013.game.actor.buildings.BuildingsOverlord.B_TYPE;
+import com.subfty.krkjam2013.game.actor.crystals.Crystal;
 import com.subfty.krkjam2013.game.actor.crystals.CrystalOverlord;
 import com.subfty.krkjam2013.game.actor.ui.BloodyScreen;
 import com.subfty.krkjam2013.game.statsscreen.StatsScreen;
@@ -122,6 +126,33 @@ public class GameScreen extends Screen{
 					return (int)(arg1.y - arg0.y);
 				}
 			});
+		}
+		
+		Array<Crystal> crystals = cOverlord.crystals;
+		for(int i=0; i<crystals.size; i++) {
+			Crystal c = crystals.get(i);
+			if(c.visible == false)
+				continue;
+			
+			if(c.aliensSpawned)
+				continue;
+			
+			if(Vector2.tmp.set(c.x, c.y).sub(player.x, player.y).len() < 600) {
+				c.aliensSpawned = true;
+				
+				final int MAX_ALIENS = 6;
+				final int MIN_ALIENS = 4;
+				
+				int aliensNum = MIN_ALIENS + Krakjam.rand.nextInt(MAX_ALIENS-MIN_ALIENS+1);
+				
+				for(int j=0; j<aliensNum; j++) {
+					int alienType = Krakjam.rand.nextInt(3);
+					Alien.ALIEN_TYPE alien_types[] = {ALIEN_TYPE.REGULAR, ALIEN_TYPE.EXPLODING, ALIEN_TYPE.SHOOTER};
+					aOverlord.spawn(c.x + Krakjam.rand.nextFloat()*100, 
+						    c.y + Krakjam.rand.nextFloat()*100 , alien_types[alienType]);
+					System.out.println("SPAWN "+alienType);
+				}
+			}
 		}
 	}
 	

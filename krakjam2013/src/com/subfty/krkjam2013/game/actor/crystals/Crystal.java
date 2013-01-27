@@ -16,6 +16,7 @@ public class Crystal extends Actor{
 				  pingVolume;
 	public boolean diamondVisible;
 	public int value;
+	public boolean aliensSpawned = false;
 	
 	public Crystal(Player p){
 		this.p = p;
@@ -31,6 +32,7 @@ public class Crystal extends Actor{
 		this.value = value;
 		pingDelay = -1;
 		diamondVisible = visible;
+		aliensSpawned = false;
 	}
 	
 	public void kill(){
