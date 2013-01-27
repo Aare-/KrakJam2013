@@ -30,30 +30,7 @@ public class Player extends Collider {
 	
 	public Stats stats;
 	public int exp;
-	
-	public void addExp(int exp) {
-		this.exp += exp;
-	}
-	
-	// 0 - 2, 1 - 3, 2 - 5, 3 - 8
-	public int getExpLevel(int id) {
-		int a = 2;
-		int b = 3;
-		
-		if(id <= 0) return a;
-		if(id == 1) return b;
-		
-		id--;
-		while(id != 0) {
-			int c = a;
-			a = b;
-			b = c+b;
-			
-			id--;
-		}
-		
-		return b;
-	}
+	public int numberOfCrystals;
 	
 	//SHOOTING
 	private Array<Bullet> bullets = new Array<Bullet>();
