@@ -187,11 +187,12 @@ public class Player extends Collider {
 		dx+=move*Math.cos(angle);
 		dy+=move*Math.sin(angle);
 		
-		if(dx < -0.1f)
-			image.setRegion(playerSprites[2]);
-		else if(dx > 0.1f)
-			image.setRegion(playerSprites[3]);
-		else if(dy > 0.1f)
+		if(dx != 0.0f) {	
+			if(cursor.x < x)
+				image.setRegion(playerSprites[2]);
+			else
+				image.setRegion(playerSprites[3]);
+		} else if(dy > 0.1f)
 			image.setRegion(playerSprites[1]);
 		else
 			image.setRegion(playerSprites[0]);
