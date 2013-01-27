@@ -14,6 +14,8 @@ public class Crystal extends Actor{
 	private Player p;
 	private float pingDelay = -1,
 				  pingVolume;
+	public boolean diamondVisible;
+	public int value;
 	
 	public Crystal(Player p){
 		this.p = p;
@@ -22,11 +24,13 @@ public class Crystal extends Actor{
 		this.visible = false;
 	}
 	
-	public void init(float x, float y){
+	public void init(float x, float y, int value, boolean visible){
 		this.x = x;
 		this.y = y;
 		this.visible = true;
+		this.value = value;
 		pingDelay = -1;
+		diamondVisible = visible;
 	}
 	
 	public void kill(){
@@ -65,7 +69,8 @@ public class Crystal extends Actor{
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		img.setPosition(x-img.getWidth()/2, 
 						y-img.getHeight()/2);
-		img.draw(batch, parentAlpha);
+		if(diamondVisible)
+			img.draw(batch, parentAlpha);
 	}
 
 	@Override
