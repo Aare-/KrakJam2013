@@ -91,9 +91,12 @@ public class Bullet extends Group {
 				tmp.sub(x, y);
 				if(tmp.len() < bulletRadius + a.radius) {
 					Background bg = Krakjam.gameScreen.background;
-					FlyingPoints points = new FlyingPoints(a.x-a.width/2.0f+bg.x, a.y+a.height+bg.y, 1);
+					FlyingPoints points = new FlyingPoints(a.x-a.width/2.0f+bg.x, a.y+a.height+bg.y, 10);
 					stage.addActor(points);
 					a.shoot();
+					
+					Player p = Krakjam.gameScreen.player;
+					p.exp += 10;					
 					
 					kill();
 					break;

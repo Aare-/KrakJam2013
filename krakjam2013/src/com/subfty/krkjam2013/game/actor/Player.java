@@ -29,7 +29,7 @@ public class Player extends Collider {
 	public float life;
 	
 	public Stats stats;
-	public int exp;
+	public int exp = 0;
 	public int numberOfCrystals;
 	
 	//SHOOTING
@@ -68,6 +68,52 @@ public class Player extends Collider {
 		image.setSize(Background.TILE_SIZE, 200/100*Background.TILE_SIZE);
 		smuga = Krakjam.art.atlases[Art.A_ENTITIES].createSprite("smugi");
 		smuga.setOrigin(smuga.getWidth()/2.0f, 0);
+	}
+	
+	final int EXP_LEVEL_1 = 50;
+	final int EXP_LEVEL_2 = 70;
+	
+	public int getLevelExp(int level) {
+		int a = EXP_LEVEL_1;
+		int b = EXP_LEVEL_2;
+		
+		if(level < 0) return 0;
+		
+		if(level == 0) return a;
+		if(level == 1) return b;
+		
+		while(level>0) {
+			level--;
+			
+			int c = a;
+			a = b;
+			b = c+a;
+		}
+		
+		return a;
+	}
+	
+	public int getLevel() {
+		int e = exp;
+		
+		// 50
+		// 70
+		// 120
+		// 190
+		int a = EXP_LEVEL_1;
+		int b = EXP_LEVEL_2;
+		int c;
+		int k = 0;
+		
+		while(e >= a) {
+			c = a;
+			a = b;
+			b = c+b;
+			
+			k++;
+		}
+		
+		return k;
 	}
 	
     //STAGES OF LIFE

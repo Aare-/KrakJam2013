@@ -129,7 +129,10 @@ public class GameScreen extends Screen{
 		Krakjam.art.fonts[Art.F_DIGITAL].drawWrapped(batch, ""+12345, 
 				0, 600 - 18, 138, HAlignment.RIGHT);
 		
-		float expState = 0.3f;
+		int prevExp = player.getLevelExp(player.getLevel()-1);
+		int nextExp = player.getLevelExp(player.getLevel());
+		
+		float expState = (player.exp - prevExp)/(float)(nextExp-prevExp);
 		
 		expBackSprite.setPosition(800 - 5 - expBackSprite.getWidth(), 600 - expBackSprite.getHeight() - 5);
 		expBackSprite.draw(batch);
@@ -142,7 +145,9 @@ public class GameScreen extends Screen{
 		
 		Krakjam.art.fonts[Art.F_DIGITAL].setColor(0.5f, 0, 0, 1);
 		Krakjam.art.fonts[Art.F_DIGITAL].setScale(0.4f);
-		Krakjam.art.fonts[Art.F_DIGITAL].drawWrapped(batch, "LEVEL "+12,
+		Krakjam.art.fonts[Art.F_DIGITAL].drawWrapped(batch, "LEVEL "+player.getLevel(),
 				800-300-5, 600 - 18, 300, HAlignment.CENTER);
+		
+		System.out.println(prevExp + "-" + player.exp+"-" + nextExp + " " +player.getLevel());
 	}
 }
