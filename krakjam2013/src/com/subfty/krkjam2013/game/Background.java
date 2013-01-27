@@ -104,8 +104,11 @@ public class Background extends Group{
 			//l.error("serializatiopn exception");
 		}
 		
-		if(markers == null)
+		if(markers == null){
 			markers = new Hashtable<Long, SpecialTile>();
+			
+			addMarker(-1, -1, Art.A_AGENTS, "resp", 1, 2*Background.TILE_SIZE, 2*Background.TILE_SIZE);
+		}
 		
 		for(int i=0; i<bgSprites.length; i++)
 			for(int j=0; j<bgSprites[i].length; j++){
@@ -139,11 +142,11 @@ public class Background extends Group{
 			oos.close();	
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		
 		//f.writeString(data, false);

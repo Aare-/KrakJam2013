@@ -93,14 +93,12 @@ public class GameScreen extends Screen{
 		
 		this.addActor(ui);
 		
-		//bOverlord.createNewBuilding(5, 5, B_TYPE.BASE);
-		//bOverlord.createNewBuilding(5+10, 5, B_TYPE.BASE);
-		bOverlord.createNewBuilding(5, 7, B_TYPE.BASE);
-		//bOverlord.createNewBuilding(5, 5+30, B_TYPE.BASE);
 		
-		bOverlord.createNewBuilding(0, 4, B_TYPE.TURRET);
-		//bOverlord.createNewBuilding(10, 5+30, B_TYPE.TURRET);
-		//bOverlord.createNewBuilding(0, -10, B_TYPE.TURRET);
+		bOverlord.createNewBuilding(-2, 3, B_TYPE.BASE);
+		
+		bOverlord.createNewBuilding(-6, 2, B_TYPE.TURRET);
+		bOverlord.createNewBuilding(5, 0, B_TYPE.TURRET);
+		
 		
 		// LOADING HUD
 		expBackSprite = Krakjam.art.atlases[Art.A_BSCREEN].createSprite("exp-back");
