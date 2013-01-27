@@ -3,6 +3,7 @@ package com.subfty.krkjam2013.game.actor;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool.PooledEffect;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
@@ -51,8 +52,13 @@ public class Bullet extends Group {
 		
 		creatorBuilding = creator;
 	}
-	public void kill(){
+	public void kill(boolean blood){
 		this.visible = false;
+		if(blood) {
+			PooledEffect effect = Krakjam.bloodEffectPool.obtain();
+			effect.setPosition(x, y);
+			Krakjam.effects.add(effect);
+		}
 	}
 	
 	@Override
@@ -61,7 +67,7 @@ public class Bullet extends Group {
 		
 		lifeTime -= delta;
 		if(lifeTime < 0)
-			kill();
+			kill(false);
 		
 		originx += dx * delta;
 		originy += dy * delta;
@@ -86,7 +92,8 @@ public class Bullet extends Group {
 				
 				// dla gracza daje ten sam dzwiek
 				Krakjam.art.hitAlien.play();
-				kill();
+				y += p.height/2.0f;
+				kill(true);
 			}
 		} else {
 			for(int i=0; i<aliens.size; i++) {
@@ -109,7 +116,8 @@ public class Bullet extends Group {
 					
 					Krakjam.art.hitAlien.play();
 					
-					kill();
+					y += a.height/2.0f;
+					kill(true);
 					break;
 				}
 			}	
@@ -139,7 +147,7 @@ public class Bullet extends Group {
 				tmp.sub(x, y);
 				
 				if(tmp.len() < radius + bulletRadius) {
-					kill();
+					kill(false);
 					break;
 				}
 					
@@ -149,7 +157,7 @@ public class Bullet extends Group {
 		Player p = Krakjam.gameScreen.player;
 		
 		if(Vector2.tmp.set(x, y).sub(p.x, p.y).len() > 5000) {
-			kill();
+			kill(true);
 		}
 	}
 	

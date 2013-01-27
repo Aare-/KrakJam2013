@@ -9,9 +9,13 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool.PooledEffect;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Array;
 import com.subfty.krkjam2013.game.GameScreen;
 import com.subfty.krkjam2013.game.actor.FlyingPoints;
 import com.subfty.krkjam2013.game.actor.FlyingPoints.FlyingPointsAccessor;
@@ -53,9 +57,29 @@ public class Krakjam implements ApplicationListener {
 		return playerPos;
 	}
 	
+	public static ParticleEffectPool bombEffectPool;
+	public static ParticleEffectPool bloodEffectPool;
+	public static ParticleEffectPool spawnEffectPool;
+	public static ParticleEffectPool shotEffectPool;
+	public static Array<PooledEffect> effects = new Array<PooledEffect>();
+	
 	@Override
 	public void create() {
 		//Gdx.input.setCursorCatched(true);
+		
+		//PARTICLE LOADING
+		ParticleEffect bombEffect = new ParticleEffect();
+		bombEffect.load(Gdx.files.internal("data/particle-explosion.txt"), Gdx.files.internal("data"));
+		bombEffectPool = new ParticleEffectPool(bombEffect, 1, 2);
+		ParticleEffect bloodEffect = new ParticleEffect();
+		bloodEffect.load(Gdx.files.internal("data/particle-blood.txt"), Gdx.files.internal("data"));
+		bloodEffectPool = new ParticleEffectPool(bloodEffect, 1, 2);
+		ParticleEffect spawnEffect = new ParticleEffect();
+		spawnEffect.load(Gdx.files.internal("data/particle-spawn.txt"), Gdx.files.internal("data"));
+		spawnEffectPool = new ParticleEffectPool(spawnEffect, 1, 2);
+		ParticleEffect shotEffect = new ParticleEffect();
+		shotEffect.load(Gdx.files.internal("data/particle-shot.txt"), Gdx.files.internal("data"));
+		shotEffectPool = new ParticleEffectPool(shotEffect, 1, 2);
 		
 		stage = new Stage(STAGE_W, STAGE_H, false);
 		art = new Art();

@@ -3,9 +3,12 @@ package com.subfty.krkjam2013.game;
 import java.util.Comparator;
 import java.util.LinkedList;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool.PooledEffect;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -158,9 +161,30 @@ public class GameScreen extends Screen{
 		}
 	}
 	
+	Matrix4 translation = new Matrix4();
+	Matrix4 identity = new Matrix4();
+	
 	@Override
 	public void draw (SpriteBatch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
+		
+		translation.idt();
+		float x = player.parent.x, y=player.parent.y;
+		translation.translate(x, y, 0);
+		
+		batch.setTransformMatrix(translation);
+		
+		for (int i = Krakjam.effects.size - 1; i >= 0; i--) {
+	        PooledEffect effect = Krakjam.effects.get(i);
+	        effect.draw(batch, Gdx.graphics.getDeltaTime());
+	        if (effect.isComplete()) {
+	                effect.free();
+	                Krakjam.effects.removeIndex(i);
+	        }
+		}
+		
+		batch.setTransformMatrix(identity);
+		
 		//agents.x += 1;
 		Krakjam.shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
 		

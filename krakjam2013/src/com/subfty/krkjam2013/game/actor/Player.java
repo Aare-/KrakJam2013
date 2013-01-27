@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool.PooledEffect;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
@@ -138,6 +139,10 @@ public class Player extends Collider {
 		life = MAX_LIFE;
 		exp = 0;
 		numberOfCrystals = 0;
+		
+		PooledEffect effect = Krakjam.spawnEffectPool.obtain();
+		effect.setPosition(x, y);
+		Krakjam.effects.add(effect);
 	}
 	public void kill(){
 		int deathX = (int)((this.x-20) /Background.TILE_SIZE);
@@ -240,6 +245,10 @@ public class Player extends Collider {
 					x+gunX, y+gunY, (float)(angle2*180/Math.PI) + 90, 0, null);
 			
 			Krakjam.art.shoot.play();
+			
+			PooledEffect effect = Krakjam.shotEffectPool.obtain();
+			effect.setPosition(x+gunX, y+gunY);
+			Krakjam.effects.add(effect);
 		}
 		
 	}

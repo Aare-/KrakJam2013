@@ -1,6 +1,7 @@
 package com.subfty.krkjam2013.game.actor.aliens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool.PooledEffect;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -315,7 +316,9 @@ public class Alien extends Collider {
 				
 				Krakjam.art.explosion.play();
 				
-				// TODO: particle wybuchu tutaj
+				PooledEffect effect = Krakjam.bombEffectPool.obtain();
+				effect.setPosition(x, y+height/2.0f);
+				Krakjam.effects.add(effect);
 			}
 		}
 		
