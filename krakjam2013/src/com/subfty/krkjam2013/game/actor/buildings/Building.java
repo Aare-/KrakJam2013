@@ -71,7 +71,10 @@ public class Building extends Group{
 		image.setSize(this.width, this.height);
 		
 		if(type.destroyable){
-			imageDamaged.setRegion(Krakjam.art.atlases[Art.A_AGENTS].createSprite(type.img, 2));
+			if(type == B_TYPE.MEDCENTRE)
+				imageDamaged.setRegion(Krakjam.art.atlases[Art.A_AGENTS].createSprite(type.img, 3));
+			else
+				imageDamaged.setRegion(Krakjam.art.atlases[Art.A_AGENTS].createSprite(type.img, 2));
 			imageDamaged.setSize(image.getWidth(), 
 								 image.getHeight());
 		}
@@ -154,7 +157,7 @@ public class Building extends Group{
 		
 		if(type == B_TYPE.MEDCENTRE){
 			
-			if(Krakjam.gameScreen.generatorsRunning())
+			if(Krakjam.gameScreen.generatorsRunning() && this.isHealth())
 				image.setRegion(Krakjam.art.atlases[Art.A_AGENTS].createSprite(type.img, 2));
 			else
 				image.setRegion(Krakjam.art.atlases[Art.A_AGENTS].createSprite(type.img, 1));

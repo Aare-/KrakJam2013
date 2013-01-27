@@ -59,6 +59,7 @@ public class GameScreen extends Screen{
 	public LinkedList<Collider> colliders = new LinkedList<Collider>();
 	
 	public Building generators[];
+	public Building medcentre;
 	
 	public GameScreen(Stage stage){
 		super(stage);
@@ -101,7 +102,7 @@ public class GameScreen extends Screen{
 		generators = new Building[]{bOverlord.createNewBuilding(2, -5, B_TYPE.GENERATOR),
 									bOverlord.createNewBuilding(2, -9, B_TYPE.GENERATOR)};
 		
-		bOverlord.createNewBuilding(-6, -8, B_TYPE.MEDCENTRE);
+		medcentre = bOverlord.createNewBuilding(-6, -8, B_TYPE.MEDCENTRE);
 		
 		
 		// LOADING HUD
@@ -116,6 +117,8 @@ public class GameScreen extends Screen{
 //	}
 	
 	public boolean generatorsRunning(){
+		if(!medcentre.isHealth())
+			return false;
 		for(int i=0; i<generators.length; i++)
 			if(!generators[i].isHealth() || generators[i].possesedCristals < 60)
 				return false;
