@@ -14,6 +14,7 @@ import com.subfty.krkjam2013.game.actor.Collider;
 import com.subfty.krkjam2013.game.actor.Player;
 import com.subfty.krkjam2013.game.actor.aliens.Alien.ALIEN_TYPE;
 import com.subfty.krkjam2013.game.actor.aliens.AlienOverlord;
+import com.subfty.krkjam2013.game.actor.buildings.Building;
 import com.subfty.krkjam2013.game.actor.buildings.BuildingsOverlord;
 import com.subfty.krkjam2013.game.actor.buildings.BuildingsOverlord.B_TYPE;
 import com.subfty.krkjam2013.game.actor.crystals.CrystalOverlord;
@@ -43,10 +44,14 @@ public class GameScreen extends Screen{
 	Sprite expFrontSprite;
 	Sprite counterSprite;
 	
+	public Building base;
+	
 	public LinkedList<Collider> colliders = new LinkedList<Collider>();
 	
 	public GameScreen(Stage stage){
 		super(stage);
+		
+		Krakjam.gameScreen = this;
 		
 		agents= new Group();
 		background = new Background(this);

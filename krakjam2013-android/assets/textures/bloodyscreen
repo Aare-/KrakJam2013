@@ -31,3 +31,10 @@ counter
   orig: 150, 50
   offset: 0, 0
   index: -1
+strzalka
+  rotate: false
+  xy: 303, 73
+  size: 30, 30
+  orig: 30, 30
+  offset: 0, 0
+  index: -1

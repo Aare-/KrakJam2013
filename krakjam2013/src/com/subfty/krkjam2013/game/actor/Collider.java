@@ -33,6 +33,10 @@ public abstract class Collider extends Group {
 		byway = false;
 	}
 	
+	public void onTouchBuilding(Building building) {
+		
+	}
+	
 	public void resolveCollisions() {		
 		LinkedList<Collider> colliders = Krakjam.gameScreen.colliders;
 		for(Collider c: colliders) {
@@ -92,6 +96,8 @@ public abstract class Collider extends Group {
 				}
 				
 				bywayX = x;
+				
+				onTouchBuilding(b);
 			}
 		}
 		
@@ -125,6 +131,8 @@ public abstract class Collider extends Group {
 				}
 				
 				bywayY = y;
+				
+				onTouchBuilding(b);
 			}
 		}
 		

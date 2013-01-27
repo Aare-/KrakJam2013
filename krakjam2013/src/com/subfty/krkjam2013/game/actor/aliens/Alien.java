@@ -1,5 +1,6 @@
 package com.subfty.krkjam2013.game.actor.aliens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -219,7 +220,7 @@ public class Alien extends Collider {
 					state = STATE_RESTING;
 				}
 			} else if(state == STATE_ATTACK_BUILDING) {
-				if(attackedBuilding != null) { // building.jestNieZniszczony
+				if(attackedBuilding != null && attackedBuilding.getHealth() > 0) {
 					float 	cx = attackedBuilding.x + attackedBuilding.width, 
 							cy = attackedBuilding.y + attackedBuilding.height;
 					tmp.set(cx, cy).sub(x, y);
@@ -326,6 +327,10 @@ public class Alien extends Collider {
 		if(life <= 0) {
 			kill();
 		}
+	}
+	
+	public void onTouchBuilding(Building building) {
+		building.damage(Gdx.graphics.getDeltaTime());
 	}
 	
 	@Override

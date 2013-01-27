@@ -1,103 +1,122 @@
 
-agents1.png
+agents.png
 format: RGBA8888
-filter: Linear,Linear
+filter: Nearest,Nearest
 repeat: none
-turent
-  rotate: false
-  xy: 2, 2
-  size: 400, 600
-  orig: 400, 600
-  offset: 0, 0
-  index: -1
 aim
   rotate: false
-  xy: 404, 2
+  xy: 1, 503
   size: 500, 500
   orig: 500, 500
   offset: 0, 0
-  index: 3
+  index: 1
 aim
   rotate: false
-  xy: 2, 604
+  xy: 1, 1
   size: 500, 500
   orig: 500, 500
   offset: 0, 0
   index: 2
 aim
   rotate: false
-  xy: 504, 604
+  xy: 503, 503
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: 3
+alien2
+  rotate: false
+  xy: 503, 1
   size: 500, 500
   orig: 500, 500
   offset: 0, 0
   index: 1
+
+agents2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+turent
+  rotate: false
+  xy: 1, 405
+  size: 400, 600
+  orig: 400, 600
+  offset: 0, 0
+  index: -1
 base
   rotate: false
-  xy: 2, 1106
+  xy: 403, 505
   size: 400, 500
   orig: 400, 500
   offset: 0, 0
-  index: 1
+  index: -1
+base_damaged
+  rotate: false
+  xy: 403, 3
+  size: 400, 500
+  orig: 400, 500
+  offset: 0, 0
+  index: -1
 crystal
   rotate: false
-  xy: 2, 1608
+  xy: 1, 203
   size: 221, 200
   orig: 221, 200
   offset: 0, 0
   index: -1
 alien1
   rotate: false
-  xy: 2, 1810
+  xy: 805, 805
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
-  index: 4
+  index: 1
 alien1
   rotate: false
-  xy: 404, 1106
-  size: 200, 200
-  orig: 200, 200
-  offset: 0, 0
-  index: 3
-alien1
-  rotate: false
-  xy: 606, 1106
+  xy: 1, 1
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: 2
 alien1
   rotate: false
-  xy: 808, 1106
+  xy: 805, 603
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
-  index: 1
-clone
+  index: 3
+alien1
   rotate: false
-  xy: 906, 2
-  size: 100, 200
-  orig: 100, 200
+  xy: 805, 401
+  size: 200, 200
+  orig: 200, 200
   offset: 0, 0
   index: 4
 clone
   rotate: false
-  xy: 906, 204
+  xy: 224, 203
   size: 100, 200
   orig: 100, 200
   offset: 0, 0
-  index: 3
+  index: 1
 clone
   rotate: false
-  xy: 225, 1608
+  xy: 203, 1
   size: 100, 200
   orig: 100, 200
   offset: 0, 0
   index: 2
 clone
   rotate: false
-  xy: 204, 1810
+  xy: 805, 199
   size: 100, 200
   orig: 100, 200
   offset: 0, 0
-  index: 1
+  index: 3
+clone
+  rotate: false
+  xy: 907, 199
+  size: 100, 200
+  orig: 100, 200
+  offset: 0, 0
+  index: 4

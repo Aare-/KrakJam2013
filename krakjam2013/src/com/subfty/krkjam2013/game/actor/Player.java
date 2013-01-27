@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.subfty.krkjam2013.Krakjam;
 import com.subfty.krkjam2013.game.Background;
+import com.subfty.krkjam2013.game.actor.buildings.Building;
 import com.subfty.krkjam2013.game.actor.player.Stats;
 import com.subfty.krkjam2013.util.Art;
 
@@ -44,6 +45,7 @@ public class Player extends Collider {
 	public Cursor cursor;
 	
 	private Sprite smuga;
+	private Sprite arrow;
 	
 	private Background bg;
 	
@@ -67,6 +69,7 @@ public class Player extends Collider {
 		
 		image.setSize(Background.TILE_SIZE, 200/100*Background.TILE_SIZE);
 		smuga = Krakjam.art.atlases[Art.A_ENTITIES].createSprite("smugi");
+		arrow = Krakjam.art.atlases[Art.A_BSCREEN].createSprite("strzalka");
 		smuga.setOrigin(smuga.getWidth()/2.0f, 0);
 	}
 	
@@ -262,6 +265,33 @@ public class Player extends Collider {
 		image.setPosition(x - image.getWidth()/2.0f, y-15);
 		image.draw(batch);
 		cursor.draw(batch, parentAlpha);
+		
+		Vector2 tmp = Vector2.tmp;
+		
+		Building base = Krakjam.gameScreen.base;
+		
+		float 	bx = base.x + base.width/2.0f,
+				by = base.y + base.height/2.0f;
+		
+		tmp.set(bx, by).sub(x, y);
+		
+		final float FADE_DIST = 100.0f;
+		final float ARROW_MIN_DIST = 400.0f;
+		
+		if(tmp.len() > ARROW_MIN_DIST) {
+			float arrowAlpha = 1.0f;
+			if(tmp.len() < ARROW_MIN_DIST+FADE_DIST) {
+				arrowAlpha = 1.0f-(ARROW_MIN_DIST+FADE_DIST - tmp.len())/FADE_DIST;
+			}
+			tmp.nor();
+			float angle=(float)Math.atan2(tmp.y, tmp.x);
+			tmp.mul(70);
+			arrow.setColor(1,1,1,arrowAlpha);
+			arrow.setPosition(tmp.x+x-arrow.getWidth()/2.0f, tmp.y+y-arrow.getHeight()/2.0f);
+			arrow.setOrigin(arrow.getWidth()/2.0f, arrow.getHeight()/2.0f);
+			arrow.setRotation(angle*180.0f/(float)Math.PI-90);
+			arrow.draw(batch);
+		}
 	}
 	
 	@Override
