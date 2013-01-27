@@ -15,9 +15,9 @@ import com.subfty.krkjam2013.util.Art;
 
 public class Player extends Collider {
 	//SETTINGS
-	private final float MARGIN_X = 250,
-						MARGIN_Y = 200,
-						MAX_LIFE = 60*3;
+	private final float MARGIN_X = 350,
+						MARGIN_Y = 300,
+						MAX_LIFE = 10;//60*3;
 	private final float SPAWN_X, SPAWN_Y;
 	
 	private float step;
@@ -30,7 +30,6 @@ public class Player extends Collider {
 	
 	public Stats stats;
 	public int exp;
-	public int level;
 	
 	public void addExp(int exp) {
 		this.exp += exp;
@@ -77,7 +76,7 @@ public class Player extends Collider {
 		this.SPAWN_X = spawn_x;
 		this.SPAWN_Y = spawn_y;
 		
-		step=500f;
+		step=280f;
 		cursorDistance=100;
 	
 		stats = new Stats();
@@ -102,10 +101,20 @@ public class Player extends Collider {
 		this.y = SPAWN_Y;
 		life = MAX_LIFE;
 		exp = 0;
+		numberOfCrystals = 0;
 	}
 	public void kill(){
-		bg.addMarker((int)((this.x-20) /Background.TILE_SIZE),
-				 	 (int)((this.y-40) /Background.TILE_SIZE), Art.A_BACKGROUND, "body", -1, Background.TILE_SIZE*2, Background.TILE_SIZE*2);
+		int deathX = (int)((this.x-20) /Background.TILE_SIZE);
+		int deathY = (int)((this.y-40) /Background.TILE_SIZE);
+		bg.addMarker(deathX,
+					 deathY, Art.A_BACKGROUND, "body", -1, Background.TILE_SIZE*2, Background.TILE_SIZE*2);
+		
+		if(numberOfCrystals > 0)
+			Krakjam.gameScreen.cOverlord.spawnNew(this.x-20, 
+												  this.y-40, 
+												  numberOfCrystals,
+												  true);
+		
 		init();
 	}
 	
@@ -116,6 +125,7 @@ public class Player extends Collider {
 		move=step*delta;
 		angle=0f;
 
+		cursor.act(delta);
 		updateInput();
 		
 		dx+=move*Math.cos(angle);
@@ -179,8 +189,9 @@ public class Player extends Collider {
 	
 	//SHOOTING
 	private void fire(float delta){
-		if(rateOfFire > 0){
-			rateOfFire = -stats.getRateOfFire();
+		if(cursor.mode == Cursor.M_SHOOT &&
+		   rateOfFire > 0){
+		   rateOfFire = -stats.getRateOfFire();
 			
 			Bullet bullet = obtainBullet();
 			final float bulletSpeed = 400;
@@ -199,6 +210,10 @@ public class Player extends Collider {
 		bullets.add(b);
 		Krakjam.gameScreen.agents.addActor(b);
 		return obtainBullet();
+	}
+
+	public void cristalCollected(int ammount){
+		numberOfCrystals += ammount;
 	}
 	
 	private void scrollBackground(float delta){
@@ -228,7 +243,6 @@ public class Player extends Collider {
 	
 	@Override
 	public Actor hit(float x, float y) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

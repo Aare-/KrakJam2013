@@ -19,14 +19,10 @@ public class CrystalOverlord extends Actor{
 		this.agents = agents;
 	}
 	
-	public void spawnNew(){
+	public void spawnNew(float x, float y, int value, boolean visible){
 		for(int i=0; i<crystals.size; i++)
 			if(!crystals.get(i).visible){
-				Vector2.tmp.set(1, 0)
-						   .rotate(460*Krakjam.rand.nextFloat())
-						   .mul(3000 + 2000*Krakjam.rand.nextFloat());
-				
-				crystals.get(i).init(Vector2.tmp.x, Vector2.tmp.y);
+				crystals.get(i).init(x,y, value, visible);//Vector2.tmp.x, Vector2.tmp.y);
 				
 				return;
 			}
@@ -34,12 +30,20 @@ public class CrystalOverlord extends Actor{
 		Crystal c = new Crystal(p);
 		crystals.add(c);
 		agents.addActor(c);
-		spawnNew();
+		spawnNew(x,y,value, visible);
+	}
+	public void spawnNew(){
+		Vector2.tmp.set(1, 0)
+			   .rotate(460*Krakjam.rand.nextFloat())
+			   .mul(3000 + 2000*Krakjam.rand.nextFloat());
+		
+		spawnNew(0,0,1, false);//Vector2.tmp.x, Vector2.tmp.y, false);
 	}
 	
 	public Crystal isCristalInRange(float radius){
 		for(int i=0; i<crystals.size; i++)
-			if(Vector2.tmp.set(p.x - crystals.get(i).x, p.y - crystals.get(i).y).len() < radius)
+			if(crystals.get(i).visible &&
+			   Vector2.tmp.set(p.x - crystals.get(i).x, p.y - crystals.get(i).y).len() < radius)
 				return crystals.get(i);
 			
 		return null;
