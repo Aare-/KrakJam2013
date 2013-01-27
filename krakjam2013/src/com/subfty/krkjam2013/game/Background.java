@@ -92,16 +92,16 @@ public class Background extends Group{
 			try{
 			FileHandle f = Gdx.files.local(SAVE_FILE_PATH);
 			String s= f.readString();
-			l.info("string read: "+s);
+			//l.info("string read: "+s);
 			
 			markers = json.readValue(Hashtable.class, s);
 			}catch(GdxRuntimeException gdr){
 				markers = null;
-				l.error("runtime exception");
+				//l.error("runtime exception");
 			}
 		}catch(SerializationException sxc){
 			markers = null;
-			l.error("serializatiopn exception");
+			//l.error("serializatiopn exception");
 		}
 		
 		if(markers == null)
@@ -151,7 +151,7 @@ public class Background extends Group{
 		
 		json.toJson(markers, Gdx.files.local(SAVE_FILE_PATH));
 		//json.to
-		l.info("json: "+json.toJson(markers));
+		//l.info("json: "+json.toJson(markers));
 	}
 	
 	public void act(float delta) {

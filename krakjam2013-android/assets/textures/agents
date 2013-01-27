@@ -1,122 +1,7 @@
 
 agents1.png
 format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
-alien4
-  rotate: false
-  xy: 2, 2
-  size: 500, 500
-  orig: 500, 500
-  offset: 0, 0
-  index: 1
-alien2
-  rotate: false
-  xy: 504, 2
-  size: 500, 500
-  orig: 500, 500
-  offset: 0, 0
-  index: 1
-aim
-  rotate: false
-  xy: 2, 504
-  size: 500, 500
-  orig: 500, 500
-  offset: 0, 0
-  index: 3
-aim
-  rotate: false
-  xy: 504, 504
-  size: 500, 500
-  orig: 500, 500
-  offset: 0, 0
-  index: 2
-
-agents2.png
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
-aim
-  rotate: false
-  xy: 2, 2
-  size: 500, 500
-  orig: 500, 500
-  offset: 0, 0
-  index: 1
-base
-  rotate: false
-  xy: 504, 2
-  size: 400, 500
-  orig: 400, 500
-  offset: 0, 0
-  index: -1
-base
-  rotate: false
-  xy: 2, 504
-  size: 400, 500
-  orig: 400, 500
-  offset: 0, 0
-  index: -1
-resp
-  rotate: false
-  xy: 404, 504
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: -1
-alien1
-  rotate: false
-  xy: 806, 504
-  size: 200, 200
-  orig: 200, 200
-  offset: 0, 0
-  index: 4
-alien1
-  rotate: false
-  xy: 806, 706
-  size: 200, 200
-  orig: 200, 200
-  offset: 0, 0
-  index: 3
-clone
-  rotate: false
-  xy: 906, 2
-  size: 100, 200
-  orig: 100, 200
-  offset: 0, 0
-  index: 4
-clone
-  rotate: false
-  xy: 906, 204
-  size: 100, 200
-  orig: 100, 200
-  offset: 0, 0
-  index: 3
-turentbulent
-  rotate: false
-  xy: 404, 906
-  size: 100, 100
-  orig: 100, 100
-  offset: 0, 0
-  index: -1
-alien3
-  rotate: false
-  xy: 506, 906
-  size: 100, 100
-  orig: 100, 100
-  offset: 0, 0
-  index: 2
-alien3
-  rotate: false
-  xy: 608, 906
-  size: 100, 100
-  orig: 100, 100
-  offset: 0, 0
-  index: 1
-
-agents3.png
-format: RGBA8888
-filter: Nearest,Nearest
+filter: Linear,Linear
 repeat: none
 turent
   rotate: false
@@ -124,39 +9,151 @@ turent
   size: 400, 600
   orig: 400, 600
   offset: 0, 0
-  index: -1
-crystal
+  index: 2
+turent
+  rotate: false
+  xy: 404, 2
+  size: 400, 600
+  orig: 400, 600
+  offset: 0, 0
+  index: 1
+alien4
   rotate: false
   xy: 2, 604
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: 1
+alien2
+  rotate: false
+  xy: 504, 604
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: 1
+aim
+  rotate: false
+  xy: 2, 1106
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: 3
+aim
+  rotate: false
+  xy: 504, 1106
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: 2
+aim
+  rotate: false
+  xy: 2, 1608
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: 1
+base
+  rotate: false
+  xy: 504, 1608
+  size: 400, 500
+  orig: 400, 500
+  offset: 0, 0
+  index: 2
+base
+  rotate: false
+  xy: 2, 2110
+  size: 400, 500
+  orig: 400, 500
+  offset: 0, 0
+  index: 1
+resp
+  rotate: false
+  xy: 404, 2110
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: 1
+crystal
+  rotate: false
+  xy: 2, 2612
   size: 221, 200
   orig: 221, 200
   offset: 0, 0
   index: -1
 alien1
   rotate: false
-  xy: 2, 806
+  xy: 806, 2
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: 4
+alien1
+  rotate: false
+  xy: 806, 204
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: 3
+alien1
+  rotate: false
+  xy: 806, 2110
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: 2
 alien1
   rotate: false
-  xy: 225, 604
+  xy: 806, 2312
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: 1
 clone
   rotate: false
-  xy: 404, 2
+  xy: 906, 1608
+  size: 100, 200
+  orig: 100, 200
+  offset: 0, 0
+  index: 4
+clone
+  rotate: false
+  xy: 906, 1810
+  size: 100, 200
+  orig: 100, 200
+  offset: 0, 0
+  index: 3
+clone
+  rotate: false
+  xy: 225, 2612
   size: 100, 200
   orig: 100, 200
   offset: 0, 0
   index: 2
 clone
   rotate: false
-  xy: 404, 204
+  xy: 327, 2612
   size: 100, 200
   orig: 100, 200
+  offset: 0, 0
+  index: 1
+turentbulent
+  rotate: false
+  xy: 806, 406
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+alien3
+  rotate: false
+  xy: 908, 406
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: 2
+alien3
+  rotate: false
+  xy: 429, 2612
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: 1
