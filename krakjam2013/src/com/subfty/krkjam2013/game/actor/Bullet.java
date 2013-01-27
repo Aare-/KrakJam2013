@@ -113,7 +113,7 @@ public class Bullet extends Group {
 					a.shoot();
 					
 					Player p = Krakjam.gameScreen.player;
-					p.addExp(10);				
+					p.addExp(2);				
 					
 					Krakjam.art.hitAlien.play();
 					

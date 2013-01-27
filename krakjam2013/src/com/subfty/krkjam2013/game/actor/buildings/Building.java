@@ -30,7 +30,7 @@ public class Building extends Group{
 	private Background bg;
 	private float health;
 	
-	private int possesedCristals;
+	public int possesedCristals;
 	
 	public B_TYPE type;
 	
@@ -151,6 +151,14 @@ public class Building extends Group{
 		if(type == B_TYPE.GENERATOR)
 			if(possesedCristals == 60 && isHealth())
 				image.setRegion(Krakjam.art.atlases[Art.A_AGENTS].createSprite(type.img, 2));
+		
+		if(type == B_TYPE.MEDCENTRE){
+			
+			if(Krakjam.gameScreen.generatorsRunning())
+				image.setRegion(Krakjam.art.atlases[Art.A_AGENTS].createSprite(type.img, 2));
+			else
+				image.setRegion(Krakjam.art.atlases[Art.A_AGENTS].createSprite(type.img, 1));
+		}
 		
 		if(type.destroyable) {
 			imageDamaged.setPosition(x, y);

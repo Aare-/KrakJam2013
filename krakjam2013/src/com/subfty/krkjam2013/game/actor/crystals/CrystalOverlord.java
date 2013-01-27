@@ -37,7 +37,7 @@ public class CrystalOverlord extends Actor{
 			   .rotate(460*Krakjam.rand.nextFloat())
 			   .mul(2000 + 3000*Krakjam.rand.nextFloat());
 		
-		spawnNew(Vector2.tmp.x, Vector2.tmp.y, 15+Krakjam.rand.nextInt(15), false);
+		spawnNew(Vector2.tmp.x, Vector2.tmp.y, 3+Krakjam.rand.nextInt(7), false);
 	}
 	
 	public Crystal isCristalInRange(float radius){

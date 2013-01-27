@@ -219,9 +219,13 @@ public class Player extends Collider {
 			fire(delta);		
 		
 		//UPDATING LIFE
-		life -= delta;
-		if(life < 0)
-			kill();
+		if(Krakjam.gameScreen.generatorsRunning())
+			life = MAX_LIFE;
+		else{
+			life -= delta;
+			if(life < 0)
+				kill();
+		}
 	}
 	
 	private void updateInput(){

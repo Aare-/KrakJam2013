@@ -10,6 +10,7 @@ public class Art {
 	
 	//MUSIC
 	public static Music heartbeat;
+	//public static Music bgM;
 	
     //ID OF ATLASES
 	public static int A_ENTITIES = 0,
@@ -50,6 +51,7 @@ public class Art {
 		
 	    //MUSIC
 		heartbeat = Gdx.audio.newMusic(Gdx.files.internal("sounds/heartbeat.mp3"));
+		//bgM = Gdx.audio.newMusic(Gdx.files.internal("sounds/ambient.mp3"));
 		
 		//SOUNDS
 		ping  		= Gdx.audio.newSound(Gdx.files.internal("sounds/ping.wav"));

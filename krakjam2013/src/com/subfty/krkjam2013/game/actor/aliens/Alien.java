@@ -20,9 +20,9 @@ import com.subfty.krkjam2013.util.Art;
 public class Alien extends Collider {
 	public enum ALIEN_TYPE{
 		
-		REGULAR(50.0f ,50.0f, "alien1", 5, 80, 80, 4, 40),
-		EXPLODING(50.0f ,50.0f, "alien2", 5, 80, 80, 1, 20),
-		SHOOTER(10.0f ,20.0f, "alien3", 5, 80, 80, 2, 20);
+		REGULAR(150.0f ,200.0f, "alien1", 5, 80, 80, 4, 40),
+		EXPLODING(250.0f ,300.0f, "alien2", 5, 80, 80, 1, 20),
+		SHOOTER(50.0f ,90.0f, "alien3", 5, 80, 80, 2, 20);
 		
 		public final float MIN_SPEED;
 		public final float MAX_SPEED;
