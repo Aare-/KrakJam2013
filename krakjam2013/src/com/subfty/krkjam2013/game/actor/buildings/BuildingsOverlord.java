@@ -48,17 +48,17 @@ public class BuildingsOverlord extends Group{
 		//LOGIC
 	}
 	
-	public void createNewBuilding(int tileX, int tileY, B_TYPE type){
+	public Building createNewBuilding(int tileX, int tileY, B_TYPE type){
 		for(int i=0; i<buildings.size; i++)
 			if(!buildings.get(i).visible){
 				buildings.get(i).init(tileX, tileY, type);
-				return;
+				return buildings.get(i);
 			}
 		
 		Building b = new Building(bg);
 		buildings.add(b);
 		agents.addActor(b);
-		createNewBuilding(tileX,  tileY, type);
+		return createNewBuilding(tileX,  tileY, type);
 	}
 	public void destroyAll(){
 		for(int i=0; i<buildings.size; i++){

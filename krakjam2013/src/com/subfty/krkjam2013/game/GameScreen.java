@@ -47,6 +47,7 @@ public class GameScreen extends Screen{
 	
 	public static float timer = 0;
 	
+	
 	//UI
 	public BloodyScreen bScreen;
 	Sprite expBackSprite;
@@ -56,6 +57,8 @@ public class GameScreen extends Screen{
 	public Building base;
 	
 	public LinkedList<Collider> colliders = new LinkedList<Collider>();
+	
+	public Building generators[];
 	
 	public GameScreen(Stage stage){
 		super(stage);
@@ -95,8 +98,8 @@ public class GameScreen extends Screen{
 		bOverlord.createNewBuilding(-6, 2, B_TYPE.TURRET);
 		bOverlord.createNewBuilding(5, 0, B_TYPE.TURRET);
 		
-		bOverlord.createNewBuilding(2, -5, B_TYPE.GENERATOR);
-		bOverlord.createNewBuilding(2, -9, B_TYPE.GENERATOR);
+		generators = new Building[]{bOverlord.createNewBuilding(2, -5, B_TYPE.GENERATOR),
+									bOverlord.createNewBuilding(2, -9, B_TYPE.GENERATOR)};
 		
 		bOverlord.createNewBuilding(-6, -8, B_TYPE.MEDCENTRE);
 		
@@ -105,6 +108,18 @@ public class GameScreen extends Screen{
 		expBackSprite = Krakjam.art.atlases[Art.A_BSCREEN].createSprite("exp-front");
 		expFrontSprite = Krakjam.art.atlases[Art.A_BSCREEN].createSprite("exp-back");
 		counterSprite = Krakjam.art.atlases[Art.A_BSCREEN].createSprite("counter");
+	}
+	
+//	public void start(){
+//		Krakjam.art.bgM.setLooping(true);
+//		Krakjam.art.bgM.play();
+//	}
+	
+	public boolean generatorsRunning(){
+		for(int i=0; i<generators.length; i++)
+			if(!generators[i].isHealth() || generators[i].possesedCristals < 60)
+				return false;
+		return true;
 	}
 	
 	@Override

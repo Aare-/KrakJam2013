@@ -9,24 +9,38 @@ med
   size: 800, 600
   orig: 800, 600
   offset: 0, 0
-  index: 2
+  index: 3
 med
   rotate: false
   xy: 804, 2
   size: 800, 600
   orig: 800, 600
   offset: 0, 0
+  index: 2
+med
+  rotate: false
+  xy: 2, 604
+  size: 800, 600
+  orig: 800, 600
+  offset: 0, 0
   index: 1
 electro
   rotate: false
-  xy: 2, 604
+  xy: 804, 604
+  size: 800, 600
+  orig: 800, 600
+  offset: 0, 0
+  index: 3
+electro
+  rotate: false
+  xy: 2, 1206
   size: 800, 600
   orig: 800, 600
   offset: 0, 0
   index: 2
 electro
   rotate: false
-  xy: 804, 604
+  xy: 804, 1206
   size: 800, 600
   orig: 800, 600
   offset: 0, 0
@@ -47,147 +61,147 @@ turent
   index: 1
 alien4
   rotate: false
-  xy: 2, 1206
+  xy: 2, 1808
   size: 500, 500
   orig: 500, 500
   offset: 0, 0
   index: 1
 alien2
   rotate: false
-  xy: 504, 1206
+  xy: 504, 1808
   size: 500, 500
   orig: 500, 500
   offset: 0, 0
   index: 1
 aim
   rotate: false
-  xy: 1006, 1206
+  xy: 1006, 1808
   size: 500, 500
   orig: 500, 500
   offset: 0, 0
   index: 3
 aim
   rotate: false
-  xy: 1508, 1206
+  xy: 1508, 1808
   size: 500, 500
   orig: 500, 500
   offset: 0, 0
   index: 2
 aim
   rotate: false
-  xy: 2, 1708
+  xy: 2, 2310
   size: 500, 500
   orig: 500, 500
   offset: 0, 0
   index: 1
 base
   rotate: false
-  xy: 504, 1708
+  xy: 1606, 1206
   size: 400, 500
   orig: 400, 500
   offset: 0, 0
   index: 2
 base
   rotate: false
-  xy: 906, 1708
+  xy: 2, 2812
   size: 400, 500
   orig: 400, 500
   offset: 0, 0
   index: 1
 resp
   rotate: false
-  xy: 1308, 1708
+  xy: 2, 3314
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 1
 crystal
   rotate: false
-  xy: 1710, 1708
+  xy: 2, 3716
   size: 221, 200
   orig: 221, 200
   offset: 0, 0
   index: -1
 aim
   rotate: false
-  xy: 1710, 1910
+  xy: 225, 3716
   size: 221, 200
   orig: 221, 200
   offset: 0, 0
   index: 4
 alien1
   rotate: false
-  xy: 2, 2210
+  xy: 504, 2310
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: 4
 alien1
   rotate: false
-  xy: 2, 2412
+  xy: 706, 2310
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: 3
 alien1
   rotate: false
-  xy: 2, 2614
+  xy: 908, 2310
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: 2
 alien1
   rotate: false
-  xy: 2, 2816
+  xy: 1110, 2310
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: 1
 clone
   rotate: false
-  xy: 1933, 1708
+  xy: 1312, 2310
   size: 100, 200
   orig: 100, 200
   offset: 0, 0
   index: 4
 clone
   rotate: false
-  xy: 1933, 1910
+  xy: 1414, 2310
   size: 100, 200
   orig: 100, 200
   offset: 0, 0
   index: 3
 clone
   rotate: false
-  xy: 2, 3018
+  xy: 1516, 2310
   size: 100, 200
   orig: 100, 200
   offset: 0, 0
   index: 2
 clone
   rotate: false
-  xy: 2, 3220
+  xy: 1618, 2310
   size: 100, 200
   orig: 100, 200
   offset: 0, 0
   index: 1
 turentbulent
   rotate: false
-  xy: 2, 3422
+  xy: 2, 3918
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 alien3
   rotate: false
-  xy: 2, 3524
+  xy: 104, 3918
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: 2
 alien3
   rotate: false
-  xy: 2, 3626
+  xy: 225, 3918
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
