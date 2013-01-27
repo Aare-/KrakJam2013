@@ -38,6 +38,8 @@ public class GameScreen extends Screen{
 	public AlienOverlord aOverlord;
 	public CrystalOverlord cOverlord;
 	
+	public static float timer = 0;
+	
 	//UI
 	BloodyScreen bScreen;
 	Sprite expBackSprite;
@@ -106,6 +108,8 @@ public class GameScreen extends Screen{
 	
 	@Override
 	public void act(float delta){
+		timer += delta;
+		
 		if(stats.visible)
 			stats.act(delta);
 		else {

@@ -83,6 +83,8 @@ public class Bullet extends Group {
 				
 				// TODO: postrzelenie gracza
 				
+				// dla gracza daje ten sam dzwiek
+				Krakjam.art.hitAlien.play();
 				kill();
 			}
 		} else {
@@ -102,7 +104,9 @@ public class Bullet extends Group {
 					a.shoot();
 					
 					Player p = Krakjam.gameScreen.player;
-					p.addExp(10);					
+					p.addExp(10);				
+					
+					Krakjam.art.hitAlien.play();
 					
 					kill();
 					break;

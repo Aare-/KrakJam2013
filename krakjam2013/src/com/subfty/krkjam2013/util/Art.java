@@ -26,6 +26,14 @@ public class Art {
 	public TextureAtlas atlases[] = new TextureAtlas[atlasesSrc.length];
 	
 	public Sound ping;
+	public Sound explosion;
+	public Sound shoot;
+	public Sound dead;
+	public Sound diamond;
+	public Sound hitAlien;
+	public Sound hitBuilding;
+	public Sound levelUp;
+	public Sound turret;
 	
 	//ID OF FONTS
 	public static int F_DIGITAL = 0;
@@ -43,6 +51,14 @@ public class Art {
 		heartbeat = Gdx.audio.newMusic(Gdx.files.internal("sounds/heartbeat.mp3"));
 		
 		//SOUNDS
-		ping  = Gdx.audio.newSound(Gdx.files.internal("sounds/ping.wav"));
+		ping  		= Gdx.audio.newSound(Gdx.files.internal("sounds/ping.wav"));
+		explosion  	= Gdx.audio.newSound(Gdx.files.internal("sounds/explosion.wav"));
+		shoot  		= Gdx.audio.newSound(Gdx.files.internal("sounds/shoot.wav"));
+		dead		= Gdx.audio.newSound(Gdx.files.internal("sounds/dead.wav"));
+		diamond		= Gdx.audio.newSound(Gdx.files.internal("sounds/diamond.wav"));
+		hitAlien	= Gdx.audio.newSound(Gdx.files.internal("sounds/hit-alien.wav"));
+		hitBuilding	= Gdx.audio.newSound(Gdx.files.internal("sounds/hit-building.wav"));
+		levelUp		= Gdx.audio.newSound(Gdx.files.internal("sounds/levelup.wav"));
+		turret		= Gdx.audio.newSound(Gdx.files.internal("sounds/turret.wav"));
 	}
 }

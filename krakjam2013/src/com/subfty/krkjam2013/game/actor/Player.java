@@ -41,6 +41,7 @@ public class Player extends Collider {
 		
 		if(lastLevel < getLevel()) {
 			Krakjam.gameScreen.stats.showStatsScreen();
+			Krakjam.art.levelUp.play();
 		}
 	}
 	
@@ -153,6 +154,8 @@ public class Player extends Collider {
 												  true);
 		
 		init();
+		
+		Krakjam.art.dead.play();
 	}
 	
 	@Override
@@ -237,6 +240,8 @@ public class Player extends Collider {
 			bullet.antyPlayer = false;
 			bullet.init((float)Math.cos(angle2)*bulletSpeed, (float)Math.sin(angle2)*bulletSpeed, 
 					x+gunX, y+gunY, (float)(angle2*180/Math.PI) + 90, 0, null);
+			
+			Krakjam.art.shoot.play();
 		}
 		
 	}
@@ -253,6 +258,8 @@ public class Player extends Collider {
 
 	public void cristalCollected(int ammount){
 		numberOfCrystals += ammount;
+		
+		Krakjam.art.diamond.play();
 	}
 	
 	private void scrollBackground(float delta){

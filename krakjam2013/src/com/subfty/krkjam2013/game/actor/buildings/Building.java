@@ -125,6 +125,8 @@ public class Building extends Group{
 					bullet.antyPlayer = false;
 					bullet.init(ax*bulletSpeed, ay*bulletSpeed, 
 							cx, cy, Krakjam.rand.nextFloat()*2*(float)Math.PI, 0, this);
+					
+					Krakjam.art.turret.play();
 				} else {
 					turretNextShoot = 0.0f;
 				}

@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.subfty.krkjam2013.Krakjam;
 import com.subfty.krkjam2013.game.Background;
+import com.subfty.krkjam2013.game.GameScreen;
 import com.subfty.krkjam2013.game.actor.Bullet;
 import com.subfty.krkjam2013.game.actor.Collider;
 import com.subfty.krkjam2013.game.actor.Player;
@@ -78,7 +79,7 @@ public class Alien extends Collider {
 			state = STATE_FOLLOW_PLAYER;
 			minFollowTime = 4;
 		} else { // STATE_ATTACK_BUILDING
-			//state = STATE_ATTACK_BUILDING;
+			state = STATE_ATTACK_BUILDING;
 		}
 	}
 	
@@ -310,6 +311,8 @@ public class Alien extends Collider {
 			if(Vector2.tmp.set(x, y).sub(p.x, p.y).len() < 100) {
 				this.visible = false;
 				
+				Krakjam.art.explosion.play();
+				
 				// TODO: particle wybuchu tutaj
 			}
 		}
@@ -344,8 +347,14 @@ public class Alien extends Collider {
 		}
 	}
 	
+	public static float lastSound = 0;
+	
 	public void onTouchBuilding(Building building) {
 		building.damage(Gdx.graphics.getDeltaTime());
+		if(GameScreen.timer - lastSound > 0.5f) {
+			Krakjam.art.hitBuilding.play();
+			lastSound = GameScreen.timer;
+		}
 	}
 	
 	@Override
