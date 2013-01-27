@@ -1,143 +1,162 @@
 
-agents.png
+agents1.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-aim
+alien4
   rotate: false
-  xy: 1, 503
+  xy: 2, 2
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: 1
+alien2
+  rotate: false
+  xy: 504, 2
   size: 500, 500
   orig: 500, 500
   offset: 0, 0
   index: 1
 aim
   rotate: false
-  xy: 1, 1
-  size: 500, 500
-  orig: 500, 500
-  offset: 0, 0
-  index: 2
-aim
-  rotate: false
-  xy: 503, 503
+  xy: 2, 504
   size: 500, 500
   orig: 500, 500
   offset: 0, 0
   index: 3
-alien2
+aim
   rotate: false
-  xy: 503, 1
+  xy: 504, 504
   size: 500, 500
   orig: 500, 500
   offset: 0, 0
-  index: 1
+  index: 2
 
 agents2.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-turent
+aim
   rotate: false
-  xy: 1, 411
-  size: 400, 600
-  orig: 400, 600
+  xy: 2, 2
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: 1
+base
+  rotate: false
+  xy: 504, 2
+  size: 400, 500
+  orig: 400, 500
   offset: 0, 0
   index: -1
 base
   rotate: false
-  xy: 403, 511
+  xy: 2, 504
   size: 400, 500
   orig: 400, 500
   offset: 0, 0
   index: -1
-base_damaged
+resp
   rotate: false
-  xy: 403, 9
-  size: 400, 500
-  orig: 400, 500
+  xy: 404, 504
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+alien1
+  rotate: false
+  xy: 806, 504
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: 4
+alien1
+  rotate: false
+  xy: 806, 706
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: 3
+clone
+  rotate: false
+  xy: 906, 2
+  size: 100, 200
+  orig: 100, 200
+  offset: 0, 0
+  index: 4
+clone
+  rotate: false
+  xy: 906, 204
+  size: 100, 200
+  orig: 100, 200
+  offset: 0, 0
+  index: 3
+turentbulent
+  rotate: false
+  xy: 404, 906
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+alien3
+  rotate: false
+  xy: 506, 906
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: 2
+alien3
+  rotate: false
+  xy: 608, 906
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: 1
+
+agents3.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+turent
+  rotate: false
+  xy: 2, 2
+  size: 400, 600
+  orig: 400, 600
   offset: 0, 0
   index: -1
 crystal
   rotate: false
-  xy: 1, 209
+  xy: 2, 604
   size: 221, 200
   orig: 221, 200
   offset: 0, 0
   index: -1
 alien1
   rotate: false
-  xy: 805, 811
-  size: 200, 200
-  orig: 200, 200
-  offset: 0, 0
-  index: 1
-alien1
-  rotate: false
-  xy: 1, 7
+  xy: 2, 806
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: 2
 alien1
   rotate: false
-  xy: 805, 609
+  xy: 225, 604
   size: 200, 200
   orig: 200, 200
-  offset: 0, 0
-  index: 3
-alien1
-  rotate: false
-  xy: 805, 407
-  size: 200, 200
-  orig: 200, 200
-  offset: 0, 0
-  index: 4
-clone
-  rotate: false
-  xy: 224, 209
-  size: 100, 200
-  orig: 100, 200
   offset: 0, 0
   index: 1
 clone
   rotate: false
-  xy: 203, 7
+  xy: 404, 2
   size: 100, 200
   orig: 100, 200
   offset: 0, 0
   index: 2
 clone
   rotate: false
-  xy: 805, 205
+  xy: 404, 204
   size: 100, 200
   orig: 100, 200
   offset: 0, 0
-  index: 3
-clone
-  rotate: false
-  xy: 907, 205
-  size: 100, 200
-  orig: 100, 200
-  offset: 0, 0
-  index: 4
-bat
-  rotate: false
-  xy: 805, 103
-  size: 100, 100
-  orig: 100, 100
-  offset: 0, 0
-  index: -1
-worm-left
-  rotate: false
-  xy: 907, 103
-  size: 100, 100
-  orig: 100, 100
-  offset: 0, 0
-  index: -1
-worm-right
-  rotate: false
-  xy: 805, 1
-  size: 100, 100
-  orig: 100, 100
-  offset: 0, 0
-  index: -1
+  index: 1

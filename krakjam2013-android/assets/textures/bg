@@ -10,6 +10,20 @@ body
   orig: 400, 400
   offset: 0, 0
   index: -1
+stone
+  rotate: false
+  xy: 2, 404
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+moonwalker
+  rotate: false
+  xy: 204, 404
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
 rock
   rotate: false
   xy: 404, 2

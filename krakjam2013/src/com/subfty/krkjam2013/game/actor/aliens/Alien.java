@@ -19,8 +19,8 @@ public class Alien extends Collider {
 	public enum ALIEN_TYPE{
 		
 		REGULAR(50.0f ,50.0f, "alien1", 5, 80, 80, 4, 40),
-		EXPLODING(50.0f ,50.0f, "bat", 5, 80, 80, 1, 20),
-		SHOOTER(10.0f ,20.0f, "alien1", 5, 80, 80, 2, 20);
+		EXPLODING(50.0f ,50.0f, "alien2", 5, 80, 80, 1, 20),
+		SHOOTER(10.0f ,20.0f, "alien3", 5, 80, 80, 2, 20);
 		
 		public final float MIN_SPEED;
 		public final float MAX_SPEED;
@@ -104,12 +104,9 @@ public class Alien extends Collider {
 		sprite = new Sprite();
 		
 	    //INITING ENUM TEXTURE REGION CACHE
-		for(int j=0; j<ALIEN_TYPE.values()[0].sides.length; j++)
-				ALIEN_TYPE.values()[0].sides[j] = Krakjam.art.atlases[Art.A_AGENTS].findRegion(ALIEN_TYPE.values()[0].SPRITE, j+1);
-		
-		ALIEN_TYPE.values()[1].sides[0] = Krakjam.art.atlases[Art.A_AGENTS].findRegion(ALIEN_TYPE.values()[1].SPRITE);
-		ALIEN_TYPE.values()[2].sides[0] = Krakjam.art.atlases[Art.A_AGENTS].findRegion("worm-left");
-		ALIEN_TYPE.values()[2].sides[1] = Krakjam.art.atlases[Art.A_AGENTS].findRegion("worm-right");
+		for(int i=0; i<ALIEN_TYPE.values().length; i++)
+			for(int j=0; j<ALIEN_TYPE.values()[i].sides.length; j++)
+					ALIEN_TYPE.values()[i].sides[j] = Krakjam.art.atlases[Art.A_AGENTS].findRegion(ALIEN_TYPE.values()[i].SPRITE, j+1);
 		
 		this.visible = false;
 	}
