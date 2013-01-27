@@ -71,6 +71,7 @@ public class Cursor extends Actor{
 			setMode(M_REPAIR);
 			if(Gdx.input.justTouched()){
 				b.repair(Krakjam.gameScreen.player.stats.getRepairSpeed());
+				Krakjam.art.hammer.play();
 			}
 		}else
 			setMode(M_SHOOT);

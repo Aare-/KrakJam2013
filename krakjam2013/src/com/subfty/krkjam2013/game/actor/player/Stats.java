@@ -72,6 +72,6 @@ public class Stats {
 		return 1500;
 	}
 	public float getRepairSpeed(){
-		return 10;
+		return 3;
 	}
 }

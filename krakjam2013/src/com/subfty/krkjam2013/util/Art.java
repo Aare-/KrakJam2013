@@ -34,6 +34,7 @@ public class Art {
 	public Sound hitBuilding;
 	public Sound levelUp;
 	public Sound turret;
+	public Sound hammer;
 	
 	//ID OF FONTS
 	public static int F_DIGITAL = 0;
@@ -60,5 +61,6 @@ public class Art {
 		hitBuilding	= Gdx.audio.newSound(Gdx.files.internal("sounds/hit-building.wav"));
 		levelUp		= Gdx.audio.newSound(Gdx.files.internal("sounds/levelup.wav"));
 		turret		= Gdx.audio.newSound(Gdx.files.internal("sounds/turret.wav"));
+		hammer		= Gdx.audio.newSound(Gdx.files.internal("sounds/hammer.wav"));
 	}
 }

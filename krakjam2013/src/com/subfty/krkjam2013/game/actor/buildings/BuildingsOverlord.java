@@ -9,8 +9,8 @@ public class BuildingsOverlord extends Group{
 	
 	//TYPE OF BUILDING
 	public enum B_TYPE{
-		BASE(4, 4, "base", "Main Base",100, true),
-		TURRET(2,3, "turent", "Turret", 500, true),
+		BASE(4, 4, "base", "Main Base",20, true),
+		TURRET(2,3, "turent", "Turret", 20, true),
 		//RESP(3,3, "resp", "Respawn", 500, false)
 		;
 		

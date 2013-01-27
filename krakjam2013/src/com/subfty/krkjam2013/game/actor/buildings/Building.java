@@ -159,6 +159,6 @@ public class Building extends Group{
 	
 	public void damage(float ammount) {
 		if(!type.destroyable) return;
-		this.health = Math.max(0, ammount-this.health);
+		this.health = Math.max(0, this.health-ammount);
 	}
 }

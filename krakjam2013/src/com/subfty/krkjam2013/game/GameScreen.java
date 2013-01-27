@@ -126,6 +126,9 @@ public class GameScreen extends Screen{
 					return (int)(arg1.y - arg0.y);
 				}
 			});
+
+			agents.removeActor(player.cursor);
+			agents.addActor(player.cursor);
 		}
 		
 		Array<Crystal> crystals = cOverlord.crystals;
@@ -150,7 +153,6 @@ public class GameScreen extends Screen{
 					Alien.ALIEN_TYPE alien_types[] = {ALIEN_TYPE.REGULAR, ALIEN_TYPE.EXPLODING, ALIEN_TYPE.SHOOTER};
 					aOverlord.spawn(c.x + Krakjam.rand.nextFloat()*100, 
 						    c.y + Krakjam.rand.nextFloat()*100 , alien_types[alienType]);
-					System.out.println("SPAWN "+alienType);
 				}
 			}
 		}
