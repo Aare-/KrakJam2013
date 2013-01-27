@@ -1,5 +1,9 @@
 package com.subfty.krkjam2013.game;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.Hashtable;
 import java.util.Random;
 
@@ -67,16 +71,37 @@ public class Background extends Group{
 		//READING PREVIOUSLY SAVED DATA
 		Json json = new Json();
 		
+//		FileInputStream fos;
+//		try {
+//			fos = new FileInputStream("t.tmp");
+//		
+//			ObjectInputStream ois;
+//		
+//			ois = new ObjectInputStream(fos);
+//		
+//			markers = (Hashtable<Long, SpecialTile>) ois.readObject();
+//		} catch (ClassNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
 		try{
 			try{
 			FileHandle f = Gdx.files.local(SAVE_FILE_PATH);
-			markers = (Hashtable<Long, SpecialTile>)json.readValue(Hashtable.class, 
-														           f.readString());
+			String s= f.readString();
+			l.info("string read: "+s);
+			
+			markers = json.readValue(Hashtable.class, s);
 			}catch(GdxRuntimeException gdr){
 				markers = null;
+				l.error("runtime exception");
 			}
 		}catch(SerializationException sxc){
 			markers = null;
+			l.error("serializatiopn exception");
 		}
 		
 		if(markers == null)
@@ -99,8 +124,34 @@ public class Background extends Group{
 	
 	public void saveData(){
 		Json json = new Json();
-		FileHandle f = Gdx.files.local(SAVE_FILE_PATH);
-		f.writeString(json.toJson(markers), false);
+		//FileHandle f = Gdx.files.local(SAVE_FILE_PATH);
+		String data = "";
+		
+		FileOutputStream fos;
+		try {
+			fos = new FileOutputStream("t.tmp");
+		
+		ObjectOutputStream oos;
+		try {
+			oos = new ObjectOutputStream(fos);
+	
+			oos.writeObject(markers);
+			oos.close();	
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//f.writeString(data, false);
+		
+		
+		json.toJson(markers, Gdx.files.local(SAVE_FILE_PATH));
+		//json.to
+		l.info("json: "+json.toJson(markers));
 	}
 	
 	public void act(float delta) {
