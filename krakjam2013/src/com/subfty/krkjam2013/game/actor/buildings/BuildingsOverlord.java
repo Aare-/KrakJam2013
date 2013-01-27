@@ -60,4 +60,16 @@ public class BuildingsOverlord extends Group{
 				buildings.get(i).kill();
 		}
 	}
+	
+	public Building collidingWithBuilding(float testX, float testY){
+		for(int i=0; i<buildings.size; i++)
+			if(buildings.get(i).visible && 
+			   testX > buildings.get(i).x - 30 && 
+			   testX < buildings.get(i).x + buildings.get(i).width -30 &&
+			   testY > buildings.get(i).y - 30 &&
+			   testY < buildings.get(i).y + buildings.get(i).height - 30)
+				return buildings.get(i);
+		
+		return null;
+	}
 }

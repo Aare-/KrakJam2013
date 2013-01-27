@@ -71,4 +71,7 @@ public class Stats {
 	public float getScanSensitivity(){
 		return 1500;
 	}
+	public float getRepairSpeed(){
+		return 10;
+	}
 }
