@@ -1,5 +1,6 @@
 package com.subfty.krkjam2013.game.actor;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -81,7 +82,7 @@ public class Bullet extends Group {
 				FlyingPoints points = new FlyingPoints(p.x-p.width/2.0f+bg.x, p.y+p.height+bg.y, 1);
 				stage.addActor(points);
 				
-				// TODO: postrzelenie gracza
+				Krakjam.gameScreen.player.life -= 10;
 				
 				// dla gracza daje ten sam dzwiek
 				Krakjam.art.hitAlien.play();

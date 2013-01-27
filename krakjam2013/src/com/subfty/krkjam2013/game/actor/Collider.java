@@ -53,6 +53,10 @@ public abstract class Collider extends Group {
 					dy -= Math.sin(a)*(conflict)*w;
 					c.dx += Math.cos(a)*(conflict)*w;
 					c.dy += Math.sin(a)*(conflict)*w;
+					
+					if(c == Krakjam.gameScreen.player) {
+						Krakjam.gameScreen.player.life -= Gdx.graphics.getDeltaTime()*10;
+					}
 				}
 			}
 		}
