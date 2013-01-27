@@ -13,7 +13,8 @@ import com.subfty.krkjam2013.util.Art;
 public class Cursor extends Actor{
 	public static final int M_SHOOT = 0,
 						    M_REPAIR = 1,
-						    M_MINE = 2;
+						    M_MINE = 2,
+						    M_FEED = 3;
 	public int mode;
 	
 	private Sprite image;
@@ -27,7 +28,8 @@ public class Cursor extends Actor{
 		
 		regions = new TextureRegion[]{Krakjam.art.atlases[Art.A_AGENTS].findRegion("aim", 1),
 									  Krakjam.art.atlases[Art.A_AGENTS].findRegion("aim", 2),
-									  Krakjam.art.atlases[Art.A_AGENTS].findRegion("aim", 3)};
+									  Krakjam.art.atlases[Art.A_AGENTS].findRegion("aim", 3),
+									  Krakjam.art.atlases[Art.A_AGENTS].findRegion("aim", 4)};
 		
 		image=Krakjam.art.atlases[Art.A_ENTITIES].createSprite("celownik");
 		image.setSize(100, 100);
@@ -49,6 +51,10 @@ public class Cursor extends Actor{
 			image.setRegion(regions[2]);
 			image.setSize(60, 60);
 			break;
+		case M_FEED:
+			image.setRegion(regions[3]);
+			image.setSize(60, 60);
+			break;
 		}
 		
 	}
@@ -68,10 +74,21 @@ public class Cursor extends Actor{
 				c.kill();
 			}
 		} else if(b != null){
-			setMode(M_REPAIR);
-			if(Gdx.input.justTouched()){
-				b.repair(Krakjam.gameScreen.player.stats.getRepairSpeed());
-				Krakjam.art.hammer.play();
+			if(b.isHealth()){
+				if(b.type.canFeedCristal){
+					setMode(M_FEED);
+					if(Gdx.input.justTouched()){
+						//TODO: feed cristals
+					}
+				}else{
+					setMode(M_SHOOT);
+				}
+			}else{
+				setMode(M_REPAIR);
+				if(Gdx.input.justTouched()){
+					b.repair(Krakjam.gameScreen.player.stats.getRepairSpeed());
+					Krakjam.art.hammer.play();
+				}
 			}
 		}else
 			setMode(M_SHOOT);

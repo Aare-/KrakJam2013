@@ -30,7 +30,7 @@ public class Building extends Group{
 	private Background bg;
 	private float health;
 	
-	private B_TYPE type;
+	public B_TYPE type;
 	
 	public final float TURET_COOLDOWN = .5f;
 	private float turretNextShoot = TURET_COOLDOWN;
@@ -155,6 +155,9 @@ public class Building extends Group{
 	}
 	public float getHealth(){
 		return Math.max(0, Math.min(type.MAX_HEALTH, health));
+	}
+	public boolean isHealth(){
+		return getHealth() == type.MAX_HEALTH;
 	}
 	
 	public void damage(float ammount) {

@@ -81,27 +81,19 @@ public class GameScreen extends Screen{
 		agents.addActor(player);
 		colliders.add(player);
 		
-		////////// DEBUG
-		ALIEN_TYPE alien_types[] = {ALIEN_TYPE.EXPLODING, ALIEN_TYPE.REGULAR,ALIEN_TYPE.EXPLODING, ALIEN_TYPE.REGULAR, ALIEN_TYPE.SHOOTER, ALIEN_TYPE.SHOOTER};
-		for(int i=0; i<alien_types.length; i++)
-			aOverlord.spawn(300 + Krakjam.rand.nextFloat(), 
-						    300 + Krakjam.rand.nextFloat() , alien_types[i]);
-		
 		player.init();
-		//cOverlord.spawnNew();
-		////////// 
 		
 		this.addActor(background);
-		
 		this.addActor(agents);
-		
 		this.addActor(ui);
-		
 		
 		bOverlord.createNewBuilding(-2, 3, B_TYPE.BASE);
 		
 		bOverlord.createNewBuilding(-6, 2, B_TYPE.TURRET);
 		bOverlord.createNewBuilding(5, 0, B_TYPE.TURRET);
+		
+		bOverlord.createNewBuilding(2, -5, B_TYPE.GENERATOR);
+		bOverlord.createNewBuilding(2, -8, B_TYPE.GENERATOR);
 		
 		
 		// LOADING HUD
