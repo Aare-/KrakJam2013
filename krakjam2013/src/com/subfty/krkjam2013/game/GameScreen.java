@@ -3,7 +3,9 @@ package com.subfty.krkjam2013.game;
 import java.util.Comparator;
 import java.util.LinkedList;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -17,6 +19,7 @@ import com.subfty.krkjam2013.game.actor.buildings.BuildingsOverlord.B_TYPE;
 import com.subfty.krkjam2013.game.actor.crystals.CrystalOverlord;
 import com.subfty.krkjam2013.game.actor.ui.BloodyScreen;
 import com.subfty.krkjam2013.game.statsscreen.StatsScreen;
+import com.subfty.krkjam2013.util.Art;
 import com.subfty.krkjam2013.util.Screen;
 
 public class GameScreen extends Screen{
@@ -36,6 +39,9 @@ public class GameScreen extends Screen{
 	
 	//UI
 	BloodyScreen bScreen;
+	Sprite expBackSprite;
+	Sprite expFrontSprite;
+	Sprite counterSprite;
 	
 	public LinkedList<Collider> colliders = new LinkedList<Collider>();
 	
@@ -89,6 +95,11 @@ public class GameScreen extends Screen{
 		bOverlord.createNewBuilding(0, 4, B_TYPE.TURRET);
 		//bOverlord.createNewBuilding(10, 5+30, B_TYPE.TURRET);
 		//bOverlord.createNewBuilding(0, -10, B_TYPE.TURRET);
+		
+		// LOADING HUD
+		expBackSprite = Krakjam.art.atlases[Art.A_BSCREEN].createSprite("exp-back");
+		expFrontSprite = Krakjam.art.atlases[Art.A_BSCREEN].createSprite("exp-front");
+		counterSprite = Krakjam.art.atlases[Art.A_BSCREEN].createSprite("counter");
 	}
 	
 	@Override
@@ -110,5 +121,12 @@ public class GameScreen extends Screen{
 		//agents.x += 1;
 		Krakjam.shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
 		
+		counterSprite.setPosition(5, 600-counterSprite.getHeight()-5);
+		counterSprite.draw(batch);
+		
+		Krakjam.art.fonts[Art.F_DIGITAL].setColor(0.5f, 0, 0, 1);
+		Krakjam.art.fonts[Art.F_DIGITAL].setScale(0.4f);
+		Krakjam.art.fonts[Art.F_DIGITAL].drawWrapped(batch, ""+12345, 
+				0, 600 - 18, 138, HAlignment.RIGHT);
 	}
 }
