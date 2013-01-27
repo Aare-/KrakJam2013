@@ -176,7 +176,7 @@ public class Player extends Collider {
 		move=stats.getMovementSpeed()*delta;
 		angle=0f;
 
-		cursor.act(delta);
+		//cursor.act(delta);
 		updateInput();
 		
 		dx+=move*Math.cos(angle);

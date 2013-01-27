@@ -30,6 +30,8 @@ public class Building extends Group{
 	private Background bg;
 	private float health;
 	
+	private int possesedCristals;
+	
 	public B_TYPE type;
 	
 	public final float TURET_COOLDOWN = .5f;
@@ -52,9 +54,13 @@ public class Building extends Group{
 		this.tileWidth = type.width;
 		this.tileHeight = type.height;
 		
+		possesedCristals  = 0;
+		
 		this.visible = true;
 		bg.registerBuilding(this);
 		this.desc = type.desc;
+		if(type == B_TYPE.TURRET)
+			desc = type.desc+"\nBULLETS: "+possesedCristals;
 		
 		this.width = tileWidth * Background.TILE_SIZE;
 		this.height = tileHeight * Background.TILE_SIZE;
@@ -90,7 +96,10 @@ public class Building extends Group{
 		
 		if(type == B_TYPE.TURRET) {
 			turretNextShoot -= delta;
-			if(turretNextShoot <= 0) {
+			if(turretNextShoot <= 0 && possesedCristals > 0) {
+				possesedCristals--;
+				desc = type.desc+"\nBULLETS: "+possesedCristals;
+				
 				turretNextShoot = TURET_COOLDOWN;
 				
 				Array<Alien> aliens = Krakjam.gameScreen.aOverlord.aliens;
@@ -144,10 +153,19 @@ public class Building extends Group{
 		
 		Krakjam.art.fonts[Art.F_DIGITAL].setColor(1, 1, 1, 0.5f);
 		Krakjam.art.fonts[Art.F_DIGITAL].setScale(0.25f);
-		Krakjam.art.fonts[Art.F_DIGITAL].drawWrapped(batch, desc, this.x, this.y-5, this.width, HAlignment.CENTER);
+		if(type == B_TYPE.TURRET)
+			Krakjam.art.fonts[Art.F_DIGITAL].drawWrapped(batch, desc, this.x-this.width * 0.15f, this.y-5, this.width*1.3f, HAlignment.CENTER);
+		else
+			Krakjam.art.fonts[Art.F_DIGITAL].drawWrapped(batch, desc, this.x, this.y-5, this.width, HAlignment.CENTER);
 		
 	}
 
+	public void feedCristal(){
+		possesedCristals++;
+		if(type == B_TYPE.TURRET)
+			desc = type.desc+"\nBULLETS: "+possesedCristals;
+	}
+	
     //HEALTH
 	public void repair(float ammount){
 		this.health += ammount;

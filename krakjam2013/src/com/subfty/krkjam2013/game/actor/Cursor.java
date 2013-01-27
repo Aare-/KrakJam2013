@@ -75,20 +75,26 @@ public class Cursor extends Actor{
 			}
 		} else if(b != null){
 			if(b.isHealth()){
-				if(b.type.canFeedCristal){
+				if(b.type.canFeedCristal && Krakjam.gameScreen.player.numberOfCrystals > 0){
 					setMode(M_FEED);
 					if(Gdx.input.justTouched()){
-						//TODO: feed cristals
+						Krakjam.gameScreen.player.numberOfCrystals--;
+						b.feedCristal();
+						Krakjam.art.hammer.play();
 					}
 				}else{
 					setMode(M_SHOOT);
 				}
 			}else{
-				setMode(M_REPAIR);
-				if(Gdx.input.justTouched()){
-					b.repair(Krakjam.gameScreen.player.stats.getRepairSpeed());
-					Krakjam.art.hammer.play();
-				}
+				if(Krakjam.gameScreen.player.numberOfCrystals > 0){
+					setMode(M_REPAIR);
+					if(Gdx.input.justTouched()){
+						Krakjam.gameScreen.player.numberOfCrystals--;
+						b.repair(Krakjam.gameScreen.player.stats.getRepairSpeed());
+						Krakjam.art.hammer.play();
+					}
+				}else
+					setMode(M_SHOOT);
 			}
 		}else
 			setMode(M_SHOOT);
