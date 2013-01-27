@@ -182,6 +182,8 @@ public class Player extends Collider {
 		Vector2 v=new Vector2();
 		
 		Krakjam.stage.toStageCoordinates(wspx, wspy, v);
+		v.x -= gunX;
+		v.y -= gunY;
 		this.toLocalCoordinates(v);
 		
 		angle2=(float)Math.atan2(v.y, v.x);
