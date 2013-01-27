@@ -36,7 +36,7 @@ public class Player extends Collider {
 	//SHOOTING
 	private Array<Bullet> bullets = new Array<Bullet>();
 	public float rateOfFire;
-	private float gunX = -25.0f;
+	private float gunX = 0.0f;
 	private float gunY = 40.0f;
 	
     //VISUALS
@@ -175,8 +175,8 @@ public class Player extends Collider {
 		
 		angle2=(float)Math.atan2(v.y, v.x);
 				
-		cursor.setX((float)(cursorDistance*Math.cos(angle2))+x);//+gunX);
-		cursor.setY((float)(cursorDistance*Math.sin(angle2))+y);//+gunY);
+		cursor.setX((float)(cursorDistance*Math.cos(angle2))+x+gunX);
+		cursor.setY((float)(cursorDistance*Math.sin(angle2))+y+gunY);
 		
 		resolveCollisions();
 		scrollBackground(delta);
@@ -223,7 +223,7 @@ public class Player extends Collider {
 			final float bulletSpeed = 400;
 			bullet.antyPlayer = false;
 			bullet.init((float)Math.cos(angle2)*bulletSpeed, (float)Math.sin(angle2)*bulletSpeed, 
-					x+gunX, y+gunY, (float)(angle2*180/Math.PI) + 90);
+					x+gunX, y+gunY, (float)(angle2*180/Math.PI) + 90, 0, null);
 		}
 		
 	}
@@ -285,7 +285,7 @@ public class Player extends Collider {
 			}
 			tmp.nor();
 			float angle=(float)Math.atan2(tmp.y, tmp.x);
-			tmp.mul(70);
+			tmp.mul(150);
 			arrow.setColor(1,1,1,arrowAlpha);
 			arrow.setPosition(tmp.x+x-arrow.getWidth()/2.0f, tmp.y+y-arrow.getHeight()/2.0f);
 			arrow.setOrigin(arrow.getWidth()/2.0f, arrow.getHeight()/2.0f);

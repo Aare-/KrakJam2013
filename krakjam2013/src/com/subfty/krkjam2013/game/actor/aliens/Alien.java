@@ -18,9 +18,9 @@ import com.subfty.krkjam2013.util.Art;
 public class Alien extends Collider {
 	public enum ALIEN_TYPE{
 		
-		REGULAR(50.0f ,50.0f, "alien1", 5, 80, 80),
-		EXPLODING(50.0f ,50.0f, "alien1", 5, 80, 80),
-		SHOOTER(10.0f ,20.0f, "alien1", 5, 80, 80);
+		REGULAR(50.0f ,50.0f, "alien1", 5, 80, 80, 4, 40),
+		EXPLODING(50.0f ,50.0f, "bat", 5, 80, 80, 1, 20),
+		SHOOTER(10.0f ,20.0f, "alien1", 5, 80, 80, 2, 20);
 		
 		public final float MIN_SPEED;
 		public final float MAX_SPEED;
@@ -28,18 +28,21 @@ public class Alien extends Collider {
 		public final int MAX_LIFE;
 		public final float WIDTH;
 		public final float HEIGHT;
+		public final float RADIUS;
 		
 		public final TextureRegion sides[];
 		
-		private ALIEN_TYPE(float MIN_SPEED, float MAX_SPEED, String SPRITE, int MAX_LIFE, float WIDTH, float HEIGHT) {
+		private ALIEN_TYPE(float MIN_SPEED, float MAX_SPEED, String SPRITE, int MAX_LIFE, 
+				float WIDTH, float HEIGHT, int sidesCount, float RADIUS) {
 			this.MIN_SPEED = MIN_SPEED;
 			this.MAX_SPEED = MAX_SPEED;
 			this.SPRITE = SPRITE;
 			this.MAX_LIFE = MAX_LIFE;
 			this.WIDTH = WIDTH;
 			this.HEIGHT = HEIGHT;
+			this.RADIUS = RADIUS;
 			
-			sides = new TextureRegion[4];
+			sides = new TextureRegion[sidesCount];
 		}
 	}
 	
@@ -101,9 +104,12 @@ public class Alien extends Collider {
 		sprite = new Sprite();
 		
 	    //INITING ENUM TEXTURE REGION CACHE
-		for(int i=0; i<ALIEN_TYPE.values().length; i++)
-			for(int j=0; j<ALIEN_TYPE.values()[i].sides.length; j++)
-				ALIEN_TYPE.values()[i].sides[j] = Krakjam.art.atlases[Art.A_AGENTS].findRegion(ALIEN_TYPE.values()[i].SPRITE, j+1);
+		for(int j=0; j<ALIEN_TYPE.values()[0].sides.length; j++)
+				ALIEN_TYPE.values()[0].sides[j] = Krakjam.art.atlases[Art.A_AGENTS].findRegion(ALIEN_TYPE.values()[0].SPRITE, j+1);
+		
+		ALIEN_TYPE.values()[1].sides[0] = Krakjam.art.atlases[Art.A_AGENTS].findRegion(ALIEN_TYPE.values()[1].SPRITE);
+		ALIEN_TYPE.values()[2].sides[0] = Krakjam.art.atlases[Art.A_AGENTS].findRegion("worm-left");
+		ALIEN_TYPE.values()[2].sides[1] = Krakjam.art.atlases[Art.A_AGENTS].findRegion("worm-right");
 		
 		this.visible = false;
 	}
@@ -129,7 +135,7 @@ public class Alien extends Collider {
 		this.width = type.WIDTH;
 		this.height = type.HEIGHT;
 		
-		radius = 40;
+		radius = type.RADIUS;
 	}
 	
 	public void kill(){
@@ -178,7 +184,7 @@ public class Alien extends Collider {
 					tmp.nor();
 					Bullet bullet = p.obtainBullet();
 					final float bulletSpeed = 400;
-					bullet.init(tmp.x*bulletSpeed, tmp.y*bulletSpeed, x, y, 0);
+					bullet.init(tmp.x*bulletSpeed, tmp.y*bulletSpeed, x, y, 0, 0, null);
 					bullet.antyPlayer = true;
 				}
 			}
@@ -266,22 +272,34 @@ public class Alien extends Collider {
 			float adx = Math.abs(lastdx);
 			float ady = Math.abs(lastdy);
 			
-			if(adx > ady) {
-				if(lastdx < -0.1f) {
-					sprite.setRegion(type.sides[2]);
-					spriteChanged = true;
-				} else if(lastdy > 0.1f) {
-					sprite.setRegion(type.sides[3]);
-					spriteChanged = true;
-				} 
-			} else {
-				if(lastdy > 0.1f) {
-					sprite.setRegion(type.sides[1]);
-					spriteChanged = true;
-				} else if(lastdy < -0.1f){
-					sprite.setRegion(type.sides[0]);
-					spriteChanged = true;
+			if(type == ALIEN_TYPE.REGULAR) {
+				if(adx > ady) {
+					if(lastdx < -0.1f) {
+						sprite.setRegion(type.sides[2]);
+						spriteChanged = true;
+					} else if(lastdx > 0.1f) {
+						sprite.setRegion(type.sides[3]);
+						spriteChanged = true;
+					} 
+				} else {
+					if(lastdy > 0.1f) {
+						sprite.setRegion(type.sides[1]);
+						spriteChanged = true;
+					} else if(lastdy < -0.1f){
+						sprite.setRegion(type.sides[0]);
+						spriteChanged = true;
+					}
 				}
+			} else if(type == ALIEN_TYPE.SHOOTER) {
+					if(lastdx < -0.1f) {
+						sprite.setRegion(type.sides[0]);
+						spriteChanged = true;
+					} else if(lastdx > 0.1f) {
+						sprite.setRegion(type.sides[1]);
+						spriteChanged = true;
+					} 
+			} else {
+				sprite.setRegion(type.sides[0]);
 			}
 			
 			if(spriteChanged) {

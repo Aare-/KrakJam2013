@@ -38,85 +38,106 @@ filter: Nearest,Nearest
 repeat: none
 turent
   rotate: false
-  xy: 1, 405
+  xy: 1, 411
   size: 400, 600
   orig: 400, 600
   offset: 0, 0
   index: -1
 base
   rotate: false
-  xy: 403, 505
+  xy: 403, 511
   size: 400, 500
   orig: 400, 500
   offset: 0, 0
   index: -1
 base_damaged
   rotate: false
-  xy: 403, 3
+  xy: 403, 9
   size: 400, 500
   orig: 400, 500
   offset: 0, 0
   index: -1
 crystal
   rotate: false
-  xy: 1, 203
+  xy: 1, 209
   size: 221, 200
   orig: 221, 200
   offset: 0, 0
   index: -1
 alien1
   rotate: false
-  xy: 805, 805
+  xy: 805, 811
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: 1
 alien1
   rotate: false
-  xy: 1, 1
+  xy: 1, 7
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: 2
 alien1
   rotate: false
-  xy: 805, 603
+  xy: 805, 609
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: 3
 alien1
   rotate: false
-  xy: 805, 401
+  xy: 805, 407
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: 4
 clone
   rotate: false
-  xy: 224, 203
+  xy: 224, 209
   size: 100, 200
   orig: 100, 200
   offset: 0, 0
   index: 1
 clone
   rotate: false
-  xy: 203, 1
+  xy: 203, 7
   size: 100, 200
   orig: 100, 200
   offset: 0, 0
   index: 2
 clone
   rotate: false
-  xy: 805, 199
+  xy: 805, 205
   size: 100, 200
   orig: 100, 200
   offset: 0, 0
   index: 3
 clone
   rotate: false
-  xy: 907, 199
+  xy: 907, 205
   size: 100, 200
   orig: 100, 200
   offset: 0, 0
   index: 4
+bat
+  rotate: false
+  xy: 805, 103
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+worm-left
+  rotate: false
+  xy: 907, 103
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+worm-right
+  rotate: false
+  xy: 805, 1
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1

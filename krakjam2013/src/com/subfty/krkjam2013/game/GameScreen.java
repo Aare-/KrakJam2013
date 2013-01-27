@@ -78,9 +78,10 @@ public class GameScreen extends Screen{
 		colliders.add(player);
 		
 		////////// DEBUG
-		for(int i=0; i<5; i++)
+		ALIEN_TYPE alien_types[] = {ALIEN_TYPE.EXPLODING, ALIEN_TYPE.REGULAR,ALIEN_TYPE.EXPLODING, ALIEN_TYPE.REGULAR, ALIEN_TYPE.SHOOTER, ALIEN_TYPE.SHOOTER};
+		for(int i=0; i<alien_types.length; i++)
 			aOverlord.spawn(300 + Krakjam.rand.nextFloat(), 
-						    300 + Krakjam.rand.nextFloat() , ALIEN_TYPE.SHOOTER);
+						    300 + Krakjam.rand.nextFloat() , alien_types[i]);
 		
 		player.init();
 		cOverlord.spawnNew();

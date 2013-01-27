@@ -23,18 +23,21 @@ public class Bullet extends Group {
 	public final float bulletRadius = 10;
 	private float lifeTime;
 	
-	static private Sprite sprite;
+	private Building creatorBuilding = null;
+	
+	static private Sprite sprite[] = new Sprite[2];
+	private Sprite mySprite;
 	
 	static public void load() {
-		sprite = Krakjam.art.atlases[Art.A_ENTITIES].createSprite("smugi");
-		sprite.setOrigin(sprite.getWidth()/2.0f, sprite.getHeight()/2.0f);
+		sprite[0] = Krakjam.art.atlases[Art.A_ENTITIES].createSprite("smugi");
+		sprite[0].setOrigin(sprite[0].getWidth()/2.0f, sprite[0].getHeight()/2.0f);
 	}
 	
 	public Bullet() {
 		this.visible = false;
 	}
 	
-	public void init(float dx, float dy, float x, float y, float angle) {
+	public void init(float dx, float dy, float x, float y, float angle, int type, Building creator) {
 		this.dx = dx;
 		this.dy = dy;
 		this.angle = angle;
@@ -43,6 +46,9 @@ public class Bullet extends Group {
 		originy = y;
 		lifeTime = 10;
 		this.visible = true;
+		mySprite = sprite[type];
+		
+		creatorBuilding = creator;
 	}
 	public void kill(){
 		this.visible = false;
@@ -109,6 +115,9 @@ public class Bullet extends Group {
 		for(int i=0; i<buildings.size; i++) {
 			Building b = buildings.get(i);
 			
+			if(b == creatorBuilding)
+				continue;
+			
 			// test jako prostokaty
 			float 	minx = x - bulletRadius, 
 					maxx = x + bulletRadius, 
@@ -130,15 +139,20 @@ public class Bullet extends Group {
 				}
 					
 			}
+		}	
+		
+		Player p = Krakjam.gameScreen.player;
+		
+		if(Vector2.tmp.set(x, y).sub(p.x, p.y).len() > 5000) {
+			kill();
 		}
-	
 	}
 	
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
-		sprite.setRotation(angle);
-		sprite.setPosition(x - sprite.getWidth()/2.0f, y - sprite.getHeight()/2.0f);
-		sprite.draw(batch);
+		mySprite.setRotation(angle);
+		mySprite.setPosition(x - mySprite.getWidth()/2.0f, y - mySprite.getHeight()/2.0f);
+		mySprite.draw(batch);
 	}
 
 }

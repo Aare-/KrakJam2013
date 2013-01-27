@@ -4,9 +4,14 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.utils.Array;
 import com.subfty.krkjam2013.Krakjam;
 import com.subfty.krkjam2013.game.Background;
+import com.subfty.krkjam2013.game.actor.Bullet;
+import com.subfty.krkjam2013.game.actor.Player;
+import com.subfty.krkjam2013.game.actor.aliens.Alien;
 import com.subfty.krkjam2013.game.actor.buildings.BuildingsOverlord.B_TYPE;
 import com.subfty.krkjam2013.util.Art;
 
@@ -23,6 +28,9 @@ public class Building extends Group{
 	private float health;
 	
 	private B_TYPE type;
+	
+	public final float TURET_COOLDOWN = .5f;
+	private float turretNextShoot = TURET_COOLDOWN;
 	
 	public Building(Background bg){
 		health = 1.0f;
@@ -79,6 +87,49 @@ public class Building extends Group{
 		this.y = -bg.y + tileY * Background.TILE_SIZE;
 		
 		image.setPosition(x,y);
+		
+		if(type == B_TYPE.TURRET) {
+			turretNextShoot -= delta;
+			if(turretNextShoot <= 0) {
+				turretNextShoot = TURET_COOLDOWN;
+				
+				Array<Alien> aliens = Krakjam.gameScreen.aOverlord.aliens;
+				
+				float minDist = 10000;
+				
+				float	cx = x + width/2.0f, 
+						cy = y + height/2.0f;
+				
+				float ax = 0, ay = 0;
+				
+				for(int i=0; i<aliens.size; i++) {
+					Alien a = aliens.get(i);
+					
+					if(a.visible == false)
+						continue;
+					
+					float len = Vector2.tmp.set(a.x, a.y).sub(cx, cy).len();
+					
+					if(minDist > len) {
+						minDist = len;
+						Vector2.tmp.nor();
+						ax = Vector2.tmp.x;
+						ay = Vector2.tmp.y;
+					}
+					
+				}
+				if(minDist < 300.0f) {
+					Player player = Krakjam.gameScreen.player;
+					Bullet bullet = player.obtainBullet();
+					final float bulletSpeed = 400;
+					bullet.antyPlayer = false;
+					bullet.init(ax*bulletSpeed, ay*bulletSpeed, 
+							cx, cy, Krakjam.rand.nextFloat()*2*(float)Math.PI, 0, this);
+				} else {
+					turretNextShoot = 0.0f;
+				}
+			}
+		}
 	}
 	
 	@Override

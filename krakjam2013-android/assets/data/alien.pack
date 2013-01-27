@@ -5,22 +5,22 @@ filter: Nearest,Nearest
 repeat: none
 alien
   rotate: false
-  xy: 1, 43
+  xy: 1, 35
   size: 100, 200
   orig: 100, 200
   offset: 0, 0
   index: -1
-smugi
-  rotate: false
-  xy: 1, 1
-  size: 40, 40
-  orig: 40, 40
-  offset: 0, 0
-  index: -1
 celownik
   rotate: false
-  xy: 43, 9
+  xy: 1, 1
   size: 32, 32
   orig: 32, 32
+  offset: 0, 0
+  index: -1
+smugi
+  rotate: false
+  xy: 35, 3
+  size: 30, 30
+  orig: 30, 30
   offset: 0, 0
   index: -1
