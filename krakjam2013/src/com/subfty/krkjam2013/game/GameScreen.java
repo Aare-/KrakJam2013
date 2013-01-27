@@ -147,7 +147,5 @@ public class GameScreen extends Screen{
 		Krakjam.art.fonts[Art.F_DIGITAL].setScale(0.4f);
 		Krakjam.art.fonts[Art.F_DIGITAL].drawWrapped(batch, "LEVEL "+player.getLevel(),
 				800-300-5, 600 - 18, 300, HAlignment.CENTER);
-		
-		System.out.println(prevExp + "-" + player.exp+"-" + nextExp + " " +player.getLevel());
 	}
 }
