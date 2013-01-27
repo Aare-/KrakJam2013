@@ -3,23 +3,58 @@ bloodyscreen1.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-bscreen
+intro5
   rotate: false
   xy: 2, 2
   size: 800, 600
   orig: 800, 600
   offset: 0, 0
   index: -1
-exp-front
+intro4
   rotate: false
   xy: 2, 604
+  size: 800, 600
+  orig: 800, 600
+  offset: 0, 0
+  index: -1
+intro3
+  rotate: false
+  xy: 2, 1206
+  size: 800, 600
+  orig: 800, 600
+  offset: 0, 0
+  index: -1
+intro2
+  rotate: false
+  xy: 2, 1808
+  size: 800, 600
+  orig: 800, 600
+  offset: 0, 0
+  index: -1
+intro1
+  rotate: false
+  xy: 2, 2410
+  size: 800, 600
+  orig: 800, 600
+  offset: 0, 0
+  index: -1
+bscreen
+  rotate: false
+  xy: 2, 3012
+  size: 800, 600
+  orig: 800, 600
+  offset: 0, 0
+  index: -1
+exp-front
+  rotate: false
+  xy: 2, 3614
   size: 300, 50
   orig: 300, 50
   offset: 0, 0
   index: -1
 exp-back
   rotate: false
-  xy: 2, 656
+  xy: 2, 3666
   size: 300, 50
   orig: 300, 50
   offset: 0, 0

@@ -11,8 +11,8 @@ public class BuildingsOverlord extends Group{
 	public enum B_TYPE{
 		BASE(4, 4, "base", "Main Base",20, true, false),
 		TURRET(2,3, "turent", "Turret", 20, true, true),
-		GENERATOR(3,2, "electro", "Generator", 10, false, true)
-		;
+		GENERATOR(3,2, "electro", "Generator", 10, false, true),
+		MEDCENTRE(4,3, "med", "MED", 10, true, false);
 		
 		public final int width;
 		public final int height;

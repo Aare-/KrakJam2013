@@ -93,7 +93,9 @@ public class GameScreen extends Screen{
 		bOverlord.createNewBuilding(5, 0, B_TYPE.TURRET);
 		
 		bOverlord.createNewBuilding(2, -5, B_TYPE.GENERATOR);
-		bOverlord.createNewBuilding(2, -8, B_TYPE.GENERATOR);
+		bOverlord.createNewBuilding(2, -9, B_TYPE.GENERATOR);
+		
+		bOverlord.createNewBuilding(-6, -8, B_TYPE.MEDCENTRE);
 		
 		
 		// LOADING HUD
