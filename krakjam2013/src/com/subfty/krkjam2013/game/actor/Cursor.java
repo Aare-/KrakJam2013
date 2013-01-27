@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.subfty.krkjam2013.Krakjam;
+import com.subfty.krkjam2013.game.actor.buildings.Building;
 import com.subfty.krkjam2013.game.actor.crystals.Crystal;
 import com.subfty.krkjam2013.util.Art;
 
@@ -42,6 +43,7 @@ public class Cursor extends Actor{
 			break;
 		case M_REPAIR:
 			image.setRegion(regions[1]);
+			image.setSize(60, 60);
 			break;
 		case M_MINE:
 			image.setRegion(regions[2]);
@@ -58,13 +60,19 @@ public class Cursor extends Actor{
 		super.act(delta);
 		
 		Crystal c = Krakjam.gameScreen.cOverlord.isCristalInRange(150);
+		Building b = Krakjam.gameScreen.bOverlord.collidingWithBuilding(this.x, this.y);
 		if(c != null){
 			setMode(M_MINE);
 			if(Gdx.input.justTouched()){
 				Krakjam.gameScreen.player.cristalCollected(c.value);
 				c.kill();
 			}
-		}else 
+		} else if(b != null){
+			setMode(M_REPAIR);
+			if(Gdx.input.justTouched()){
+				b.repair(Krakjam.gameScreen.player.stats.getRepairSpeed());
+			}
+		}else
 			setMode(M_SHOOT);
 		
 	}
