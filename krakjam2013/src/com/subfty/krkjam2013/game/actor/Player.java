@@ -22,7 +22,6 @@ public class Player extends Collider {
 						MAX_LIFE = 60*3;
 	private final float SPAWN_X, SPAWN_Y;
 	
-	private float step;
 	private float cursorDistance;
 
 	private float angle,
@@ -67,7 +66,6 @@ public class Player extends Collider {
 		this.SPAWN_X = spawn_x;
 		this.SPAWN_Y = spawn_y;
 		
-		step=280f;
 		cursorDistance=100;
 	
 		stats = new Stats();
@@ -162,7 +160,7 @@ public class Player extends Collider {
 	public void act(float delta) {
 		if(!this.visible || Krakjam.gameScreen.pause)
 			return;
-		move=step*delta;
+		move=stats.getMovementSpeed()*delta;
 		angle=0f;
 
 		cursor.act(delta);

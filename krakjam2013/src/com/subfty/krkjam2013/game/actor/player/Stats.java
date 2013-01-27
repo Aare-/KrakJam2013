@@ -6,18 +6,18 @@ public class Stats {
 	
 	public class SNode{
 		public String description;
-		public int reqXP;
+		public float value;
 		public Array<SNode> unlocks;
 		public boolean unlocked;
 		
-		public SNode(String desc, int reqXP, Array<SNode> unlocks){
+		public SNode(String desc, float value, Array<SNode> unlocks){
 			this.description = desc;
-			this.reqXP = reqXP;
+			this.value = value;
 			this.unlocks = unlocks;
 		}
-		public SNode(String desc, int reqXP){
+		public SNode(String desc, float value){
 			this.description = desc;
-			this.reqXP = reqXP;
+			this.value = value;
 			this.unlocks = new Array<SNode>();
 		}
 	}
@@ -32,17 +32,17 @@ public class Stats {
 			  repair_tier4 = new SNode("Repair IV", 20),
 			  repair_tier5 = new SNode("Repair V", 1000),
 			  
-			  fight_tier1 = new SNode("Fight I", 10),
-			  fight_tier2 = new SNode("Fight II", 30),
-			  fight_tier3 = new SNode("Fight III", 50),
-			  fight_tier4 = new SNode("Fight IV", 50),
-			  fight_tier5 = new SNode("Fight V", 50),
+			  fight_tier1 = new SNode("Fight I", 0.4f),
+			  fight_tier2 = new SNode("Fight II", 0.3f),
+			  fight_tier3 = new SNode("Fight III", 0.25f),
+			  fight_tier4 = new SNode("Fight IV", 0.2f),
+			  fight_tier5 = new SNode("Fight V", 0.15f),
 			  
-			  meteorit_miner_tier1 = new SNode("Detect I", 10),
-			  meteorit_miner_tier2 = new SNode("Detect II", 30),
-			  meteorit_miner_tier3 = new SNode("Detect III", 50),
-			  meteorit_miner_tier4 = new SNode("Detect IV", 30),
-			  meteorit_miner_tier5 = new SNode("Detect V", 50);
+			  meteorit_miner_tier1 = new SNode("Detect I", 1800),
+			  meteorit_miner_tier2 = new SNode("Detect II", 2000),
+			  meteorit_miner_tier3 = new SNode("Detect III", 2500),
+			  meteorit_miner_tier4 = new SNode("Detect IV", 3000),
+			  meteorit_miner_tier5 = new SNode("Detect V", 4000);
 		
 		root.unlocks.addAll(new SNode[] {repair_tier1, fight_tier1, meteorit_miner_tier1});
 		
@@ -62,6 +62,17 @@ public class Stats {
 		meteorit_miner_tier4.unlocks.add(meteorit_miner_tier5);	
 	}
 	
+	private float getUnlock(SNode node, float def) {
+		while(node.unlocks.size > 0 && node.unlocks.get(0).unlocked) {
+			node = node.unlocks.get(0);
+		}
+		
+		if(node.unlocked)
+			return node.value;
+		
+		return def;
+	}
+	
 	public void clearAll(){
 		clearAll(root);
 	}
@@ -75,15 +86,15 @@ public class Stats {
 	
     //STATISTIC GETTERS
 	public float getRateOfFire(){
-		return 0.5f;
+		return getUnlock(root.unlocks.get(1), 0.5f);
 	}
 	public float getMovementSpeed(){
-		return 250;
+		return getUnlock(root.unlocks.get(2), 1500)/1500.0f*250.0f;
 	}
 	public float getScanSensitivity(){
-		return 1500;
+		return getUnlock(root.unlocks.get(2), 1500);
 	}
 	public float getRepairSpeed(){
-		return 3;
+		return getUnlock(root.unlocks.get(0), 2);
 	}
 }
