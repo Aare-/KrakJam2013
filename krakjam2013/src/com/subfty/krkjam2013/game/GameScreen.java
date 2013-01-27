@@ -128,5 +128,16 @@ public class GameScreen extends Screen{
 		Krakjam.art.fonts[Art.F_DIGITAL].setScale(0.4f);
 		Krakjam.art.fonts[Art.F_DIGITAL].drawWrapped(batch, ""+12345, 
 				0, 600 - 18, 138, HAlignment.RIGHT);
+		
+		float expState = 0.3f;
+		
+		expBackSprite.setPosition(800 - 5 - expBackSprite.getWidth(), 600 - expBackSprite.getHeight() - 5);
+		expBackSprite.draw(batch);
+		
+		expFrontSprite.setPosition(800 - 5 - expBackSprite.getWidth(), 600 - expBackSprite.getHeight() - 5);
+		expFrontSprite.setRegion(expFrontSprite.getRegionX(), expFrontSprite.getRegionY(),
+				(int)(expBackSprite.getRegionWidth()*expState), expBackSprite.getRegionHeight());
+		expFrontSprite.setSize((int)(expBackSprite.getRegionWidth()*expState), expBackSprite.getRegionHeight());
+		expFrontSprite.draw(batch);
 	}
 }
