@@ -88,7 +88,8 @@ public class Bullet extends Group {
 				FlyingPoints points = new FlyingPoints(p.x-p.width/2.0f+bg.x, p.y+p.height+bg.y, 1);
 				stage.addActor(points);
 				
-				Krakjam.gameScreen.player.life -= 10;
+				Krakjam.gameScreen.player.life -= 20;
+				Krakjam.gameScreen.player.shooted();
 				
 				// dla gracza daje ten sam dzwiek
 				Krakjam.art.hitAlien.play();

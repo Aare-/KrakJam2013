@@ -30,7 +30,9 @@ public class Building extends Group{
 	private Background bg;
 	private float health;
 	
-	private B_TYPE type;
+	private int possesedCristals;
+	
+	public B_TYPE type;
 	
 	public final float TURET_COOLDOWN = .5f;
 	private float turretNextShoot = TURET_COOLDOWN;
@@ -52,9 +54,15 @@ public class Building extends Group{
 		this.tileWidth = type.width;
 		this.tileHeight = type.height;
 		
+		possesedCristals  = 0;
+		
 		this.visible = true;
 		bg.registerBuilding(this);
 		this.desc = type.desc;
+		if(type == B_TYPE.TURRET)
+			desc = type.desc+"\nBULLETS: "+possesedCristals;
+		if(type == B_TYPE.GENERATOR)
+			desc = type.desc+"\n"+possesedCristals+"/"+60;
 		
 		this.width = tileWidth * Background.TILE_SIZE;
 		this.height = tileHeight * Background.TILE_SIZE;
@@ -90,7 +98,8 @@ public class Building extends Group{
 		
 		if(type == B_TYPE.TURRET) {
 			turretNextShoot -= delta;
-			if(turretNextShoot <= 0) {
+			if(turretNextShoot <= 0 && possesedCristals > 0) {
+				
 				turretNextShoot = TURET_COOLDOWN;
 				
 				Array<Alien> aliens = Krakjam.gameScreen.aOverlord.aliens;
@@ -127,6 +136,9 @@ public class Building extends Group{
 							cx, cy, Krakjam.rand.nextFloat()*2*(float)Math.PI, 0, this);
 					
 					Krakjam.art.turret.play();
+					
+					possesedCristals--;
+					desc = type.desc+"\nBULLETS: "+possesedCristals;
 				} else {
 					turretNextShoot = 0.0f;
 				}
@@ -135,7 +147,11 @@ public class Building extends Group{
 	}
 	
 	@Override
-	public void draw(SpriteBatch batch, float parentAlpha) {		
+	public void draw(SpriteBatch batch, float parentAlpha) {	
+		if(type == B_TYPE.GENERATOR)
+			if(possesedCristals == 60 && isHealth())
+				image.setRegion(Krakjam.art.atlases[Art.A_AGENTS].createSprite(type.img, 2));
+		
 		if(type.destroyable) {
 			imageDamaged.setPosition(x, y);
 			imageDamaged.draw(batch, 1);
@@ -144,10 +160,24 @@ public class Building extends Group{
 		
 		Krakjam.art.fonts[Art.F_DIGITAL].setColor(1, 1, 1, 0.5f);
 		Krakjam.art.fonts[Art.F_DIGITAL].setScale(0.25f);
-		Krakjam.art.fonts[Art.F_DIGITAL].drawWrapped(batch, desc, this.x, this.y-5, this.width, HAlignment.CENTER);
+		if(type == B_TYPE.TURRET)
+			Krakjam.art.fonts[Art.F_DIGITAL].drawWrapped(batch, desc, this.x-this.width * 0.15f, this.y-5, this.width*1.3f, HAlignment.CENTER);
+		else
+			Krakjam.art.fonts[Art.F_DIGITAL].drawWrapped(batch, desc, this.x, this.y-5, this.width, HAlignment.CENTER);
 		
 	}
 
+	public void feedCristal(){
+		possesedCristals++;
+		if(type == B_TYPE.TURRET)
+			desc = type.desc+"\nBULLETS: "+possesedCristals;
+		if(type == B_TYPE.GENERATOR){
+			possesedCristals = Math.min(60, possesedCristals);
+			desc = type.desc+"\n"+possesedCristals+"/"+60;
+			
+		}
+	}
+	
     //HEALTH
 	public void repair(float ammount){
 		this.health += ammount;
@@ -155,6 +185,9 @@ public class Building extends Group{
 	}
 	public float getHealth(){
 		return Math.max(0, Math.min(type.MAX_HEALTH, health));
+	}
+	public boolean isHealth(){
+		return getHealth() == type.MAX_HEALTH;
 	}
 	
 	public void damage(float ammount) {

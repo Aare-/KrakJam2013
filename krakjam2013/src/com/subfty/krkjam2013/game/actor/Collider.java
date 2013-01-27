@@ -1,6 +1,5 @@
 package com.subfty.krkjam2013.game.actor;
 
-import java.awt.Rectangle;
 import java.util.LinkedList;
 
 import com.badlogic.gdx.Gdx;
@@ -8,12 +7,9 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import com.subfty.krkjam2013.Krakjam;
-import com.subfty.krkjam2013.game.Background;
-import com.subfty.krkjam2013.game.GameScreen;
 import com.subfty.krkjam2013.game.actor.buildings.Building;
 
 public abstract class Collider extends Group {
@@ -56,6 +52,7 @@ public abstract class Collider extends Group {
 					
 					if(c == Krakjam.gameScreen.player) {
 						Krakjam.gameScreen.player.life -= Gdx.graphics.getDeltaTime()*10;
+						Krakjam.gameScreen.player.shooted();
 					}
 				}
 			}

@@ -9,10 +9,10 @@ public class BuildingsOverlord extends Group{
 	
 	//TYPE OF BUILDING
 	public enum B_TYPE{
-		BASE(4, 4, "base", "Main Base",20, true),
-		TURRET(2,3, "turent", "Turret", 20, true),
-		//RESP(3,3, "resp", "Respawn", 500, false)
-		;
+		BASE(4, 4, "base", "Main Base",20, true, false),
+		TURRET(2,3, "turent", "Turret", 20, true, true),
+		GENERATOR(3,2, "electro", "Generator", 10, false, true),
+		MEDCENTRE(4,3, "med", "MED", 10, true, false);
 		
 		public final int width;
 		public final int height;
@@ -20,14 +20,16 @@ public class BuildingsOverlord extends Group{
 		public final String desc;
 		public final int MAX_HEALTH;
 		public final boolean destroyable;
+		public final boolean canFeedCristal;
 		
-		B_TYPE(int width, int height, String img, String desc, int MAX_HEALTH, boolean destroyable){
+		B_TYPE(int width, int height, String img, String desc, int MAX_HEALTH, boolean destroyable, boolean canFeed){
 			this.width = width;
 			this.height = height;
 			this.img = img;
 			this.desc = desc;
 			this.MAX_HEALTH = MAX_HEALTH;
 			this.destroyable = destroyable;
+			this.canFeedCristal = canFeed;
 		}
 	}
 	
