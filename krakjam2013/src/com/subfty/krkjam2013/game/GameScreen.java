@@ -72,8 +72,6 @@ public class GameScreen extends Screen{
 		bScreen = new BloodyScreen(player);
 		ui.addActor(bScreen);
 		
-		ui.addActor(stats);
-		
 		agents.addActor(player);
 		colliders.add(player);
 		
@@ -110,15 +108,19 @@ public class GameScreen extends Screen{
 	
 	@Override
 	public void act(float delta){
-		super.act(delta);
+		if(stats.visible)
+			stats.act(delta);
+		else {
+			super.act(delta);
 		
-	    //SORTING ACTORS
-		agents.sortChildren(new Comparator<Actor>() {
-			@Override
-			public int compare(Actor arg0, Actor arg1) {
-				return (int)(arg1.y - arg0.y);
-			}
-		});
+	    	//SORTING ACTORS
+			agents.sortChildren(new Comparator<Actor>() {
+				@Override
+				public int compare(Actor arg0, Actor arg1) {
+					return (int)(arg1.y - arg0.y);
+				}
+			});
+		}
 	}
 	
 	@Override
@@ -153,5 +155,7 @@ public class GameScreen extends Screen{
 		Krakjam.art.fonts[Art.F_DIGITAL].setScale(0.4f);
 		Krakjam.art.fonts[Art.F_DIGITAL].drawWrapped(batch, "LEVEL "+player.getLevel(),
 				800-300-5, 600 - 18, 300, HAlignment.CENTER);
+		
+		stats.draw(batch, parentAlpha);
 	}
 }

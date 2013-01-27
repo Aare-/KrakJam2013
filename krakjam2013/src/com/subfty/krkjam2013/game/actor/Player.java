@@ -13,6 +13,7 @@ import com.subfty.krkjam2013.game.Background;
 import com.subfty.krkjam2013.game.actor.buildings.Building;
 import com.subfty.krkjam2013.game.actor.player.Stats;
 import com.subfty.krkjam2013.util.Art;
+import com.sun.corba.se.spi.legacy.connection.GetEndPointInfoAgainException;
 
 public class Player extends Collider {
 	//SETTINGS
@@ -32,6 +33,16 @@ public class Player extends Collider {
 	public Stats stats;
 	public int exp = 0;
 	public int numberOfCrystals;
+	
+	public void addExp(int Exp) {
+		int lastLevel = getLevel();
+		
+		exp += Exp;
+		
+		if(lastLevel < getLevel()) {
+			Krakjam.gameScreen.stats.showStatsScreen();
+		}
+	}
 	
 	//SHOOTING
 	private Array<Bullet> bullets = new Array<Bullet>();

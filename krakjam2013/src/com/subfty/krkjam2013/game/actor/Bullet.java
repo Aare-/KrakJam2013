@@ -102,7 +102,7 @@ public class Bullet extends Group {
 					a.shoot();
 					
 					Player p = Krakjam.gameScreen.player;
-					p.exp += 10;					
+					p.addExp(10);					
 					
 					kill();
 					break;

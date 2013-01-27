@@ -15,12 +15,14 @@ public class Art {
 	public static int A_ENTITIES = 0,
 					  A_BACKGROUND = 1,
 					  A_AGENTS = 2,
-					  A_BSCREEN = 3;
+					  A_BSCREEN = 3,
+					  A_SKILLS = 4;
 	
 	private String atlasesSrc[] = { "data/alien.pack",
 									"textures/bg",
 									"textures/agents",
-									"textures/bloodyscreen"};  
+									"textures/bloodyscreen",
+									"textures/skills"};  
 	public TextureAtlas atlases[] = new TextureAtlas[atlasesSrc.length];
 	
 	public Sound ping;

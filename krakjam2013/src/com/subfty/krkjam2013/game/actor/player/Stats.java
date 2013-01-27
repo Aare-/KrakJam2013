@@ -24,7 +24,7 @@ public class Stats {
 	
 	public SNode root;
 	public Stats(){
-		root = new SNode("", 0, new Array<SNode>());
+		root = new SNode("Level 0", 0, new Array<SNode>());
 		
 		SNode repair_tier1 = new SNode("Repair I", 10),
 			  repair_tier2 = new SNode("Repair II", 30),
